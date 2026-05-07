@@ -408,4 +408,3 @@ When adding new features:
 ## License
 
 Part of the SAS to PySpark Migration Tool project.
-# SAS-Accelerator
