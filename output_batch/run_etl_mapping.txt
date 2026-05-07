@@ -1,0 +1,16 @@
+SAS TO PYSPARK MIGRATION MAPPING
+============================================================
+Source File: sas_etl_project/run_etl.sas
+Migration Date: 2026-05-07 02:34:48
+Migration Method: Graph-Based Dependency Analysis
+
+GRAPH SUMMARY:
+  Total Nodes: 3
+  Total Edges: 2
+  Has Cycles: False
+
+CHUNK-BY-CHUNK MAPPING:
+------------------------------------------------------------
+
+chunk_003:
+SAS PROC PRINT with WHERE is mapped to DataFrame.filter() and show() in PySpark. The title is printed using Python's print().

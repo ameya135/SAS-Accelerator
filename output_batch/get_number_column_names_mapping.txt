@@ -1,0 +1,16 @@
+SAS TO PYSPARK MIGRATION MAPPING
+============================================================
+Source File: testSAS/SASPerformanceAnalytics/performance_analytics_library/macro/get_number_column_names.sas
+Migration Date: 2026-05-07 14:13:54
+Migration Method: Graph-Based Dependency Analysis
+
+GRAPH SUMMARY:
+  Total Nodes: 13
+  Total Edges: 20
+  Has Cycles: True
+
+CHUNK-BY-CHUNK MAPPING:
+------------------------------------------------------------
+
+chunk_004:
+The SAS macro loops through dataset variables, checks for numeric type, and excludes specified columns. In PySpark, we define a function that inspects the DataFrame schema, filters numeric columns, and excludes those in the _exclude list.

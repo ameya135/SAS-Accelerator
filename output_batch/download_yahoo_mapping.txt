@@ -1,0 +1,16 @@
+SAS TO PYSPARK MIGRATION MAPPING
+============================================================
+Source File: testSAS/SASPerformanceAnalytics/performance_analytics_library/macro/download_yahoo.sas
+Migration Date: 2026-05-07 14:13:46
+Migration Method: Graph-Based Dependency Analysis
+
+GRAPH SUMMARY:
+  Total Nodes: 12
+  Total Edges: 12
+  Has Cycles: True
+
+CHUNK-BY-CHUNK MAPPING:
+------------------------------------------------------------
+
+chunk_010:
+SAS macro logic for downloading Yahoo Finance data, running Python, and post-processing is replaced by direct Python and PySpark code. Macro variables become Python variables; data import, renaming, and return calculation are handled with PySpark DataFrame operations.

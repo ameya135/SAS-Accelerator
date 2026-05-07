@@ -1,0 +1,16 @@
+SAS TO PYSPARK MIGRATION MAPPING
+============================================================
+Source File: sas_etl_project/common_setup.sas
+Migration Date: 2026-05-07 02:34:20
+Migration Method: Graph-Based Dependency Analysis
+
+GRAPH SUMMARY:
+  Total Nodes: 7
+  Total Edges: 3
+  Has Cycles: False
+
+CHUNK-BY-CHUNK MAPPING:
+------------------------------------------------------------
+
+chunk_007:
+SAS macros are mapped to Python functions. String cleaning uses upper and trim; tax calculation uses when/otherwise for conditional logic. Macros are replaced by reusable PySpark functions.

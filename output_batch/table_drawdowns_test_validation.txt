@@ -1,0 +1,63 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 29
+  Errors: 0
+  Warnings: 4
+  Info: 25
+
+WARNINGS:
+----------------------------------------
+  Line 24: Variable 'path' is used but never defined
+  Line 24: Variable 'pd' is used but never defined
+  Line 32: Variable 'np' is used but never defined
+  Line 114: Variable 'pass' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 6 -> 5
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 48 code blocks for optimal execution
+  - Warning: Circular dependency detected: block_32 -> block_7 -> block_32
+  - Warning: Circular dependency detected: block_7 -> block_9 -> block_7
+  - Warning: Circular dependency detected: block_7 -> block_9 -> block_26 -> block_7
+  - Warning: Circular dependency detected: block_9 -> block_26 -> block_30 -> block_9
+  - Warning: Circular dependency detected: block_30 -> block_35 -> block_30
+  - Warning: Circular dependency detected: block_30 -> block_35 -> block_38 -> block_30
+  - Warning: Circular dependency detected: block_38 -> block_41 -> block_38
+  - Warning: Circular dependency detected: block_41 -> block_42 -> block_41
+  - Warning: Block block_0 uses undefined variables: {'numpy', 'pyspark_abs', 'np', 'pd', 'pandas'}
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}
+  - Warning: Block block_3 uses undefined variables: {'replace', 'variables', 'dependencies', 'arguments', 'actual', 'Set', 'values'}
+  - Warning: Block block_4 uses undefined variables: {'environ'}
+  - Warning: Block block_5 uses undefined variables: {'environ'}
+  - Warning: Block block_6 uses undefined variables: {'pandas', 'Read', 'preprocess', 'to', 'Spark', 'convert'}
+  - Warning: Block block_7 uses undefined variables: {'pd', 'path'}
+  - Warning: Block block_8 uses undefined variables: {'Calculate', 'using', 'PerformanceAnalytics', 'equivalent', 'returns', 'pandas'}
+  - Warning: Block block_10 uses undefined variables: {'Drawdowns', 'top', 'similar', 'logic', 'to', 'Table'}
+  - Warning: Block block_11 uses undefined variables: {'returns'}
+  - Warning: Block block_12 uses undefined variables: {'returns', 'maximum', 'np'}
+  - Warning: Block block_13 uses undefined variables: {'returns'}
+  - Warning: Block block_14 uses undefined variables: {'np'}
+  - Warning: Block block_15 uses undefined variables: {'np'}
+  - Warning: Block block_16 uses undefined variables: {'start'}
+  - Warning: Block block_19 uses undefined variables: {'np'}
+  - Warning: Block block_23 uses undefined variables: {'returns', 'digits'}
+  - Warning: Block block_24 uses undefined variables: {'pd'}
+  - Warning: Block block_25 uses undefined variables: {'Apply', 'e', 'g', 'calculation', 'column', 'drawdown', 'to'}
+  - Warning: Block block_29 uses undefined variables: {'Convert', 'DataFrames', 'to', 'Spark', 'pandas'}
+  - Warning: Block block_33 uses undefined variables: {'empty', 'Handle', 'DataFrames'}
+  - Warning: Block block_37 uses undefined variables: {'simulate', 'Compare', 'compare', 'both', 'Adjust', 'columns', 'proc', 'DataFrames', 'logic', 'needed', 'must', 'exist'}
+  - Warning: Block block_38 uses undefined variables: {'cmp', 'base'}
+  - Warning: Block block_40 uses undefined variables: {'differences', 'Count'}
+  - Warning: Block block_42 uses undefined variables: {'variables', 'result', 'Set'}
+  - Warning: Block block_44 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}
+  - Warning: Block block_46 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}
+  - Warning: Block block_47 uses undefined variables: {'df_name', 'temporary', 'tables', 'Optionally', 'clean', 'up'}
+  - Warning: Could not fully resolve dependencies due to cycles

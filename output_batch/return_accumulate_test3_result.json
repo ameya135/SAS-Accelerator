@@ -1,0 +1,73 @@
+{
+  "success": true,
+  "sas_file": "testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/return_accumulate_test3.sas",
+  "pyspark_code": "# Generated PySpark code from SAS migration\n# Execution order optimized by ExecutionOrderOptimizer\n\nimport os\nimport pandas as pd\nfrom pyspark.sql import SparkSession, Window, functions as F\nfrom pyspark.sql.types import BooleanType\n\nspark = SparkSession.builder.appName(\"SAS_Migration\").getOrCreate()\n\n# Initialize Spark session\n\n# Convert pandas DataFrame to Spark DataFrame\n\n# --- Spark Section: Calculate yearly returns ---\n\nprices = prices.withColumn('date', F.to_date(F.col(prices.columns[0])))\n\n# Calculate discrete returns for each column except 'date'\n\nwindow_spec = Window.orderBy('date')\n\n        lag_col = f'{col}_lag'\n\n        ret_col = f'{col}_ret'\n\n        prices = prices.withColumn(lag_col, F.lag(col).over(window_spec))\n\n# Select only return columns and drop nulls\n\n# Accumulate returns yearly (geometric)\n\nagg_returns = agg_returns.withColumn('year', F.year('date'))\nfor col in return_cols:\n\n    agg_returns = agg_returns.withColumn(col, F.col(col) + 1)\n\nagg_returns = agg_returns.groupBy('year').agg(\n    *[F.expr(f'product({col}) - 1').alias(col.replace('_ret', '')) for col in return_cols]\n)\n\n# Remove first row (mimicking firstobs=2)\n\nagg_returns = agg_returns.orderBy('year')\n\n# Set macro variables (replace with actual values as needed)\n\n# --- Comparison Section ---\n# Join on year/date and compare columns\n\ndef fuzz(x, y):\n    return abs(x - y) > 1e-8 if x is not None and y is not None else True\n\n# List of asset columns (update as needed)\n\nfor col in asset_cols:\n\n    diff = diff.withColumn(\n        f'fuzz_{col}',\n        F.udf(fuzz, BooleanType())(F.col(f'{col}'), F.col(col))\n    )\n\nfuzz_cols = [f'fuzz_{col}' for col in asset_cols]\n\nkeep = False  # Set from macro variable\n\ndiff = diff.filter(F.reduce(lambda x, y: x | y, [F.col(c) for c in fuzz_cols]))\n\n    pass_var = True\n\n    notes = 'Passed'\n    print('NOTE: NO ERROR IN TEST RETURN_ACCUMULATE_TEST3')\nelse:\n\n    pass_var = False\n\n    notes = 'Differences detected in outputs.'\n    print('ERROR: PROBLEM IN TEST RETURN_ACCUMULATE_TEST3')\n\n# --- Cleanup Section ---\nif not keep:\n    for df_name in ['diff', 'prices', 'agg_returns', 'returns_from_r']:\n        if spark.catalog._jcatalog.tableExists(df_name):\n            spark.catalog.dropTempView(df_name)\n\ndir_path = dir  # Set from macro variable\n\nprices = spark.read.csv(os.path.join(dir_path, 'prices.csv'), header=True, inferSchema=True)\n\nreturn_cols = []\nfor col in prices.columns:\n    if col != 'date':\n\n        prices = prices.withColumn(ret_col, (F.col(col) - F.col(lag_col)) / F.col(lag_col))\n        return_cols.append(ret_col)\n\nagg_returns = prices.select(['date'] + return_cols).dropna()\n\nrow_count = agg_returns.count()\nif row_count > 1:\n\n    agg_returns = agg_returns.limit(row_count - 1)\n\n# --- Pandas Section: Calculate yearly returns (mimicking R logic) ---\n\nprices_pd = pd.read_csv(os.path.join(dir_path, 'prices.csv'))\nprices_pd.set_index(prices_pd.columns[0], inplace=True)\n\nreturns_pd = prices_pd.pct_change().dropna()\nreturns_pd.index = pd.to_datetime(returns_pd.index)\n\nreturns_yearly = returns_pd.add(1).groupby(returns_pd.index.year).prod() - 1\nreturns_yearly.reset_index(inplace=True)\nreturns_yearly.rename(columns={'index': 'date'}, inplace=True)\n\nreturns_from_r = spark.createDataFrame(returns_yearly)\n\ndiff = returns_from_r.join(agg_returns, returns_from_r['date'] == agg_returns['year'], 'outer')\n\nasset_cols = [col for col in returns_from_r.columns if col != 'date']\n\nn = diff.count()\n\nif n == 0:\n",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/return_accumulate_test3.sas\nMigration Date: 2026-05-07 14:41:44\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 8\n  Total Edges: 6\n  Has Cycles: False\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_006:\nSAS macro logic and R integration are replaced by Python and pandas for return calculations, with Spark DataFrames used for main data processing. Table existence checks and conditional table creation are handled via DataFrame counts and logic. The compare and fuzz logic is implemented using PySpark DataFrame joins and UDFs.\n",
+  "chunks_converted": 1,
+  "total_chunks": 1,
+  "errors": [],
+  "warnings": [
+    "Line 23: Variable 'path' is used but never defined",
+    "Line 23: Variable 'pd' is used but never defined"
+  ],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_006"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T14:41:22.962956",
+    "end_time": "2026-05-07T14:41:44.452230",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/return_accumulate_test3.py",
+      "mapping": "output_batch/return_accumulate_test3_mapping.txt",
+      "validation": "output_batch/return_accumulate_test3_validation.txt",
+      "result": "output_batch/return_accumulate_test3_result.json"
+    }
+  },
+  "execution_time": 21.489274,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 16\n  Errors: 0\n  Warnings: 2\n  Info: 14\n\nWARNINGS:\n----------------------------------------\n  Line 23: Variable 'path' is used but never defined\n  Line 23: Variable 'pd' is used but never defined\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 1 valid chunks from 1 total",
+    "Deduplicated imports: 5 -> 5",
+    "Created 1 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup",
+    "Reordered 48 code blocks for optimal execution",
+    "Warning: Block block_0 uses undefined variables: {'pd', 'pandas'}",
+    "Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}",
+    "Warning: Block block_3 uses undefined variables: {'replace', 'variables', 'macro', 'actual', 'needed', 'Set', 'values'}",
+    "Warning: Block block_4 uses undefined variables: {'Set', 'macro'}",
+    "Warning: Block block_5 uses undefined variables: {'Set', 'dir', 'macro'}",
+    "Warning: Block block_6 uses undefined variables: {'Calculate', 'yearly', 'mimicking', 'Pandas', 'logic', 'returns', 'R'}",
+    "Warning: Block block_7 uses undefined variables: {'pd', 'path'}",
+    "Warning: Block block_8 uses undefined variables: {'pd'}",
+    "Warning: Block block_9 uses undefined variables: {'index'}",
+    "Warning: Block block_10 uses undefined variables: {'to', 'Convert', 'Spark', 'pandas'}",
+    "Warning: Block block_12 uses undefined variables: {'yearly', 'returns', 'Calculate', 'Spark'}",
+    "Warning: Block block_13 uses undefined variables: {'path'}",
+    "Warning: Block block_15 uses undefined variables: {'Calculate', 'column', 'discrete', 'returns', 'each'}",
+    "Warning: Block block_22 uses undefined variables: {'only', 'columns', 'Select'}",
+    "Warning: Block block_24 uses undefined variables: {'returns', 'Accumulate', 'yearly', 'geometric'}",
+    "Warning: Block block_28 uses undefined variables: {'row', 'mimicking', 'Remove'}",
+    "Warning: Block block_32 uses undefined variables: {'compare', 'Section', 'Comparison', 'Join', 'on'}",
+    "Warning: Block block_34 uses undefined variables: {'x', 'y'}",
+    "Warning: Block block_35 uses undefined variables: {'List', 'columns', 'of', 'asset', 'update', 'needed'}",
+    "Warning: Block block_38 uses undefined variables: {'fuzz'}",
+    "Warning: Block block_40 uses undefined variables: {'c', 'x', 'y'}",
+    "Warning: Block block_44 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}",
+    "Warning: Block block_46 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}",
+    "Warning: Block block_47 uses undefined variables: {'df_name', 'catalog', 'Cleanup', 'Section'}"
+  ]
+}

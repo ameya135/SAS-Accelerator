@@ -1,0 +1,47 @@
+{
+  "success": true,
+  "sas_file": "testSAS/SASPerformanceAnalytics/performance_analytics_library/macro/get_number_column_names.sas",
+  "pyspark_code": "from pyspark.sql import SparkSession\n\n# Initialize Spark session\nspark = SparkSession.builder.appName(\"SAS_Migration\").getOrCreate()\n\n# Function to get numeric column names from a DataFrame, excluding specified columns\ndef get_numeric_column_names(df, exclude_cols):\n    \"\"\"\n    Returns a list of numeric column names from the DataFrame, excluding specified columns.\n    :param df: Input Spark DataFrame\n    :param exclude_cols: String of space-separated column names to exclude\n    :return: List of numeric column names\n    \"\"\"\n    exclude_set = set(col.strip().upper() for col in exclude_cols.split() if col.strip())\n    numeric_types = {'int', 'bigint', 'double', 'float', 'decimal', 'long', 'short'}\n    numeric_cols = [\n        field.name\n        for field in df.schema.fields\n        if field.dataType.typeName() in numeric_types and field.name.upper() not in exclude_set\n    ]\n    return numeric_cols\n\n# Example usage:\n# numeric_column_names = get_numeric_column_names(table_df, exclude_cols)",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: testSAS/SASPerformanceAnalytics/performance_analytics_library/macro/get_number_column_names.sas\nMigration Date: 2026-05-07 14:13:54\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 13\n  Total Edges: 20\n  Has Cycles: True\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_004:\nThe SAS macro loops through dataset variables, checks for numeric type, and excludes specified columns. In PySpark, we define a function that inspects the DataFrame schema, filters numeric columns, and excludes those in the _exclude list.\n",
+  "chunks_converted": 1,
+  "total_chunks": 1,
+  "errors": [],
+  "warnings": [
+    "Dependency cycles detected (will be resolved): [['var_6', 'macro_1'], ['var_8', 'macro_1'], ['var_3', 'macro_1'], ['var_2', 'macro_1'], ['var_9', 'macro_1'], ['var_4', 'macro_1'], ['macro_1', 'var_5'], ['macro_1', 'var_10']]"
+  ],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_004"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T14:13:46.420739",
+    "end_time": "2026-05-07T14:13:54.082021",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/get_number_column_names.py",
+      "mapping": "output_batch/get_number_column_names_mapping.txt",
+      "validation": "output_batch/get_number_column_names_validation.txt",
+      "result": "output_batch/get_number_column_names_result.json"
+    }
+  },
+  "execution_time": 7.661282,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 2\n  Errors: 0\n  Warnings: 0\n  Info: 2\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 1 valid chunks from 1 total",
+    "Deduplicated imports: 0 -> 0",
+    "Created 1 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup"
+  ]
+}

@@ -1,0 +1,55 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 20
+  Errors: 0
+  Warnings: 3
+  Info: 17
+
+WARNINGS:
+----------------------------------------
+  Line 23: Variable 'path' is used but never defined
+  Line 24: Variable 'pd' is used but never defined
+  Line 38: Variable 'na' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 8 -> 5
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 42 code blocks for optimal execution
+  - Warning: Block block_0 uses undefined variables: {'pyspark_abs', 'pyspark_mean', 'pd', 'lag', 'pandas'}
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}
+  - Warning: Block block_3 uses undefined variables: {'replace', 'variables', 'arguments', 'actual', 'Macro', 'values'}
+  - Warning: Block block_4 uses undefined variables: {'directory', 'dir', 'path'}
+  - Warning: Block block_5 uses undefined variables: {'to', 'keep', 'temp', 'views'}
+  - Warning: Block block_6 uses undefined variables: {'into', 'CSV', 'Spark', 'Read'}
+  - Warning: Block block_7 uses undefined variables: {'prices', 'path'}
+  - Warning: Block block_8 uses undefined variables: {'pd'}
+  - Warning: Block block_10 uses undefined variables: {'returns', 'Calculate', 'discrete'}
+  - Warning: Block block_12 uses undefined variables: {'col_name'}
+  - Warning: Block block_13 uses undefined variables: {'col_name'}
+  - Warning: Block block_14 uses undefined variables: {'row', 'Remove', 'keep', 'columns', 'returns', 'only', 'null'}
+  - Warning: Block block_15 uses undefined variables: {'c'}
+  - Warning: Block block_16 uses undefined variables: {'na'}
+  - Warning: Block block_17 uses undefined variables: {'Calculate', 'column', 'Mean', 'Absolute', 'Deviation', 'each'}
+  - Warning: Block block_18 uses undefined variables: {'c'}
+  - Warning: Block block_20 uses undefined variables: {'catalog', 'Drop', 'views', 'records', 'they', 'have'}
+  - Warning: Block block_21 uses undefined variables: {'create', 'views', 'do', 'error', 'rows', 'If', 'exist'}
+  - Warning: Block block_22 uses undefined variables: {'catalog', 't'}
+  - Warning: Block block_24 uses undefined variables: {'pd'}
+  - Warning: Block block_27 uses undefined variables: {'pd'}
+  - Warning: Block block_28 uses undefined variables: {'Compare', 'the', 'DataFrames', 'differences', 'output', 'two'}
+  - Warning: Block block_31 uses undefined variables: {'mean_abs_dev', 'c', 'returns_from_r'}
+  - Warning: Block block_32 uses undefined variables: {'c', 'returns_from_r'}
+  - Warning: Block block_33 uses undefined variables: {'c'}
+  - Warning: Block block_34 uses undefined variables: {'differences', 'Count', 'of', 'number'}
+  - Warning: Block block_36 uses undefined variables: {'Set'}
+  - Warning: Block block_38 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}
+  - Warning: Block block_40 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}
+  - Warning: Block block_41 uses undefined variables: {'catalog', 'view', 'temp', 'views', 'Cleanup'}

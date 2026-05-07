@@ -1,0 +1,47 @@
+{
+  "success": true,
+  "sas_file": "sas_etl_project/common_setup.sas",
+  "pyspark_code": "from pyspark.sql import SparkSession\nfrom pyspark.sql.functions import col, trim, upper, when\n\n# Initialize Spark session\nspark = SparkSession.builder.appName(\"SAS_Migration\").getOrCreate()\n\n# Function to clean a string column: strip whitespace and convert to uppercase\ndef clean_string_column(df, field):\n    return df.withColumn(field, upper(trim(col(field))))\n\n# Function to calculate tax based on amount and region\ndef calculate_tax(df, amount_col, region_col, tax_col_name='tax'):\n    return df.withColumn(\n        tax_col_name,\n        when(col(region_col) == 'NA', col(amount_col) * 0.10)\n        .when(col(region_col) == 'EU', col(amount_col) * 0.20)\n        .otherwise(col(amount_col) * 0.05)\n    )\n\n# Example usage:\n# df = clean_string_column(df, 'field')\n# df = calculate_tax(df, 'amount', 'region')",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: sas_etl_project/common_setup.sas\nMigration Date: 2026-05-07 02:34:20\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 7\n  Total Edges: 3\n  Has Cycles: False\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_007:\nSAS macros are mapped to Python functions. String cleaning uses upper and trim; tax calculation uses when/otherwise for conditional logic. Macros are replaced by reusable PySpark functions.\n",
+  "chunks_converted": 1,
+  "total_chunks": 1,
+  "errors": [],
+  "warnings": [
+    "Line 12: Variable 'df' is used but never defined"
+  ],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_007"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T02:34:09.919649",
+    "end_time": "2026-05-07T02:34:20.695897",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/common_setup.py",
+      "mapping": "output_batch/common_setup_mapping.txt",
+      "validation": "output_batch/common_setup_validation.txt",
+      "result": "output_batch/common_setup_result.json"
+    }
+  },
+  "execution_time": 10.776248,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 1\n  Errors: 0\n  Warnings: 1\n  Info: 0\n\nWARNINGS:\n----------------------------------------\n  Line 12: Variable 'df' is used but never defined\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 1 valid chunks from 1 total",
+    "Deduplicated imports: 1 -> 1",
+    "Created 1 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup"
+  ]
+}

@@ -1,0 +1,56 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 27
+  Errors: 0
+  Warnings: 4
+  Info: 23
+
+WARNINGS:
+----------------------------------------
+  Line 22: Variable 'pd' is used but never defined
+  Line 29: Variable '0' is used but never defined
+  Line 33: Variable 'returns' is used but never defined
+  Line 35: Variable 'np' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 4 -> 4
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 48 code blocks for optimal execution
+  - Warning: Block block_0 uses undefined variables: {'numpy', 'pd', 'pandas', 'np'}
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}
+  - Warning: Block block_3 uses undefined variables: {'replace', 'variables', 'dependencies', 'actual', 'needed', 'Set', 'values', 'up'}
+  - Warning: Block block_4 uses undefined variables: {'Set', 'macro', 'variable'}
+  - Warning: Block block_5 uses undefined variables: {'Set', 'macro', 'variable'}
+  - Warning: Block block_6 uses undefined variables: {'prices', 'Read', 'CSV'}
+  - Warning: Block block_7 uses undefined variables: {'prices', 'pd'}
+  - Warning: Block block_8 uses undefined variables: {'using', 'returns', 'Calculate', 'discrete'}
+  - Warning: Block block_10 uses undefined variables: {'Calculate', 'Appraisal', 'Ratio'}
+  - Warning: Block block_12 uses undefined variables: {'SPY', 'benchmark', 'the', 'Assuming'}
+  - Warning: Block block_13 uses undefined variables: {'c'}
+  - Warning: Block block_14 uses undefined variables: {'benchmark_returns', 'asset_returns'}
+  - Warning: Block block_15 uses undefined variables: {'asset_returns'}
+  - Warning: Block block_16 uses undefined variables: {'benchmark_returns'}
+  - Warning: Block block_17 uses undefined variables: {'np'}
+  - Warning: Block block_18 uses undefined variables: {'np'}
+  - Warning: Block block_19 uses undefined variables: {'asset'}
+  - Warning: Block block_21 uses undefined variables: {'Prepare', 'Appraisal', 'Ratio'}
+  - Warning: Block block_22 uses undefined variables: {'pd', 'np'}
+  - Warning: Block block_24 uses undefined variables: {'Convert', 'DataFrames', 'to', 'Spark', 'pandas'}
+  - Warning: Block block_27 uses undefined variables: {'by', 'DataFrames', 'error', 'Handle', 'replacing', 'empty'}
+  - Warning: Block block_29 uses undefined variables: {'pd'}
+  - Warning: Block block_31 uses undefined variables: {'pd'}
+  - Warning: Block block_32 uses undefined variables: {'Compare', 'DataFrames', 'differences', 'output', 'fuzz'}
+  - Warning: Block block_33 uses undefined variables: {'c', 'base', 'compare'}
+  - Warning: Block block_36 uses undefined variables: {'Count', 'of', 'number'}
+  - Warning: Block block_38 uses undefined variables: {'based', 'comparison', 'variables', 'on', 'Set'}
+  - Warning: Block block_40 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}
+  - Warning: Block block_42 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}
+  - Warning: Block block_43 uses undefined variables: {'intermediate', 'keeping', 'DataFrames', 'Optionally', 'clean', 'up'}

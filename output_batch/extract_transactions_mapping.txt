@@ -1,0 +1,20 @@
+SAS TO PYSPARK MIGRATION MAPPING
+============================================================
+Source File: sas_etl_project/extract_transactions.sas
+Migration Date: 2026-05-07 02:34:31
+Migration Method: Graph-Based Dependency Analysis
+
+GRAPH SUMMARY:
+  Total Nodes: 5
+  Total Edges: 4
+  Has Cycles: False
+
+CHUNK-BY-CHUNK MAPPING:
+------------------------------------------------------------
+
+chunk_001:
+SAS DATA step with datalines and schema is mapped to PySpark DataFrame creation using an explicit schema and a list of tuples for data. Variable names and types are preserved.
+
+
+chunk_005:
+SAS PROC SORT is mapped to PySpark DataFrame.orderBy. The sorted DataFrame is assigned to a new variable following PySpark best practices.

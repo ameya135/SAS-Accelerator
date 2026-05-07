@@ -1,0 +1,67 @@
+{
+  "success": true,
+  "sas_file": "testSAS/SASPerformanceAnalytics/performance_analytics_library/macro/download_ff3.sas",
+  "pyspark_code": "# Generated PySpark code from SAS migration\n# Execution order optimized by ExecutionOrderOptimizer\n\nimport io\nimport requests\nimport tempfile\nimport zipfile\nfrom pyspark.sql import SparkSession\nfrom pyspark.sql import functions as F\nfrom pyspark.sql.types import DateType, DoubleType, StructField, StructType\n\nspark = SparkSession.builder.appName(\"SAS_Migration\").getOrCreate()\n\n# Initialize Spark session\n\n    tmp_csv_path = tmp_csv.name\n\n# Define schema for the Fama-French 3-factor data\n\nff3_schema = StructType([\n    StructField('Date', DateType(), True),\n    StructField('Mkt_RF', DoubleType(), True),\n    StructField('SMB', DoubleType(), True),\n    StructField('HML', DoubleType(), True),\n    StructField('RF', DoubleType(), True)\n])\n\n# Read the CSV into a DataFrame\n\nff3_df = spark.read.csv(tmp_csv_path, header=True, schema=ff3_schema, mode='DROPMALFORMED')\n\n# Filter out rows with missing Date\n\nff3_df = ff3_df.filter(F.col('Date').isNotNull())\n\n# Divide Mkt_RF, SMB, HML, RF by 100\nfor col in ['Mkt_RF', 'SMB', 'HML', 'RF']:\n\n    ff3_df = ff3_df.withColumn(col, F.col(col) / 100)\n\n# Download and extract CSV from zip file\n\nurl = 'http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/ftp/F-F_Research_Data_Factors_daily_CSV.zip'\n\nresponse = requests.get(url)\n\nzip_bytes = io.BytesIO(response.content)\n\nwith zipfile.ZipFile(zip_bytes) as zf:\n\n    csv_filename = [name for name in zf.namelist() if name.endswith('.CSV')][0]\n    with zf.open(csv_filename) as csvfile:\n\n        csv_data = csvfile.read()\n\n# Save CSV to a temporary file for Spark to read\nwith tempfile.NamedTemporaryFile(delete=False, suffix='.csv') as tmp_csv:\n    tmp_csv.write(csv_data)\n",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: testSAS/SASPerformanceAnalytics/performance_analytics_library/macro/download_ff3.sas\nMigration Date: 2026-05-07 14:13:30\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 5\n  Total Edges: 7\n  Has Cycles: True\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_002:\nSAS macro and file handling are replaced by Python requests and zipfile. The DATA step with infile and informats is mapped to Spark DataFrame read with schema. Array division and filtering are mapped to withColumn and filter in PySpark.\n",
+  "chunks_converted": 1,
+  "total_chunks": 1,
+  "errors": [],
+  "warnings": [
+    "Dependency cycles detected (will be resolved): [['var_4', 'macro_1'], ['macro_1', 'var_2'], ['macro_1', 'var_3']]",
+    "Line 16: Variable 'requests' is used but never defined",
+    "Line 17: Variable 'io' is used but never defined",
+    "Line 23: Variable 'csvfile' is used but never defined",
+    "Line 27: Variable 'tmp_csv' is used but never defined"
+  ],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_002"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T14:13:17.032098",
+    "end_time": "2026-05-07T14:13:30.109576",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/download_ff3.py",
+      "mapping": "output_batch/download_ff3_mapping.txt",
+      "validation": "output_batch/download_ff3_validation.txt",
+      "result": "output_batch/download_ff3_result.json"
+    }
+  },
+  "execution_time": 13.077478,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 13\n  Errors: 0\n  Warnings: 4\n  Info: 9\n\nWARNINGS:\n----------------------------------------\n  Line 16: Variable 'requests' is used but never defined\n  Line 17: Variable 'io' is used but never defined\n  Line 23: Variable 'csvfile' is used but never defined\n  Line 27: Variable 'tmp_csv' is used but never defined\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 1 valid chunks from 1 total",
+    "Deduplicated imports: 6 -> 6",
+    "Created 1 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup",
+    "Reordered 20 code blocks for optimal execution",
+    "Warning: Block block_0 uses undefined variables: {'requests', 'io', 'tempfile', 'zipfile'}",
+    "Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}",
+    "Warning: Block block_3 uses undefined variables: {'Download', 'extract', 'CSV'}",
+    "Warning: Block block_4 uses undefined variables: {'F_Research_Data_Factors_daily_CSV', 'dartmouth', 'ken', 'mba', 'tuck'}",
+    "Warning: Block block_5 uses undefined variables: {'requests'}",
+    "Warning: Block block_6 uses undefined variables: {'io'}",
+    "Warning: Block block_7 uses undefined variables: {'zipfile'}",
+    "Warning: Block block_8 uses undefined variables: {'name', 'zf'}",
+    "Warning: Block block_9 uses undefined variables: {'csvfile'}",
+    "Warning: Block block_10 uses undefined variables: {'tmp_csv', 'CSV', 'tempfile', 'temporary', 'Save', 'a', 'file', 'to', 'Spark'}",
+    "Warning: Block block_11 uses undefined variables: {'tmp_csv'}",
+    "Warning: Block block_12 uses undefined variables: {'Define', 'schema', 'the'}",
+    "Warning: Block block_14 uses undefined variables: {'into', 'Read', 'CSV', 'a', 'the'}",
+    "Warning: Block block_16 uses undefined variables: {'missing', 'out', 'rows', 'Filter'}",
+    "Warning: Block block_18 uses undefined variables: {'SMB', 'Divide', 'by', 'RF', 'HML', 'Mkt_RF'}"
+  ]
+}

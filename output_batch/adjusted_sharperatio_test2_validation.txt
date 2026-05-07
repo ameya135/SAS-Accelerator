@@ -1,0 +1,66 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 16
+  Errors: 0
+  Warnings: 3
+  Info: 13
+
+WARNINGS:
+----------------------------------------
+  Line 20: Variable 'path' is used but never defined
+  Line 23: Variable 'pd' is used but never defined
+  Line 32: Variable '0' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 10 -> 6
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 34 code blocks for optimal execution
+  - Warning: Circular dependency detected: block_21 -> block_4 -> block_21
+  - Warning: Circular dependency detected: block_4 -> block_5 -> block_19 -> block_18 -> block_8 -> block_7 -> block_6 -> block_4
+  - Warning: Circular dependency detected: block_8 -> block_7 -> block_6 -> block_11 -> block_8
+  - Warning: Circular dependency detected: block_11 -> block_12 -> block_11
+  - Warning: Circular dependency detected: block_11 -> block_12 -> block_13 -> block_11
+  - Warning: Circular dependency detected: block_11 -> block_12 -> block_13 -> block_14 -> block_11
+  - Warning: Circular dependency detected: block_11 -> block_12 -> block_13 -> block_14 -> block_15 -> block_11
+  - Warning: Circular dependency detected: block_15 -> block_16 -> block_15
+  - Warning: Circular dependency detected: block_19 -> block_18 -> block_8 -> block_7 -> block_6 -> block_11 -> block_12 -> block_13 -> block_14 -> block_15 -> block_16 -> block_17 -> block_19
+  - Warning: Circular dependency detected: block_21 -> block_4 -> block_5 -> block_19 -> block_18 -> block_8 -> block_7 -> block_6 -> block_11 -> block_12 -> block_13 -> block_14 -> block_15 -> block_16 -> block_17 -> block_20 -> block_21
+  - Warning: Circular dependency detected: block_21 -> block_4 -> block_5 -> block_19 -> block_18 -> block_8 -> block_7 -> block_6 -> block_11 -> block_12 -> block_13 -> block_14 -> block_15 -> block_16 -> block_17 -> block_20 -> block_23 -> block_21
+  - Warning: Circular dependency detected: block_19 -> block_18 -> block_8 -> block_7 -> block_6 -> block_11 -> block_12 -> block_13 -> block_14 -> block_15 -> block_16 -> block_17 -> block_20 -> block_23 -> block_24 -> block_19
+  - Warning: Circular dependency detected: block_21 -> block_4 -> block_5 -> block_19 -> block_18 -> block_8 -> block_7 -> block_6 -> block_11 -> block_12 -> block_13 -> block_14 -> block_15 -> block_16 -> block_17 -> block_20 -> block_23 -> block_24 -> block_25 -> block_21
+  - Warning: Circular dependency detected: block_23 -> block_24 -> block_25 -> block_26 -> block_23
+  - Warning: Circular dependency detected: block_26 -> block_27 -> block_26
+  - Warning: Circular dependency detected: block_19 -> block_18 -> block_8 -> block_7 -> block_6 -> block_11 -> block_12 -> block_13 -> block_14 -> block_15 -> block_16 -> block_17 -> block_20 -> block_23 -> block_24 -> block_25 -> block_26 -> block_27 -> block_28 -> block_19
+  - Warning: Circular dependency detected: block_23 -> block_24 -> block_25 -> block_26 -> block_27 -> block_28 -> block_29 -> block_23
+  - Warning: Circular dependency detected: block_23 -> block_24 -> block_25 -> block_26 -> block_27 -> block_28 -> block_29 -> block_30 -> block_23
+  - Warning: Circular dependency detected: block_26 -> block_27 -> block_28 -> block_29 -> block_30 -> block_33 -> block_26
+  - Warning: Block block_0 uses undefined variables: {'year', 'row_number', 'pd', 'lag', 'pandas', 'month'}
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark', 'session'}
+  - Warning: Block block_3 uses undefined variables: {'your', 'variable', 'path', 'Assumes', 'CSV', 'elsewhere', 'file', 'Define'}
+  - Warning: Block block_4 uses undefined variables: {'dir', 'path'}
+  - Warning: Block block_5 uses undefined variables: {'monthly', 'Read', 'cumulative', 'calculate'}
+  - Warning: Block block_6 uses undefined variables: {'pd'}
+  - Warning: Block block_8 uses undefined variables: {'x'}
+  - Warning: Block block_9 uses undefined variables: {'calculation', 'Sharpe', 'Adjusted', 'Pandas', 'Ratio'}
+  - Warning: Block block_17 uses undefined variables: {'Prepare', 'Spark'}
+  - Warning: Block block_20 uses undefined variables: {'into', 'Spark', 'Read'}
+  - Warning: Block block_22 uses undefined variables: {'Set', 'name', 'column'}
+  - Warning: Block block_23 uses undefined variables: {'Assumes', 'column'}
+  - Warning: Block block_24 uses undefined variables: {'Spark', 'Calculate', 'discrete'}
+  - Warning: Block block_25 uses undefined variables: {'c'}
+  - Warning: Block block_26 uses undefined variables: {'col_name'}
+  - Warning: Block block_27 uses undefined variables: {'col_name'}
+  - Warning: Block block_28 uses undefined variables: {'monthly', 'Spark', 'Calculate', 'cumulative'}
+  - Warning: Block block_30 uses undefined variables: {'col_name'}
+  - Warning: Block block_31 uses undefined variables: {'row', 'partition', 'order', 'between', 'unbounded', 'preceding', 'by', 'year', 'x', 'acc', 'rows', 'over', 'current', 'month'}
+  - Warning: Block block_32 uses undefined variables: {'row', 'null', 'numeric', 'column', 'of', 'to', 'col_name', 'Set', 'each'}
+  - Warning: Block block_33 uses undefined variables: {'col_name'}
+  - Warning: Could not fully resolve dependencies due to cycles

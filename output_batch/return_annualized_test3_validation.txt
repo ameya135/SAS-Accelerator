@@ -1,0 +1,59 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 21
+  Errors: 0
+  Warnings: 1
+  Info: 20
+
+WARNINGS:
+----------------------------------------
+  Line 21: Variable 'path' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 4 -> 4
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 47 code blocks for optimal execution
+  - Warning: Circular dependency detected: block_6 -> block_5 -> block_6
+  - Warning: Circular dependency detected: block_6 -> block_5 -> block_7 -> block_13 -> block_12 -> block_6
+  - Warning: Circular dependency detected: block_6 -> block_5 -> block_7 -> block_13 -> block_12 -> block_8 -> block_6
+  - Warning: Circular dependency detected: block_8 -> block_10 -> block_8
+  - Warning: Circular dependency detected: block_13 -> block_12 -> block_8 -> block_10 -> block_14 -> block_13
+  - Warning: Circular dependency detected: block_13 -> block_12 -> block_8 -> block_10 -> block_14 -> block_17 -> block_19 -> block_13
+  - Warning: Circular dependency detected: block_19 -> block_22 -> block_19
+  - Warning: Circular dependency detected: block_19 -> block_22 -> block_28 -> block_19
+  - Warning: Circular dependency detected: block_28 -> block_29 -> block_28
+  - Warning: Circular dependency detected: block_19 -> block_22 -> block_28 -> block_29 -> block_30 -> block_19
+  - Warning: Circular dependency detected: block_19 -> block_22 -> block_28 -> block_29 -> block_30 -> block_34 -> block_19
+  - Warning: Circular dependency detected: block_34 -> block_35 -> block_34
+  - Warning: Block block_0 uses undefined variables: {'pyspark_abs', 'lag'}
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}
+  - Warning: Block block_3 uses undefined variables: {'assumed', 'dir', 'environment', 'nv', 'keep', 'assume', 'provided', 'variables', 'are', 'dependencies', 'be', 'Set', 'to', 'the', 'these', 'up'}
+  - Warning: Block block_4 uses undefined variables: {'Read', 'CSV'}
+  - Warning: Block block_5 uses undefined variables: {'dir', 'path'}
+  - Warning: Block block_7 uses undefined variables: {'each', 'Calculate', 'column'}
+  - Warning: Block block_8 uses undefined variables: {'col_name'}
+  - Warning: Block block_9 uses undefined variables: {'col_name'}
+  - Warning: Block block_11 uses undefined variables: {'only', 'the', 'columns', 'Select'}
+  - Warning: Block block_14 uses undefined variables: {'Annualize', 'FALSE'}
+  - Warning: Block block_15 uses undefined variables: {'col_name'}
+  - Warning: Block block_16 uses undefined variables: {'col_name'}
+  - Warning: Block block_17 uses undefined variables: {'Prepare'}
+  - Warning: Block block_20 uses undefined variables: {'simulate', 'test', 'parity', 'Prepare', 'output', 'R'}
+  - Warning: Block block_22 uses undefined variables: {'by', 'creating', 'DataFrames', 'error', 'needed', 'Handle', 'empty'}
+  - Warning: Block block_25 uses undefined variables: {'row', 'only', 'Keep', 'the'}
+  - Warning: Block block_30 uses undefined variables: {'simulate', 'Compare', 'compare', 'proc', 'logic', 'fuzz'}
+  - Warning: Block block_31 uses undefined variables: {'a', 'b', 'tol'}
+  - Warning: Block block_35 uses undefined variables: {'col_name'}
+  - Warning: Block block_37 uses undefined variables: {'Set', 'based', 'on'}
+  - Warning: Block block_39 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}
+  - Warning: Block block_41 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}
+  - Warning: Block block_42 uses undefined variables: {'keep', 'Clean', 'temporary', 'DataFrames', 'up'}
+  - Warning: Could not fully resolve dependencies due to cycles

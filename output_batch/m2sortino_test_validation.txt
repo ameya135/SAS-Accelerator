@@ -1,0 +1,54 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 25
+  Errors: 0
+  Warnings: 4
+  Info: 21
+
+WARNINGS:
+----------------------------------------
+  Line 24: Variable 'path' is used but never defined
+  Line 34: Variable '0' is used but never defined
+  Line 36: Variable 'np' is used but never defined
+  Line 39: Variable 'returns' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 6 -> 6
+  - Created 2 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 46 code blocks for optimal execution
+  - Warning: Block block_0 uses undefined variables: {'numpy', 'pd', 'pandas', 'np'}
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}
+  - Warning: Block block_3 uses undefined variables: {'should', 'dir', 'keep', 'variable', 'arguments', 'externally', 'be', 'equivalents', 'Macro', 'Example', 'passed'}
+  - Warning: Block block_4 uses undefined variables: {'prices', 'Read', 'CSV', 'Spark'}
+  - Warning: Block block_5 uses undefined variables: {'prices', 'dir', 'path'}
+  - Warning: Block block_7 uses undefined variables: {'prices', 'financial', 'Convert', 'Pandas', 'to'}
+  - Warning: Block block_9 uses undefined variables: {'Calculate', 'using', 'discrete', 'returns', 'pandas', 'method'}
+  - Warning: Block block_11 uses undefined variables: {'Define', 'calculation', 'M2Sortino'}
+  - Warning: Block block_12 uses undefined variables: {'returns'}
+  - Warning: Block block_13 uses undefined variables: {'returns', 'MAR', 'np'}
+  - Warning: Block block_14 uses undefined variables: {'scale', 'np'}
+  - Warning: Block block_15 uses undefined variables: {'returns'}
+  - Warning: Block block_16 uses undefined variables: {'MAR', 'scale'}
+  - Warning: Block block_18 uses undefined variables: {'MAR', 'np'}
+  - Warning: Block block_19 uses undefined variables: {'scale', 'np'}
+  - Warning: Block block_20 uses undefined variables: {'MAR', 'scale'}
+  - Warning: Block block_21 uses undefined variables: {'returns', 'pd'}
+  - Warning: Block block_22 uses undefined variables: {'assumed', 'column', 'using', 'Compute', 'benchmark', 'SPY', 'M2Sortino', 'the'}
+  - Warning: Block block_25 uses undefined variables: {'back', 'Convert', 'results', 'to', 'Spark'}
+  - Warning: Block block_28 uses undefined variables: {'by', 'DataFrames', 'error', 'Handle', 'replacing', 'empty'}
+  - Warning: Block block_33 uses undefined variables: {'compute', 'spark_abs', 'Compare', 'differences', 'logic', 'fuzz'}
+  - Warning: Block block_34 uses undefined variables: {'col1', 'col2'}
+  - Warning: Block block_36 uses undefined variables: {'difference', 'rows', 'any', 'Filter'}
+  - Warning: Block block_38 uses undefined variables: {'Count', 'of', 'number'}
+  - Warning: Block block_40 uses undefined variables: {'Set', 'based'}
+  - Warning: Block block_42 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}
+  - Warning: Block block_44 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}
+  - Warning: Block block_45 uses undefined variables: {'keep', 'intermediate', 'tables', 'unpersist', 'If'}

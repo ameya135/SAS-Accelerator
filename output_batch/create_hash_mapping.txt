@@ -1,0 +1,16 @@
+SAS TO PYSPARK MIGRATION MAPPING
+============================================================
+Source File: testSAS/SASPerformanceAnalytics/performance_analytics_library/macro/create_hash.sas
+Migration Date: 2026-05-07 14:13:17
+Migration Method: Graph-Based Dependency Analysis
+
+GRAPH SUMMARY:
+  Total Nodes: 8
+  Total Edges: 9
+  Has Cycles: True
+
+CHUNK-BY-CHUNK MAPPING:
+------------------------------------------------------------
+
+chunk_006:
+The SAS hash object is mapped to a Python dictionary for fast key-based lookup. Macro variables are replaced with function arguments, and key/data columns are dynamically selected from the DataFrame. The resulting hash is stored in a global variable named after 'name'.

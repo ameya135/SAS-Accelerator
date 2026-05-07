@@ -1,0 +1,45 @@
+{
+  "success": true,
+  "sas_file": "testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/omegaexcessreturn_test.sas",
+  "pyspark_code": "from pyspark.sql import SparkSession\n\n# Initialize Spark session\nspark = SparkSession.builder.appName(\"SAS_Migration\").getOrCreate()",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/omegaexcessreturn_test.sas\nMigration Date: 2026-05-07 14:39:45\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 8\n  Total Edges: 6\n  Has Cycles: False\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_006:\nSAS macro logic, file handling, and R integration are replaced with Python functions, pandas for returns calculation, and PySpark DataFrames for data manipulation and comparison. Error handling and table existence checks are mapped to DataFrame existence and row count checks. The business logic and output structure are preserved.\n",
+  "chunks_converted": 1,
+  "total_chunks": 1,
+  "errors": [],
+  "warnings": [],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_006"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T14:39:27.307602",
+    "end_time": "2026-05-07T14:39:45.365162",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/omegaexcessreturn_test.py",
+      "mapping": "output_batch/omegaexcessreturn_test_mapping.txt",
+      "validation": "output_batch/omegaexcessreturn_test_validation.txt",
+      "result": "output_batch/omegaexcessreturn_test_result.json"
+    }
+  },
+  "execution_time": 18.05756,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 0\n  Errors: 0\n  Warnings: 0\n  Info: 0\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 0 valid chunks from 1 total",
+    "Deduplicated imports: 0 -> 0",
+    "Created 1 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup"
+  ]
+}

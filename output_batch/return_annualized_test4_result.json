@@ -1,0 +1,70 @@
+{
+  "success": true,
+  "sas_file": "testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/return_annualized_test4.sas",
+  "pyspark_code": "# Generated PySpark code from SAS migration\n# Execution order optimized by ExecutionOrderOptimizer\n\nimport os\nimport numpy as np\nimport pandas as pd\nfrom pyspark.sql import SparkSession, Window, functions as F\n\nspark = SparkSession.builder.appName(\"SAS_Migration\").getOrCreate()\n\n# Initialize Spark session\n\nannualized_returns_pdf = annualized_returns_pdf[['date'] + [col for col in annualized_returns_pdf.columns if col != 'date']]\n\n# Convert pandas DataFrames to Spark DataFrames\n\n    error_schema = ['date', 'IBM', 'GE', 'DOW', 'GOOGL', 'SPY']\n\n    error_data = [(-1, -999, -999, -999, -999, -999)]\n\n    annualized_returns = spark.createDataFrame(error_data, error_schema)\n\n    error_schema = ['date', 'IBM', 'GE', 'DOW', 'GOOGL', 'SPY']\n\n    error_data = [(1, 999, 999, 999, 999, 999)]\n\n    returns_from_r = spark.createDataFrame(error_data, error_schema)\n\n# Keep only the last row of annualized_returns\n\nwindow_last = Window.orderBy(F.col('date').desc())\n\nannualized_returns = annualized_returns.withColumn('rn', F.row_number().over(window_last)).filter(F.col('rn') == 1).drop('rn')\n\ndef fuzz(x, y, tol=1e-8):\n    return abs(x - y) < tol if x is not None and y is not None else False\n\ndiff_schema = ['date', 'IBM', 'GE', 'DOW', 'GOOGL', 'SPY']\n\n# Macro variables (should be set externally or passed as arguments)\n# Example usage:\n# dir = '/path/to/dir'\n# keep = False\n\ndiff_rows = []\n\ndiff = spark.createDataFrame(diff_rows, diff_schema) if diff_rows else spark.createDataFrame([], diff_schema)\n\nn = diff.count()\n\n# Set n = number of differences\n\n# Set pass/notes based on n\nif n == 0:\n\n    pass_ = True\n\n    notes = 'Passed'\n    print('NOTE: NO ERROR IN TEST RETURN_ANNUALIZED_TEST4')\nelse:\n\n    pass_ = False\n\n# Read prices CSV as Spark DataFrame via pandas\n\n    notes = 'Differences detected in outputs.'\n    print('ERROR: PROBLEM IN TEST RETURN_ANNUALIZED_TEST4')\n\n# Optionally drop intermediate DataFrames if keep==False\nif not keep:\n\n    diff = None\n\n    annualized_returns = None\n\n    returns_from_r = None\n\nprices_path = os.path.join(dir, 'prices.csv')\n\nprices_pdf = pd.read_csv(prices_path, parse_dates=['date'])\nprices_pdf.set_index('date', inplace=True)\n\n# Calculate log returns using pandas\n\nreturns_pdf = np.log(prices_pdf / prices_pdf.shift(1)).dropna()\n\nannualized_returns_pdf = returns_pdf.mean() * 12\n\nannualized_returns_pdf = annualized_returns_pdf.to_frame().T\nannualized_returns_pdf['date'] = returns_pdf.index.max()\n\nreturns_from_r = spark.createDataFrame(returns_pdf.reset_index())\n\nannualized_returns = spark.createDataFrame(annualized_returns_pdf)\n\n# Handle empty DataFrames by replacing with error rows\nif annualized_returns.count() == 0:\n\nif returns_from_r.count() == 0:\n\n# Fuzzy compare returns_from_r and annualized_returns\n\nr_r = returns_from_r.collect()[0]\n\na_r = annualized_returns.collect()[0]\nif any([not fuzz(getattr(r_r, col), getattr(a_r, col)) for col in ['IBM', 'GE', 'DOW', 'GOOGL', 'SPY']]):\n    diff_rows.append(tuple([getattr(r_r, col) for col in diff_schema]))\n\n# Annualize returns (arithmetic mean * 12)\n",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/return_annualized_test4.sas\nMigration Date: 2026-05-07 14:44:21\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 8\n  Total Edges: 6\n  Has Cycles: False\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_006:\nSAS macro logic, file handling, and R integration are replaced by pandas for return calculations and PySpark for DataFrame operations. Table existence checks and error row creation are mapped to DataFrame existence and manual row creation. The compare logic is implemented using Python functions and Spark DataFrames.\n",
+  "chunks_converted": 1,
+  "total_chunks": 1,
+  "errors": [],
+  "warnings": [
+    "Line 22: Variable 'path' is used but never defined",
+    "Line 23: Variable 'pd' is used but never defined",
+    "Line 27: Variable 'np' is used but never defined"
+  ],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_006"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T14:44:06.901584",
+    "end_time": "2026-05-07T14:44:21.813723",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/return_annualized_test4.py",
+      "mapping": "output_batch/return_annualized_test4_mapping.txt",
+      "validation": "output_batch/return_annualized_test4_validation.txt",
+      "result": "output_batch/return_annualized_test4_result.json"
+    }
+  },
+  "execution_time": 14.912139,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 22\n  Errors: 0\n  Warnings: 3\n  Info: 19\n\nWARNINGS:\n----------------------------------------\n  Line 22: Variable 'path' is used but never defined\n  Line 23: Variable 'pd' is used but never defined\n  Line 27: Variable 'np' is used but never defined\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 1 valid chunks from 1 total",
+    "Deduplicated imports: 4 -> 4",
+    "Created 1 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup",
+    "Reordered 45 code blocks for optimal execution",
+    "Warning: Block block_0 uses undefined variables: {'numpy', 'pd', 'pandas', 'np'}",
+    "Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}",
+    "Warning: Block block_3 uses undefined variables: {'should', 'dir', 'keep', 'variables', 'arguments', 'externally', 'be', 'Macro', 'Example', 'passed'}",
+    "Warning: Block block_4 uses undefined variables: {'prices', 'Read', 'CSV', 'via', 'Spark'}",
+    "Warning: Block block_5 uses undefined variables: {'prices', 'dir', 'path'}",
+    "Warning: Block block_6 uses undefined variables: {'pd'}",
+    "Warning: Block block_7 uses undefined variables: {'using', 'returns', 'Calculate'}",
+    "Warning: Block block_8 uses undefined variables: {'np'}",
+    "Warning: Block block_9 uses undefined variables: {'returns', 'arithmetic', 'Annualize'}",
+    "Warning: Block block_11 uses undefined variables: {'index'}",
+    "Warning: Block block_13 uses undefined variables: {'Convert', 'DataFrames', 'to', 'Spark', 'pandas'}",
+    "Warning: Block block_16 uses undefined variables: {'by', 'DataFrames', 'error', 'rows', 'Handle', 'replacing', 'empty'}",
+    "Warning: Block block_24 uses undefined variables: {'row', 'of', 'Keep', 'only', 'the'}",
+    "Warning: Block block_27 uses undefined variables: {'Fuzzy', 'compare'}",
+    "Warning: Block block_28 uses undefined variables: {'x', 'y', 'tol'}",
+    "Warning: Block block_34 uses undefined variables: {'Set', 'of', 'number'}",
+    "Warning: Block block_36 uses undefined variables: {'Set', 'based', 'on'}",
+    "Warning: Block block_38 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}",
+    "Warning: Block block_40 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}",
+    "Warning: Block block_41 uses undefined variables: {'Optionally', 'DataFrames', 'intermediate'}"
+  ]
+}

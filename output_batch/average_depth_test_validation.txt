@@ -1,0 +1,51 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 22
+  Errors: 0
+  Warnings: 6
+  Info: 16
+
+WARNINGS:
+----------------------------------------
+  Line 23: Variable 'path' is used but never defined
+  Line 23: Variable 'pd' is used but never defined
+  Line 69: Variable 'SELECT' is used but never defined
+  Line 70: Variable 'r' is used but never defined
+  Line 77: Variable 'a' is used but never defined
+  Line 78: Variable 'WHERE' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 5 -> 5
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 35 code blocks for optimal execution
+  - Warning: Block block_0 uses undefined variables: {'pd', 'pandas'}
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}
+  - Warning: Block block_3 uses undefined variables: {'variables', 'up', 'macro', 'Set'}
+  - Warning: Block block_4 uses undefined variables: {'Set', 'macro'}
+  - Warning: Block block_5 uses undefined variables: {'environ'}
+  - Warning: Block block_6 uses undefined variables: {'prices', 'financial', 'Read', 'CSV', 'pandas'}
+  - Warning: Block block_7 uses undefined variables: {'prices', 'pd', 'path'}
+  - Warning: Block block_8 uses undefined variables: {'returns', 'Calculate', 'method', 'discrete'}
+  - Warning: Block block_10 uses undefined variables: {'Calculate', 'average', 'PySpark', 'using', 'equivalent', 'drawdown', 'lacks', 'direct', 'pandas'}
+  - Warning: Block block_11 uses undefined variables: {'returns'}
+  - Warning: Block block_12 uses undefined variables: {'returns'}
+  - Warning: Block block_13 uses undefined variables: {'pd'}
+  - Warning: Block block_15 uses undefined variables: {'Convert', 'DataFrames', 'to', 'Spark', 'pandas'}
+  - Warning: Block block_18 uses undefined variables: {'SQL', 'temp', 'Register', 'views', 'operations'}
+  - Warning: Block block_19 uses undefined variables: {'FROM', 'catalog', 'temp', 'views', 'records', 'they', 'Drop', 'have', 'cnt'}
+  - Warning: Block block_20 uses undefined variables: {'create', 'do', 'tables', 'error', 'If', 'exist'}
+  - Warning: Block block_21 uses undefined variables: {'catalog', 't'}
+  - Warning: Block block_27 uses undefined variables: {'Compare', 'the', 'tables', 'diff', 'differences', 'output', 'two', 'fuzz'}
+  - Warning: Block block_28 uses undefined variables: {'ON', 'Avg_DD', 'OUTER', 'a', 'WHERE', 'IBM_r', 'GE_a', 'JOIN', 'IBM_a', 'GE_r', 'SELECT', 'returns_from_r', 'SPY_r', 'r', 'DOW_a', 'FULL', 'SPY_a', 'OR', 'FROM', 'DOW_r', 'GOOGL_a', 'GOOGL_r'}
+  - Warning: Block block_29 uses undefined variables: {'NO', 'ERROR', 'variables', 'Check', 'differences', 'IN', 'TEST'}
+  - Warning: Block block_31 uses undefined variables: {'IN', 'TEST', 'PROBLEM'}
+  - Warning: Block block_33 uses undefined variables: {'outputs', 'detected'}
+  - Warning: Block block_34 uses undefined variables: {'catalog', 'views', 'temp', 'Cleanup'}

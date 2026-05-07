@@ -1,0 +1,49 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 22
+  Errors: 0
+  Warnings: 3
+  Info: 19
+
+WARNINGS:
+----------------------------------------
+  Line 23: Variable 'path' is used but never defined
+  Line 24: Variable 'pd' is used but never defined
+  Line 100: Variable 'pass' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 6 -> 6
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 46 code blocks for optimal execution
+  - Warning: Block block_0 uses undefined variables: {'row_number', 'pyspark_abs', 'pd', 'pandas'}
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}
+  - Warning: Block block_3 uses undefined variables: {'assumed', 'dir', 'environment', 'nv', 'keep', 'assume', 'provided', 'variables', 'are', 'dependencies', 'be', 'Set', 'to', 'the', 'these'}
+  - Warning: Block block_4 uses undefined variables: {'prices', 'Read', 'preprocess'}
+  - Warning: Block block_5 uses undefined variables: {'prices', 'dir', 'path'}
+  - Warning: Block block_6 uses undefined variables: {'pd'}
+  - Warning: Block block_7 uses undefined variables: {'Calculate', 'discrete'}
+  - Warning: Block block_9 uses undefined variables: {'returns', 'geometric', 'Calculate', 'cumulative'}
+  - Warning: Block block_11 uses undefined variables: {'Convert', 'DataFrames', 'to', 'Spark', 'pandas'}
+  - Warning: Block block_14 uses undefined variables: {'DataFrames', 'error', 'Handle', 'values', 'empty'}
+  - Warning: Block block_21 uses undefined variables: {'row', 'of', 'Keep', 'only', 'the'}
+  - Warning: Block block_26 uses undefined variables: {'excluding', 'Compare', 'column'}
+  - Warning: Block block_27 uses undefined variables: {'suffixes', 'columns', 'distinguish', 'Add', 'to'}
+  - Warning: Block block_28 uses undefined variables: {'c'}
+  - Warning: Block block_29 uses undefined variables: {'c'}
+  - Warning: Block block_30 uses undefined variables: {'row', 'of', 'Cross', 'only', 'since'}
+  - Warning: Block block_32 uses undefined variables: {'differences', 'c', 'Calculate'}
+  - Warning: Block block_34 uses undefined variables: {'comparison', 'point', 'tolerance', 'a', 'floating', 'Define', 'fuzz'}
+  - Warning: Block block_35 uses undefined variables: {'col1', 'col2'}
+  - Warning: Block block_36 uses undefined variables: {'Apply', 'logic', 'fuzz'}
+  - Warning: Block block_39 uses undefined variables: {'differences', 'Count', 'of', 'number'}
+  - Warning: Block block_42 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}
+  - Warning: Block block_44 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}
+  - Warning: Block block_45 uses undefined variables: {'df_name', 'catalog', 'keep', 'Clean', 'temporary', 'DataFrames', 'up'}

@@ -1,0 +1,43 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 18
+  Errors: 0
+  Warnings: 3
+  Info: 15
+
+WARNINGS:
+----------------------------------------
+  Line 22: Variable 'path' is used but never defined
+  Line 23: Variable 'pd' is used but never defined
+  Line 33: Variable 'df' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 5 -> 5
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 34 code blocks for optimal execution
+  - Warning: Block block_0 uses undefined variables: {'ps_abs', 'numpy', 'np', 'pd', 'pandas'}
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}
+  - Warning: Block block_3 uses undefined variables: {'assumed', 'dir', 'environment', 'nv', 'keep', 'assume', 'provided', 'variables', 'are', 'elsewhere', 'n', 'be', 'Set', 'to', 'the', 'passed', 'these', 'up'}
+  - Warning: Block block_4 uses undefined variables: {'prices', 'Read', 'Pandas'}
+  - Warning: Block block_5 uses undefined variables: {'prices', 'dir', 'path'}
+  - Warning: Block block_6 uses undefined variables: {'pd'}
+  - Warning: Block block_7 uses undefined variables: {'using', 'returns', 'Calculate', 'discrete'}
+  - Warning: Block block_9 uses undefined variables: {'matrix', 'cokurtosis', 'Calculate', 'using'}
+  - Warning: Block block_10 uses undefined variables: {'df'}
+  - Warning: Block block_11 uses undefined variables: {'df'}
+  - Warning: Block block_13 uses undefined variables: {'i', 'pd', 'j', 'np'}
+  - Warning: Block block_19 uses undefined variables: {'Convert', 'DataFrames', 'to', 'Spark', 'pandas'}
+  - Warning: Block block_22 uses undefined variables: {'handle', 'Check', 'DataFrames', 'empty', 'errors'}
+  - Warning: Block block_24 uses undefined variables: {'pd'}
+  - Warning: Block block_25 uses undefined variables: {'Compare', 'compare', 'requirements', 'structures', 'logic', 'valid', 'adjust', 'to', 'the', 'For', 'comparison', 'you', 'columns', 'do', 'asset', 'demonstration', 'applicable', 'may', 'have', 'according', 'specified', 'we', 'example', 'match', 'be', 'on', 'does', 'need', 'skip', 'your', 'business', 'DataFrames', 'If', 'directly', 'original'}
+  - Warning: Block block_26 uses undefined variables: {'based', 'comparison', 'performed', 'dummy', 'logic', 'on', 'Set'}
+  - Warning: Block block_28 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}
+  - Warning: Block block_29 uses undefined variables: {'keep', 'intermediate', 'Clean', 'DataFrames', 'up'}

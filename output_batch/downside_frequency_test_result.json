@@ -1,0 +1,68 @@
+{
+  "success": true,
+  "sas_file": "testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/downside_frequency_test.sas",
+  "pyspark_code": "# Generated PySpark code from SAS migration\n# Execution order optimized by ExecutionOrderOptimizer\n\nimport os\nimport pandas as pd\nfrom pyspark.sql import SparkSession\nfrom pyspark.sql.functions import abs, col\n\nspark = SparkSession.builder.appName('DownsideFrequencyTest').getOrCreate()\n\n# --- Initialize Spark session ---\n\nMAR = 0.01 / 252\n\n# --- Downside Frequency calculation (MAR = 0.01/252) ---\n\ndownside_frequency_pd = downside_frequency_pd[['date'] + [c for c in downside_frequency_pd.columns if c != 'date']]\n\n# --- Convert pandas DataFrames to Spark DataFrames ---\n\n# --- Save DataFrames for comparison ---\n\nreturns_from_r = returns_sdf\n\nDownsideFrequency = downside_frequency_sdf\n\n# --- If tables have 0 records, create error DataFrames ---\n\nerror_schema = ['date', 'IBM', 'GE', 'DOW', 'GOOGL', 'SPY']\nif DownsideFrequency.count() == 0:\n\n    error_data = [(-1, -999, -999, -999, -999, -999)]\n\n    DownsideFrequency = spark.createDataFrame(error_data, error_schema)\nif returns_from_r.count() == 0:\n\n    error_data = [(1, 999, 999, 999, 999, 999)]\n\n    returns_from_r = spark.createDataFrame(error_data, error_schema)\n\n# --- Compare DataFrames and output differences ---\n\n# --- Set variables from macro or environment ---\n\ndiff = returns_from_r.alias('base').join(\n    DownsideFrequency.alias('compare'),\n    on='date',\n    how='inner'\n)\n\ndiff = diff.select(\n    col('base.date'),\n    (abs(col('base.IBM') - col('compare.IBM'))).alias('IBM_DIF'),\n    (abs(col('base.GE') - col('compare.GE'))).alias('GE_DIF'),\n    (abs(col('base.DOW') - col('compare.DOW'))).alias('DOW_DIF'),\n    (abs(col('base.GOOGL') - col('compare.GOOGL'))).alias('GOOGL_DIF'),\n    (abs(col('base.SPY') - col('compare.SPY'))).alias('SPY_DIF')\n)\n\ndiff = diff.withColumn(\n    'DIF',\n    (col('IBM_DIF') > 1e-8) |\n    (col('GE_DIF') > 1e-8) |\n    (col('DOW_DIF') > 1e-8) |\n    (col('GOOGL_DIF') > 1e-8) |\n    (col('SPY_DIF') > 1e-8)\n)\n\ndiff_filtered = diff.filter(col('DIF'))\n\nn = diff_filtered.count()\n\n    pass_test = True\n\n    notes = 'Passed'\n    print('NOTE: NO ERROR IN TEST DOWNSIDE_FREQUENCY_TEST')\nelse:\n\n# --- Set pass/fail and notes ---\nif n == 0:\n\n    pass_test = False\n\n    notes = 'Differences detected in outputs.'\n    print('ERROR: PROBLEM IN TEST DOWNSIDE_FREQUENCY_TEST')\n\nkeep = False if str(keep).upper() == 'FALSE' else True\n\n# --- Cleanup if keep is False ---\nif not keep:\n\n    returns_from_r = None\n\n    DownsideFrequency = None\n\n    diff = None\n\ndir_path = dir\n\n# --- Read prices CSV as DataFrame ---\n\nprices_path = os.path.join(dir_path, 'prices.csv')\n\nprices_pd = pd.read_csv(prices_path)\nprices_pd['date'] = pd.to_datetime(prices_pd['date'])\nprices_pd.set_index('date', inplace=True)\n\nreturns_pd = prices_pd.pct_change().dropna()\n\ndownside_mask = returns_pd < MAR\n\ndownside_frequency_pd = downside_mask.sum() / len(returns_pd)\n\ndownside_frequency_pd = downside_frequency_pd.to_frame().T\ndownside_frequency_pd['date'] = returns_pd.index[-1]\n\nreturns_sdf = spark.createDataFrame(returns_pd.reset_index())\n\ndownside_frequency_sdf = spark.createDataFrame(downside_frequency_pd)\n\n# --- Calculate discrete returns ---\n",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/downside_frequency_test.sas\nMigration Date: 2026-05-07 14:26:57\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 8\n  Total Edges: 6\n  Has Cycles: False\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_006:\nSAS macro logic, file handling, and R integration are replaced by Python and PySpark DataFrame operations. Data comparison and error handling are mapped to DataFrame joins and conditional logic. Macro variables are mapped to Python variables; temporary file logic is omitted as not needed in PySpark.\n",
+  "chunks_converted": 1,
+  "total_chunks": 1,
+  "errors": [],
+  "warnings": [
+    "Line 23: Variable 'path' is used but never defined",
+    "Line 24: Variable 'pd' is used but never defined",
+    "Line 32: Variable '0' is used but never defined"
+  ],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_006"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T14:26:31.430159",
+    "end_time": "2026-05-07T14:26:57.803748",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/downside_frequency_test.py",
+      "mapping": "output_batch/downside_frequency_test_mapping.txt",
+      "validation": "output_batch/downside_frequency_test_validation.txt",
+      "result": "output_batch/downside_frequency_test_result.json"
+    }
+  },
+  "execution_time": 26.373589,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 24\n  Errors: 0\n  Warnings: 3\n  Info: 21\n\nWARNINGS:\n----------------------------------------\n  Line 23: Variable 'path' is used but never defined\n  Line 24: Variable 'pd' is used but never defined\n  Line 32: Variable '0' is used but never defined\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 1 valid chunks from 1 total",
+    "Deduplicated imports: 5 -> 5",
+    "Created 1 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup",
+    "Reordered 44 code blocks for optimal execution",
+    "Warning: Block block_0 uses undefined variables: {'pd', 'pandas'}",
+    "Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark', 'session'}",
+    "Warning: Block block_3 uses undefined variables: {'environment', 'macro', 'variables', 'Set'}",
+    "Warning: Block block_6 uses undefined variables: {'prices', 'Read', 'CSV'}",
+    "Warning: Block block_7 uses undefined variables: {'prices', 'path'}",
+    "Warning: Block block_8 uses undefined variables: {'pd'}",
+    "Warning: Block block_9 uses undefined variables: {'returns', 'Calculate', 'discrete'}",
+    "Warning: Block block_11 uses undefined variables: {'Downside', 'Frequency', 'calculation'}",
+    "Warning: Block block_16 uses undefined variables: {'c'}",
+    "Warning: Block block_17 uses undefined variables: {'Convert', 'DataFrames', 'to', 'Spark', 'pandas'}",
+    "Warning: Block block_20 uses undefined variables: {'Save', 'comparison', 'DataFrames'}",
+    "Warning: Block block_23 uses undefined variables: {'create', 'DataFrames', 'records', 'tables', 'error', 'If', 'have'}",
+    "Warning: Block block_29 uses undefined variables: {'differences', 'Compare', 'output', 'DataFrames'}",
+    "Warning: Block block_31 uses undefined variables: {'base', 'compare'}",
+    "Warning: Block block_35 uses undefined variables: {'Set'}",
+    "Warning: Block block_37 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}",
+    "Warning: Block block_39 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}",
+    "Warning: Block block_40 uses undefined variables: {'Cleanup'}"
+  ]
+}

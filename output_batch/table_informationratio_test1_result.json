@@ -1,0 +1,72 @@
+{
+  "success": true,
+  "sas_file": "testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/table_informationratio_test1.sas",
+  "pyspark_code": "# Generated PySpark code from SAS migration\n# Execution order optimized by ExecutionOrderOptimizer\n\nimport pandas as pd\nfrom pyspark.sql import SparkSession\nfrom pyspark.sql.functions import abs as ps_abs, col\nimport os\n\nspark = SparkSession.builder.appName(\"table_InformationRatio_test1\").getOrCreate()\n\n# Initialize Spark session\n\n# --- Calculate Returns ---\n\nassets = returns_pd[asset_cols]\n\nbenchmark = returns_pd[benchmark_col]\n\n# --- Calculate Information Ratio ---\n# Assume first 4 columns are assets, 5th is benchmark (SPY)\n\nexcess_returns = assets.subtract(benchmark, axis=0)\n\ninfo_ratio = excess_returns.mean() / excess_returns.std(ddof=0)\n\ninfo_ratio = info_ratio.round(8)\n\n# Prepare output DataFrame\n\ntable_InformationRatio_pd = table_InformationRatio_pd.round(8)\n\n# --- Prepare Returns DataFrame for Comparison ---\n\n# Set up variables (replace with actual values or pass as arguments)\n\n# --- Compare DataFrames: Absolute Differences ---\n\nfor col_name in join_cols:\n\n    diff_sdf = diff_sdf.withColumn(f\"{col_name}_DIF\", ps_abs(col(col_name) - col(col_name)))\n\n# Apply custom thresholds for filtering\n\nkeep = False  # Set to True to keep intermediate DataFrames\n\n    pass_test = True\n\n    notes = 'Passed'\n    print('NOTE: NO ERROR IN TEST table_InformationRatio_TEST1')\nelse:\n\n    pass_test = False\n\n    notes = 'Differences detected in outputs.'\n    print('ERROR: PROBLEM IN TEST table_InformationRatio_TEST1')\n\n# --- Optional Cleanup ---\nif not keep:\n    # Optionally clean up intermediate DataFrames if needed\n    pass\n\ndata_dir = '/path/to/data'  # Replace with actual directory path\n\n# --- Read and Prepare Data ---\n# Read prices.csv as pandas DataFrame\n\nprices_pd = pd.read_csv(os.path.join(data_dir, 'prices.csv'))\nprices_pd.index = pd.to_datetime(prices_pd.iloc[:, 0])\n\nprices_sdf = spark.createDataFrame(prices_pd.reset_index())\n\nreturns_pd = prices_pd.pct_change().dropna()\n\nreturns_sdf = spark.createDataFrame(returns_pd.reset_index())\n\nasset_cols = returns_pd.columns[:4]\n\nbenchmark_col = returns_pd.columns[4]\n\ntable_InformationRatio_pd = pd.DataFrame([info_ratio], columns=asset_cols)\ntable_InformationRatio_pd[benchmark_col] = benchmark.mean() / benchmark.std(ddof=0)\n\ntable_InformationRatio_sdf = spark.createDataFrame(table_InformationRatio_pd)\n\nreturns_from_r_sdf = returns_sdf.select(*asset_cols, benchmark_col)\n\n# --- Handle Empty DataFrames ---\nif table_InformationRatio_sdf.count() == 0:\n\n    error_dict = {col: [-999.0] for col in list(asset_cols) + [benchmark_col]}\n\n    table_InformationRatio_sdf = spark.createDataFrame(pd.DataFrame(error_dict))\nif returns_from_r_sdf.count() == 0:\n\n    error_dict = {col: [999.0] for col in list(asset_cols) + [benchmark_col]}\n\n    returns_from_r_sdf = spark.createDataFrame(pd.DataFrame(error_dict))\n\njoin_cols = list(asset_cols) + [benchmark_col]\n\ndiff_sdf = returns_from_r_sdf.join(table_InformationRatio_sdf, on=join_cols, how='outer')\n\ndiff_filtered = diff_sdf.filter(\n    (col('IBM_DIF') > 1e-4) |\n    (col('GE_DIF') > 1e-3) |\n    (col('DOW_DIF') > 1e-4) |\n    (col('GOOGL_DIF') > 1e-3)\n)\n\nn = diff_filtered.count()\n\n# --- Set Pass/Fail and Notes ---\nif n == 0:\n\nprices_pd = prices_pd.iloc[:, 1:]\n\n# Convert prices to Spark DataFrame\n",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/table_informationratio_test1.sas\nMigration Date: 2026-05-07 15:02:37\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 8\n  Total Edges: 6\n  Has Cycles: False\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_006:\nSAS macro logic is mapped to Python functions and variables. Data steps and PROC SQL are replaced with pandas and PySpark DataFrame operations. R integration is replaced by pandas/numpy calculations. Table existence and cleanup logic is handled with Python conditionals and DataFrame deletion.\n",
+  "chunks_converted": 1,
+  "total_chunks": 1,
+  "errors": [],
+  "warnings": [
+    "Line 23: Variable 'pd' is used but never defined"
+  ],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_006"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T15:02:12.387883",
+    "end_time": "2026-05-07T15:02:37.808389",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/table_informationratio_test1.py",
+      "mapping": "output_batch/table_informationratio_test1_mapping.txt",
+      "validation": "output_batch/table_informationratio_test1_validation.txt",
+      "result": "output_batch/table_informationratio_test1_result.json"
+    }
+  },
+  "execution_time": 25.420506,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 19\n  Errors: 0\n  Warnings: 1\n  Info: 18\n\nWARNINGS:\n----------------------------------------\n  Line 23: Variable 'pd' is used but never defined\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 1 valid chunks from 1 total",
+    "Deduplicated imports: 5 -> 5",
+    "Created 1 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup",
+    "Reordered 47 code blocks for optimal execution",
+    "Warning: Block block_0 uses undefined variables: {'ps_abs', 'pd', 'pandas'}",
+    "Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}",
+    "Warning: Block block_3 uses undefined variables: {'replace', 'variables', 'arguments', 'actual', 'Set', 'values', 'up'}",
+    "Warning: Block block_4 uses undefined variables: {'to', 'intermediate', 'Set'}",
+    "Warning: Block block_5 uses undefined variables: {'directory', 'actual', 'Replace'}",
+    "Warning: Block block_6 uses undefined variables: {'prices', 'Read', 'Data', 'Prepare', 'pandas'}",
+    "Warning: Block block_7 uses undefined variables: {'prices', 'pd', 'path'}",
+    "Warning: Block block_9 uses undefined variables: {'prices', 'to', 'Convert', 'Spark'}",
+    "Warning: Block block_11 uses undefined variables: {'Returns', 'Calculate'}",
+    "Warning: Block block_14 uses undefined variables: {'Assume', 'Calculate', 'are', 'SPY', 'columns', 'Ratio', 'Information'}",
+    "Warning: Block block_22 uses undefined variables: {'Prepare', 'output'}",
+    "Warning: Block block_23 uses undefined variables: {'pd'}",
+    "Warning: Block block_26 uses undefined variables: {'Returns', 'Comparison', 'Prepare'}",
+    "Warning: Block block_28 uses undefined variables: {'Handle', 'DataFrames', 'Empty'}",
+    "Warning: Block block_30 uses undefined variables: {'pd'}",
+    "Warning: Block block_32 uses undefined variables: {'pd'}",
+    "Warning: Block block_33 uses undefined variables: {'Compare', 'Differences', 'Absolute'}",
+    "Warning: Block block_36 uses undefined variables: {'col_name'}",
+    "Warning: Block block_37 uses undefined variables: {'col_name'}",
+    "Warning: Block block_38 uses undefined variables: {'Apply', 'thresholds', 'custom'}",
+    "Warning: Block block_41 uses undefined variables: {'Set', 'Notes'}",
+    "Warning: Block block_43 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}",
+    "Warning: Block block_45 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}",
+    "Warning: Block block_46 uses undefined variables: {'Optional', 'intermediate', 'DataFrames', 'clean', 'Optionally', 'Cleanup', 'needed', 'up'}"
+  ]
+}

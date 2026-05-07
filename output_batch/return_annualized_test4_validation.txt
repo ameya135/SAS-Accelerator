@@ -1,0 +1,45 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 22
+  Errors: 0
+  Warnings: 3
+  Info: 19
+
+WARNINGS:
+----------------------------------------
+  Line 22: Variable 'path' is used but never defined
+  Line 23: Variable 'pd' is used but never defined
+  Line 27: Variable 'np' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 4 -> 4
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 45 code blocks for optimal execution
+  - Warning: Block block_0 uses undefined variables: {'numpy', 'pd', 'pandas', 'np'}
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}
+  - Warning: Block block_3 uses undefined variables: {'should', 'dir', 'keep', 'variables', 'arguments', 'externally', 'be', 'Macro', 'Example', 'passed'}
+  - Warning: Block block_4 uses undefined variables: {'prices', 'Read', 'CSV', 'via', 'Spark'}
+  - Warning: Block block_5 uses undefined variables: {'prices', 'dir', 'path'}
+  - Warning: Block block_6 uses undefined variables: {'pd'}
+  - Warning: Block block_7 uses undefined variables: {'using', 'returns', 'Calculate'}
+  - Warning: Block block_8 uses undefined variables: {'np'}
+  - Warning: Block block_9 uses undefined variables: {'returns', 'arithmetic', 'Annualize'}
+  - Warning: Block block_11 uses undefined variables: {'index'}
+  - Warning: Block block_13 uses undefined variables: {'Convert', 'DataFrames', 'to', 'Spark', 'pandas'}
+  - Warning: Block block_16 uses undefined variables: {'by', 'DataFrames', 'error', 'rows', 'Handle', 'replacing', 'empty'}
+  - Warning: Block block_24 uses undefined variables: {'row', 'of', 'Keep', 'only', 'the'}
+  - Warning: Block block_27 uses undefined variables: {'Fuzzy', 'compare'}
+  - Warning: Block block_28 uses undefined variables: {'x', 'y', 'tol'}
+  - Warning: Block block_34 uses undefined variables: {'Set', 'of', 'number'}
+  - Warning: Block block_36 uses undefined variables: {'Set', 'based', 'on'}
+  - Warning: Block block_38 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}
+  - Warning: Block block_40 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}
+  - Warning: Block block_41 uses undefined variables: {'Optionally', 'DataFrames', 'intermediate'}

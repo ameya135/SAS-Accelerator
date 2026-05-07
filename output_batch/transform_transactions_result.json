@@ -1,0 +1,57 @@
+{
+  "success": true,
+  "sas_file": "sas_etl_project/transform_transactions.sas",
+  "pyspark_code": "# Generated PySpark code from SAS migration\n# Execution order optimized by ExecutionOrderOptimizer\n\nfrom pyspark.sql import SparkSession, functions as F\n\nspark = SparkSession.builder.appName(\"SAS_Migration\").getOrCreate()\n\n# Initialize Spark session\n\n# Frequency count for 'region'\n\n# Frequency count for 'high_value_flag'\n\n# Utility functions\n\ndef clean_string(col):\n    \"\"\"Remove non-alphanumeric characters and trim whitespace.\"\"\"\n    return F.trim(F.regexp_replace(col, '[^A-Za-z0-9 ]', ''))\n\ndef calc_tax(amount_col, region_col):\n    \"\"\"Calculate tax based on region.\"\"\"\n    return (\n        F.when(region_col == 'CA', amount_col * 0.08)\n         .when(region_col == 'NY', amount_col * 0.09)\n         .otherwise(amount_col * 0.07)\n    )\n\n# Load raw transactions data\n\nraw_transactions_df = spark.table('staging.raw_transactions')\n\n# Clean and transform data\n\nclean_transactions_df = (\n    raw_transactions_df\n    .withColumn('product', clean_string(F.col('product')))\n    .withColumn('region', clean_string(F.col('region')))\n    .withColumn('tax', calc_tax(F.col('amount'), F.col('region')))\n    .withColumn('total_amount', F.col('amount') + F.col('tax'))\n    .withColumn('high_value_flag', F.when(F.col('total_amount') > 200, F.lit(1)).otherwise(F.lit(0)))\n)\n\nregion_freq_df = (\n    clean_transactions_df\n    .groupBy('region')\n    .count()\n    .orderBy('region')\n)\n\nhigh_value_flag_freq_df = (\n    clean_transactions_df\n    .groupBy('high_value_flag')\n    .count()\n    .orderBy('high_value_flag')\n)\n\n# Uncomment to save cleaned data to table\n# clean_transactions_df.write.mode('overwrite').saveAsTable('staging.clean_transactions')\n",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: sas_etl_project/transform_transactions.sas\nMigration Date: 2026-05-07 02:35:00\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 6\n  Total Edges: 5\n  Has Cycles: False\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_003:\nSAS DATA step with macro calls is mapped to PySpark DataFrame transformations using withColumn and UDFs for string cleaning and tax calculation. Conditional logic and flagging are handled with when/otherwise. Output DataFrame matches SAS output dataset.\n\n\nchunk_006:\nSAS PROC FREQ tables are mapped to PySpark groupBy().count() for each column. Output DataFrames are named for each frequency table.\n",
+  "chunks_converted": 2,
+  "total_chunks": 2,
+  "errors": [],
+  "warnings": [],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_003",
+      "chunk_006"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T02:34:48.667198",
+    "end_time": "2026-05-07T02:35:00.357820",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/transform_transactions.py",
+      "mapping": "output_batch/transform_transactions_mapping.txt",
+      "validation": "output_batch/transform_transactions_validation.txt",
+      "result": "output_batch/transform_transactions_result.json"
+    }
+  },
+  "execution_time": 11.690622,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 2\n  Errors: 0\n  Warnings: 0\n  Info: 2\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 2 valid chunks from 2 total",
+    "Deduplicated imports: 2 -> 1",
+    "Created 2 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup",
+    "Reordered 15 code blocks for optimal execution",
+    "Warning: Block block_1 uses undefined variables: {'Spark', 'Initialize'}",
+    "Warning: Block block_3 uses undefined variables: {'Utility'}",
+    "Warning: Block block_4 uses undefined variables: {'whitespace', 'characters'}",
+    "Warning: Block block_5 uses undefined variables: {'amount_col', 'based', 'on', 'tax', 'region_col', 'region'}",
+    "Warning: Block block_6 uses undefined variables: {'Load', 'raw', 'transactions'}",
+    "Warning: Block block_7 uses undefined variables: {'staging'}",
+    "Warning: Block block_8 uses undefined variables: {'transform', 'Clean'}",
+    "Warning: Block block_10 uses undefined variables: {'Frequency'}",
+    "Warning: Block block_12 uses undefined variables: {'Frequency'}",
+    "Warning: Block block_14 uses undefined variables: {'staging', 'cleaned', 'to', 'Uncomment', 'save'}"
+  ]
+}

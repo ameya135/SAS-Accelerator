@@ -1,0 +1,20 @@
+SAS TO PYSPARK MIGRATION MAPPING
+============================================================
+Source File: testSAS/SASPerformanceAnalytics/performance_analytics_library/setup/create_sas_tables.sas
+Migration Date: 2026-05-07 14:15:09
+Migration Method: Graph-Based Dependency Analysis
+
+GRAPH SUMMARY:
+  Total Nodes: 15
+  Total Edges: 12
+  Has Cycles: False
+
+CHUNK-BY-CHUNK MAPPING:
+------------------------------------------------------------
+
+chunk_008:
+SAS PROC COPY with SELECT is mapped to copying DataFrames for the selected tables. The 'in=work' and 'outlib=out' are represented by variable naming conventions in PySpark.
+
+
+chunk_010:
+SAS PROC IMPORT/EXPORT map to PySpark read/write with CSV. DATA step with INFILE and schema maps to spark.read.csv with explicit schema. Variable name mapping applied for 'edhec_out'.

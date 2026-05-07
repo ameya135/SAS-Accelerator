@@ -1,0 +1,72 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 35
+  Errors: 0
+  Warnings: 4
+  Info: 31
+
+WARNINGS:
+----------------------------------------
+  Line 35: Variable 'np' is used but never defined
+  Line 60: Variable '0' is used but never defined
+  Line 61: Variable 'pd' is used but never defined
+  Line 78: Variable 'na' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 8 -> 6
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 64 code blocks for optimal execution
+  - Warning: Block block_0 uses undefined variables: {'numpy', 'pyspark_abs', 'np', 'pd', 'lag', 'pandas'}
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}
+  - Warning: Block block_3 uses undefined variables: {'this', 'running', 'variable', 'directory', 'ensure', 'Set'}
+  - Warning: Block block_4 uses undefined variables: {'this', 'Update', 'path'}
+  - Warning: Block block_5 uses undefined variables: {'prices', 'Read'}
+  - Warning: Block block_6 uses undefined variables: {'prices'}
+  - Warning: Block block_7 uses undefined variables: {'to', 'Convert', 'Pandas'}
+  - Warning: Block block_9 uses undefined variables: {'returns', 'Calculate', 'discrete'}
+  - Warning: Block block_11 uses undefined variables: {'of', 'equivalent', 'Python', 'Define', 'tM2'}
+  - Warning: Block block_13 uses undefined variables: {'R'}
+  - Warning: Block block_14 uses undefined variables: {'R'}
+  - Warning: Block block_15 uses undefined variables: {'scale', 'np'}
+  - Warning: Block block_16 uses undefined variables: {'scale', 'np'}
+  - Warning: Block block_17 uses undefined variables: {'scale', 'np'}
+  - Warning: Block block_18 uses undefined variables: {'R', 'scale', 'np'}
+  - Warning: Block block_19 uses undefined variables: {'R', 'scale', 'np'}
+  - Warning: Block block_20 uses undefined variables: {'geometric', 'scale'}
+  - Warning: Block block_21 uses undefined variables: {'scale'}
+  - Warning: Block block_22 uses undefined variables: {'geometric', 'scale'}
+  - Warning: Block block_23 uses undefined variables: {'scale'}
+  - Warning: Block block_24 uses undefined variables: {'scale'}
+  - Warning: Block block_26 uses undefined variables: {'Apply', 'GE', 'GOOGL', 'column', 'IBM', 'DOW', 'SPY', 'columns', 'to', 'tM2'}
+  - Warning: Block block_29 uses undefined variables: {'i'}
+  - Warning: Block block_30 uses undefined variables: {'pd'}
+  - Warning: Block block_32 uses undefined variables: {'to', 'Convert', 'Spark'}
+  - Warning: Block block_34 uses undefined variables: {'returns', 'Calculate', 'discrete'}
+  - Warning: Block block_35 uses undefined variables: {'colname'}
+  - Warning: Block block_36 uses undefined variables: {'colname'}
+  - Warning: Block block_37 uses undefined variables: {'row', 'Drop', 'null'}
+  - Warning: Block block_38 uses undefined variables: {'na', 'c'}
+  - Warning: Block block_39 uses undefined variables: {'using', 'calculation', 'Spark'}
+  - Warning: Block block_40 uses undefined variables: {'GE', 'GOOGL', 'DOW', 'IBM', 'SPY'}
+  - Warning: Block block_41 uses undefined variables: {'GE', 'DOW', 'np'}
+  - Warning: Block block_42 uses undefined variables: {'SPY', 'np'}
+  - Warning: Block block_43 uses undefined variables: {'i'}
+  - Warning: Block block_44 uses undefined variables: {'udf', 'GE', 'GOOGL', 'DOW', 'IBM', 'SPY'}
+  - Warning: Block block_45 uses undefined variables: {'Aggregate'}
+  - Warning: Block block_47 uses undefined variables: {'pd'}
+  - Warning: Block block_50 uses undefined variables: {'empty', 'Handle', 'DataFrames'}
+  - Warning: Block block_53 uses undefined variables: {'fuzzy', 'Compare', 'comparison', 'DataFrames'}
+  - Warning: Block block_55 uses undefined variables: {'Count'}
+  - Warning: Block block_57 uses undefined variables: {'variables', 'Set'}
+  - Warning: Block block_59 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}
+  - Warning: Block block_61 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}
+  - Warning: Block block_62 uses undefined variables: {'tables', 'up', 'temporary', 'Clean'}
+  - Warning: Block block_63 uses undefined variables: {'this', 'catalog', 'needed', 'Set', 'tbl'}

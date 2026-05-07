@@ -1,0 +1,43 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 8
+  Errors: 0
+  Warnings: 0
+  Info: 8
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 5 -> 3
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 29 code blocks for optimal execution
+  - Warning: Block block_0 uses undefined variables: {'lag', 'spark_last'}
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}
+  - Warning: Block block_3 uses undefined variables: {'Assume', 'return_excess', 'Systematic_Risk', 'CAPM_alpha_beta', 'variables', 'are', 'get_number_column_names', 'BM', 'must', 'modified', 'provided', 'scale', 'macro', 'dateColumn', 'return_annualized', 'be', 'VARDEF', 'Helper', 'implemented', 'Python', 'method'}
+  - Warning: Block block_4 uses undefined variables: {'variable', 'columns', 'of', 'Get', 'to'}
+  - Warning: Block block_5 uses undefined variables: {'returns'}
+  - Warning: Block block_6 uses undefined variables: {'excess', 'returns', 'Calculate', 'annualize'}
+  - Warning: Block block_7 uses undefined variables: {'returns', 'dateColumn'}
+  - Warning: Block block_8 uses undefined variables: {'method', 'scale', 'dateColumn'}
+  - Warning: Block block_9 uses undefined variables: {'systematic', 'Calculate', 'beta', 'risk', 'on', 'depending', 'flag'}
+  - Warning: Block block_10 uses undefined variables: {'returns', 'dateColumn', 'BM'}
+  - Warning: Block block_12 uses undefined variables: {'scale', 'dateColumn', 'BM', 'returns', 'VARDEF'}
+  - Warning: Block block_13 uses undefined variables: {'Join', 'variable', 'on'}
+  - Warning: Block block_14 uses undefined variables: {'v'}
+  - Warning: Block block_16 uses undefined variables: {'Avoid', 'Calculate', 'by', 'variable', 'division', 'Ratio', 'each', 'Treynor', 'v'}
+  - Warning: Block block_17 uses undefined variables: {'v'}
+  - Warning: Block block_18 uses undefined variables: {'Drop', 'columns', 'intermediate'}
+  - Warning: Block block_19 uses undefined variables: {'dateColumn'}
+  - Warning: Block block_20 uses undefined variables: {'c'}
+  - Warning: Block block_21 uses undefined variables: {'Add'}
+  - Warning: Block block_23 uses undefined variables: {'row', 'based', 'on', 'only', 'the', 'Select'}
+  - Warning: Block block_24 uses undefined variables: {'dateColumn'}
+  - Warning: Block block_25 uses undefined variables: {'dateColumn'}
+  - Warning: Block block_27 uses undefined variables: {'dateColumn'}
+  - Warning: Block block_28 uses undefined variables: {'Ratio', 'final', 'now', 'contains', 'the', 'Treynor'}

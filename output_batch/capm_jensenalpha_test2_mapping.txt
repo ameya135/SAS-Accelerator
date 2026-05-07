@@ -1,0 +1,16 @@
+SAS TO PYSPARK MIGRATION MAPPING
+============================================================
+Source File: testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/capm_jensenalpha_test2.sas
+Migration Date: 2026-05-07 14:24:42
+Migration Method: Graph-Based Dependency Analysis
+
+GRAPH SUMMARY:
+  Total Nodes: 8
+  Total Edges: 8
+  Has Cycles: True
+
+CHUNK-BY-CHUNK MAPPING:
+------------------------------------------------------------
+
+chunk_006:
+SAS macro logic is mapped to PySpark DataFrame operations and Pandas for Jensen's Alpha. R code execution is replaced by equivalent PySpark and Pandas logic. Macro variable handling and file I/O are mapped to Python variables and os.path.

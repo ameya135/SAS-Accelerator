@@ -1,0 +1,20 @@
+SAS TO PYSPARK MIGRATION MAPPING
+============================================================
+Source File: sas_etl_project/transform_transactions.sas
+Migration Date: 2026-05-07 02:35:00
+Migration Method: Graph-Based Dependency Analysis
+
+GRAPH SUMMARY:
+  Total Nodes: 6
+  Total Edges: 5
+  Has Cycles: False
+
+CHUNK-BY-CHUNK MAPPING:
+------------------------------------------------------------
+
+chunk_003:
+SAS DATA step with macro calls is mapped to PySpark DataFrame transformations using withColumn and UDFs for string cleaning and tax calculation. Conditional logic and flagging are handled with when/otherwise. Output DataFrame matches SAS output dataset.
+
+
+chunk_006:
+SAS PROC FREQ tables are mapped to PySpark groupBy().count() for each column. Output DataFrames are named for each frequency table.

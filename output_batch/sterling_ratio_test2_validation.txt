@@ -1,0 +1,52 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 23
+  Errors: 0
+  Warnings: 4
+  Info: 19
+
+WARNINGS:
+----------------------------------------
+  Line 21: Variable 'path' is used but never defined
+  Line 25: Variable 'pd' is used but never defined
+  Line 32: Variable 'returns_df' is used but never defined
+  Line 32: Variable '0' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 5 -> 5
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 44 code blocks for optimal execution
+  - Warning: Block block_0 uses undefined variables: {'pd', 'pandas'}
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}
+  - Warning: Block block_3 uses undefined variables: {'paths', 'macro', 'file', 'Set', 'up'}
+  - Warning: Block block_5 uses undefined variables: {'dir'}
+  - Warning: Block block_6 uses undefined variables: {'prices', 'into', 'Read', 'CSV', 'pandas'}
+  - Warning: Block block_7 uses undefined variables: {'prices', 'path'}
+  - Warning: Block block_8 uses undefined variables: {'pd'}
+  - Warning: Block block_9 uses undefined variables: {'returns', 'Calculate', 'method', 'discrete'}
+  - Warning: Block block_11 uses undefined variables: {'Ratio', 'Calculate', 'Sterling'}
+  - Warning: Block block_12 uses undefined variables: {'rolling', 'Calculate', 'returns_df'}
+  - Warning: Block block_13 uses undefined variables: {'returns_df'}
+  - Warning: Block block_14 uses undefined variables: {'returns_df'}
+  - Warning: Block block_15 uses undefined variables: {'annualized', 'Calculate'}
+  - Warning: Block block_16 uses undefined variables: {'Ratio', 'returns_df', 'scale', 'Sterling'}
+  - Warning: Block block_17 uses undefined variables: {'excess'}
+  - Warning: Block block_18 uses undefined variables: {'pd', 'returns_df'}
+  - Warning: Block block_20 uses undefined variables: {'Convert', 'DataFrames', 'to', 'Spark', 'pandas'}
+  - Warning: Block block_23 uses undefined variables: {'by', 'DataFrames', 'error', 'Handle', 'replacing', 'empty'}
+  - Warning: Block block_28 uses undefined variables: {'Compare', 'by', 'columns', 'DataFrames', 'differences', 'output', 'fuzz'}
+  - Warning: Block block_29 uses undefined variables: {'x', 'y'}
+  - Warning: Block block_30 uses undefined variables: {'Join', 'DataFrames', 'on'}
+  - Warning: Block block_32 uses undefined variables: {'using', 'Check', 'differences', 'fuzz'}
+  - Warning: Block block_33 uses undefined variables: {'r', 's'}
+  - Warning: Block block_37 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}
+  - Warning: Block block_39 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}
+  - Warning: Block block_40 uses undefined variables: {'intermediate', 'DataFrames', 'clean', 'Optionally', 'up'}

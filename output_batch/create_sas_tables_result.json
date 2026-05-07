@@ -1,0 +1,60 @@
+{
+  "success": true,
+  "sas_file": "testSAS/SASPerformanceAnalytics/performance_analytics_library/setup/create_sas_tables.sas",
+  "pyspark_code": "# Generated PySpark code from SAS migration\n# Execution order optimized by ExecutionOrderOptimizer\n\nfrom pyspark.sql import SparkSession\nfrom pyspark.sql.types import DateType, DoubleType, StructField, StructType\n\nspark = SparkSession.builder.appName(\"SAS_Migration\").getOrCreate()\n\n# Initialize Spark session\n\n# Assume 'dir' is a Python variable holding the directory path\n\n# 1. Import edhec.csv into DataFrame 'edhec_df'\n\nedhec_df = spark.read.option('header', True).option('inferSchema', True).csv(f'{dir}/test/edhec.csv')\n\n# 2. Export 'prices_df' DataFrame to CSV\nprices_df.write.mode('overwrite').option('header', True).csv(f'{dir}/test/prices.csv')\n\n# 3. Define schema for managers.csv for type safety\n\nmanagers_schema = StructType([\n    StructField('Date', DateType(), True),\n    StructField('HAM1', DoubleType(), True),\n    StructField('HAM2', DoubleType(), True),\n    StructField('HAM3', DoubleType(), True),\n    StructField('HAM4', DoubleType(), True),\n    StructField('HAM5', DoubleType(), True),\n    StructField('HAM6', DoubleType(), True),\n    StructField('EDHEC_LS_EQ', DoubleType(), True),\n    StructField('SP500_TR', DoubleType(), True),\n    StructField('US_10Y_TR', DoubleType(), True),\n    StructField('US_3m_TR', DoubleType(), True)\n])\n\nmanagers_df = (\n    spark.read\n    .option('header', True)\n    .option('delimiter', ',')\n    .option('mode', 'DROPMALFORMED')\n    .schema(managers_schema)\n    .csv(f'{dir}/test/managers.csv')\n)\n\n# 4. Read managers.csv into DataFrame 'managers_df' with schema and proper options\n",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: testSAS/SASPerformanceAnalytics/performance_analytics_library/setup/create_sas_tables.sas\nMigration Date: 2026-05-07 14:15:09\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 15\n  Total Edges: 12\n  Has Cycles: False\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_008:\nSAS PROC COPY with SELECT is mapped to copying DataFrames for the selected tables. The 'in=work' and 'outlib=out' are represented by variable naming conventions in PySpark.\n\n\nchunk_010:\nSAS PROC IMPORT/EXPORT map to PySpark read/write with CSV. DATA step with INFILE and schema maps to spark.read.csv with explicit schema. Variable name mapping applied for 'edhec_out'.\n",
+  "chunks_converted": 2,
+  "total_chunks": 2,
+  "errors": [],
+  "warnings": [
+    "Line 11: Variable 'prices_df' is used but never defined",
+    "Line 12: Variable 'managers_df' is used but never defined",
+    "Line 13: Variable 'edhec_df' is used but never defined",
+    "Line 22: Variable 'prices' is used but never defined"
+  ],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_008",
+      "chunk_010"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T14:14:55.279804",
+    "end_time": "2026-05-07T14:15:09.704917",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/create_sas_tables.py",
+      "mapping": "output_batch/create_sas_tables_mapping.txt",
+      "validation": "output_batch/create_sas_tables_validation.txt",
+      "result": "output_batch/create_sas_tables_result.json"
+    }
+  },
+  "execution_time": 14.425113,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 10\n  Errors: 0\n  Warnings: 4\n  Info: 6\n\nWARNINGS:\n----------------------------------------\n  Line 11: Variable 'prices_df' is used but never defined\n  Line 12: Variable 'managers_df' is used but never defined\n  Line 13: Variable 'edhec_df' is used but never defined\n  Line 22: Variable 'prices' is used but never defined\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 2 valid chunks from 2 total",
+    "Deduplicated imports: 2 -> 2",
+    "Created 2 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup",
+    "Reordered 11 code blocks for optimal execution",
+    "Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}",
+    "Warning: Block block_3 uses undefined variables: {'Assume', 'variable', 'directory', 'holding', 'a', 'Python', 'the'}",
+    "Warning: Block block_4 uses undefined variables: {'edhec', 'Import', 'into'}",
+    "Warning: Block block_5 uses undefined variables: {'edhec'}",
+    "Warning: Block block_6 uses undefined variables: {'prices', 'CSV', 'prices_df', 'Export', 'to'}",
+    "Warning: Block block_7 uses undefined variables: {'Define', 'schema', 'managers', 'type'}",
+    "Warning: Block block_9 uses undefined variables: {'proper', 'into', 'schema', 'Read', 'managers'}",
+    "Warning: Block block_10 uses undefined variables: {'managers'}"
+  ]
+}

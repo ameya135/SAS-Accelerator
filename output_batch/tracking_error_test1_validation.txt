@@ -1,0 +1,47 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 15
+  Errors: 0
+  Warnings: 3
+  Info: 12
+
+WARNINGS:
+----------------------------------------
+  Line 23: Variable 'path' is used but never defined
+  Line 34: Variable 'returns' is used but never defined
+  Line 35: Variable 'np' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 5 -> 5
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 39 code blocks for optimal execution
+  - Warning: Block block_0 uses undefined variables: {'numpy', 'pyspark_abs', 'np', 'pd', 'pandas'}
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}
+  - Warning: Block block_3 uses undefined variables: {'assume', 'variables', 'are', 'macro', 'inputs', 'elsewhere', 'Set', 'these', 'up'}
+  - Warning: Block block_4 uses undefined variables: {'keep_macro_variable'}
+  - Warning: Block block_6 uses undefined variables: {'prices', 'Read', 'CSV', 'Spark'}
+  - Warning: Block block_7 uses undefined variables: {'prices', 'path'}
+  - Warning: Block block_9 uses undefined variables: {'prices', 'to', 'Convert', 'Pandas'}
+  - Warning: Block block_11 uses undefined variables: {'using', 'returns', 'Calculate', 'discrete'}
+  - Warning: Block block_13 uses undefined variables: {'Tracking', 'compare', 'benchmark', 'columns', 'Error', 'to'}
+  - Warning: Block block_14 uses undefined variables: {'returns', 'benchmark_col'}
+  - Warning: Block block_15 uses undefined variables: {'returns'}
+  - Warning: Block block_16 uses undefined variables: {'returns', 'pd', 'scale', 'np'}
+  - Warning: Block block_18 uses undefined variables: {'Convert', 'tracking', 'error', 'to', 'result', 'Spark'}
+  - Warning: Block block_20 uses undefined variables: {'simulate', 'returns_from_r', 'Prepare', 'output', 'R'}
+  - Warning: Block block_22 uses undefined variables: {'by', 'DataFrames', 'error', 'rows', 'Handle', 'inserting', 'empty'}
+  - Warning: Block block_25 uses undefined variables: {'Compare', 'tracking_error', 'returns_from_r'}
+  - Warning: Block block_26 uses undefined variables: {'r', 't'}
+  - Warning: Block block_27 uses undefined variables: {'Count'}
+  - Warning: Block block_29 uses undefined variables: {'Set', 'notes'}
+  - Warning: Block block_31 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}
+  - Warning: Block block_33 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}
+  - Warning: Block block_34 uses undefined variables: {'Cleanup'}

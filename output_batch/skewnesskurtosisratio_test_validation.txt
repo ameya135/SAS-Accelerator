@@ -1,0 +1,66 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 20
+  Errors: 0
+  Warnings: 2
+  Info: 18
+
+WARNINGS:
+----------------------------------------
+  Line 21: Variable 'path' is used but never defined
+  Line 36: Variable 'df' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 6 -> 4
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 50 code blocks for optimal execution
+  - Warning: Circular dependency detected: block_6 -> block_5 -> block_6
+  - Warning: Circular dependency detected: block_6 -> block_5 -> block_4 -> block_6
+  - Warning: Circular dependency detected: block_6 -> block_5 -> block_4 -> block_7 -> block_9 -> block_6
+  - Warning: Circular dependency detected: block_6 -> block_5 -> block_4 -> block_7 -> block_9 -> block_8 -> block_6
+  - Warning: Circular dependency detected: block_8 -> block_10 -> block_8
+  - Warning: Circular dependency detected: block_9 -> block_8 -> block_10 -> block_17 -> block_9
+  - Warning: Circular dependency detected: block_9 -> block_8 -> block_10 -> block_17 -> block_18 -> block_9
+  - Warning: Circular dependency detected: block_9 -> block_8 -> block_10 -> block_17 -> block_18 -> block_22 -> block_23 -> block_9
+  - Warning: Circular dependency detected: block_23 -> block_26 -> block_23
+  - Warning: Circular dependency detected: block_23 -> block_26 -> block_30 -> block_23
+  - Warning: Circular dependency detected: block_23 -> block_26 -> block_30 -> block_33 -> block_23
+  - Warning: Circular dependency detected: block_33 -> block_35 -> block_33
+  - Warning: Circular dependency detected: block_35 -> block_37 -> block_35
+  - Warning: Circular dependency detected: block_37 -> block_38 -> block_37
+  - Warning: Block block_0 uses undefined variables: {'skewness', 'lag', 'kurtosis'}
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}
+  - Warning: Block block_3 uses undefined variables: {'keep', 'intermediate', 'variables', 'directory', 'arguments', 'whether', 'containing', 'externally', 'DataFrames', 'boolean', 'be', 'Macro', 'to', 'passed'}
+  - Warning: Block block_4 uses undefined variables: {'Read'}
+  - Warning: Block block_5 uses undefined variables: {'dir', 'path'}
+  - Warning: Block block_7 uses undefined variables: {'price_t', 'Calculate', 'discrete'}
+  - Warning: Block block_9 uses undefined variables: {'col_name'}
+  - Warning: Block block_10 uses undefined variables: {'col_name'}
+  - Warning: Block block_12 uses undefined variables: {'SkewnessKurtosisRatio', 'Compute', 'each'}
+  - Warning: Block block_13 uses undefined variables: {'df', 'cols'}
+  - Warning: Block block_14 uses undefined variables: {'c'}
+  - Warning: Block block_15 uses undefined variables: {'df', 'c'}
+  - Warning: Block block_16 uses undefined variables: {'df', 'c'}
+  - Warning: Block block_17 uses undefined variables: {'c'}
+  - Warning: Block block_19 uses undefined variables: {'Create'}
+  - Warning: Block block_20 uses undefined variables: {'c'}
+  - Warning: Block block_22 uses undefined variables: {'Prepare', 'importdatasetfromr', 'mimics'}
+  - Warning: Block block_23 uses undefined variables: {'c'}
+  - Warning: Block block_24 uses undefined variables: {'c'}
+  - Warning: Block block_25 uses undefined variables: {'by', 'DataFrames', 'error', 'rows', 'Handle', 'replacing', 'empty'}
+  - Warning: Block block_32 uses undefined variables: {'output', 'Compare', 'DataFrames'}
+  - Warning: Block block_33 uses undefined variables: {'c'}
+  - Warning: Block block_36 uses undefined variables: {'Count', 'of', 'number'}
+  - Warning: Block block_38 uses undefined variables: {'variables', 'result', 'Set'}
+  - Warning: Block block_40 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}
+  - Warning: Block block_42 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}
+  - Warning: Block block_43 uses undefined variables: {'Optionally', 'DataFrames', 'intermediate'}
+  - Warning: Could not fully resolve dependencies due to cycles

@@ -1,0 +1,16 @@
+SAS TO PYSPARK MIGRATION MAPPING
+============================================================
+Source File: testSAS/SASPerformanceAnalytics/performance_analytics_library/macro/simple_normalize_by.sas
+Migration Date: 2026-05-07 14:14:27
+Migration Method: Graph-Based Dependency Analysis
+
+GRAPH SUMMARY:
+  Total Nodes: 4
+  Total Edges: 3
+  Has Cycles: False
+
+CHUNK-BY-CHUNK MAPPING:
+------------------------------------------------------------
+
+chunk_004:
+SAS PROC SQL for group sum maps to groupBy/agg in PySpark; hash lookup is replaced by join; normalization and column drop are handled with withColumn and drop.

@@ -1,0 +1,4 @@
+No chunks converted; reconciliation skipped.
+
+FIXES APPLIED:
+  - Skipped reconciliation because no chunks converted

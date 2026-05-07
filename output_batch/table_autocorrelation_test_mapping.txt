@@ -1,0 +1,16 @@
+SAS TO PYSPARK MIGRATION MAPPING
+============================================================
+Source File: testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/table_autocorrelation_test.sas
+Migration Date: 2026-05-07 14:57:25
+Migration Method: Graph-Based Dependency Analysis
+
+GRAPH SUMMARY:
+  Total Nodes: 8
+  Total Edges: 6
+  Has Cycles: False
+
+CHUNK-BY-CHUNK MAPPING:
+------------------------------------------------------------
+
+chunk_006:
+SAS macro logic is mapped to a Python function using PySpark and pandas for data manipulation, statsmodels for autocorrelation, and Spark DataFrames for comparison. Macro variables are mapped to Python variables. Data existence checks and error handling are implemented with DataFrame counts and default values.

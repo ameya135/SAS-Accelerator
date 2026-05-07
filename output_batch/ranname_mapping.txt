@@ -1,0 +1,16 @@
+SAS TO PYSPARK MIGRATION MAPPING
+============================================================
+Source File: testSAS/SASPerformanceAnalytics/performance_analytics_library/macro/ranname.sas
+Migration Date: 2026-05-07 14:14:07
+Migration Method: Graph-Based Dependency Analysis
+
+GRAPH SUMMARY:
+  Total Nodes: 1
+  Total Edges: 0
+  Has Cycles: False
+
+CHUNK-BY-CHUNK MAPPING:
+------------------------------------------------------------
+
+chunk_001:
+The SAS macro generates a random 6-digit zero-padded string prefixed with an underscore. In PySpark, we use Python's random module and string formatting to replicate this logic in a function.

@@ -1,0 +1,49 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 18
+  Errors: 0
+  Warnings: 1
+  Info: 17
+
+WARNINGS:
+----------------------------------------
+  Line 19: Variable 'pd' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 4 -> 4
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 38 code blocks for optimal execution
+  - Warning: Block block_0 uses undefined variables: {'numpy', 'pyspark_abs', 'np', 'pd', 'pandas'}
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}
+  - Warning: Block block_3 uses undefined variables: {'prices', 'Define', 'path', 'file'}
+  - Warning: Block block_4 uses undefined variables: {'prices'}
+  - Warning: Block block_5 uses undefined variables: {'prices', 'Read', 'CSV', 'pandas'}
+  - Warning: Block block_6 uses undefined variables: {'pd'}
+  - Warning: Block block_7 uses undefined variables: {'Calculate', 'Return', 'discrete', 'equivalent', 'returns'}
+  - Warning: Block block_9 uses undefined variables: {'Calculate', 'higher', 'std', 'skew', 'kurtosis'}
+  - Warning: Block block_10 uses undefined variables: {'df'}
+  - Warning: Block block_11 uses undefined variables: {'df', 'col_name'}
+  - Warning: Block block_12 uses undefined variables: {'pd', 'np'}
+  - Warning: Block block_14 uses undefined variables: {'Convert', 'DataFrames', 'to', 'Spark', 'pandas'}
+  - Warning: Block block_17 uses undefined variables: {'by', 'creating', 'DataFrames', 'error', 'Handle', 'empty'}
+  - Warning: Block block_18 uses undefined variables: {'asset'}
+  - Warning: Block block_20 uses undefined variables: {'asset'}
+  - Warning: Block block_22 uses undefined variables: {'simulate', 'Compare', 'SAS', 'compare', 'tolerance', 'proc', 'DataFrames', 'absolute'}
+  - Warning: Block block_24 uses undefined variables: {'base', 'compare'}
+  - Warning: Block block_25 uses undefined variables: {'base', 'compare'}
+  - Warning: Block block_26 uses undefined variables: {'base', 'compare'}
+  - Warning: Block block_27 uses undefined variables: {'base', 'compare'}
+  - Warning: Block block_28 uses undefined variables: {'differences', 'based', 'Filter'}
+  - Warning: Block block_30 uses undefined variables: {'Count', 'of', 'number'}
+  - Warning: Block block_32 uses undefined variables: {'Set', 'result', 'flags'}
+  - Warning: Block block_34 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}
+  - Warning: Block block_36 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}
+  - Warning: Block block_37 uses undefined variables: {'Assume', 'intermediate', 'DataFrames', 'elsewhere', 'workflow', 'Optionally', 'the'}

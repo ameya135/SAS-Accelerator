@@ -1,0 +1,71 @@
+{
+  "success": true,
+  "sas_file": "testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/activepremium_test3.sas",
+  "pyspark_code": "# Generated PySpark code from SAS migration\n# Execution order optimized by ExecutionOrderOptimizer\n\nimport os\nimport numpy as np\nimport pandas as pd\nfrom pyspark.sql import SparkSession\nfrom pyspark.sql.functions import abs as ps_abs, col, lit\nfrom pyspark.sql.types import DoubleType, IntegerType, StructField, StructType\n\nspark = SparkSession.builder.appName(\"ActivePremium_test3\").getOrCreate()\n\n# Initialize Spark session\n\nactive_premium_pd = active_premium_pd[['date', 'IBM', 'GE', 'DOW', 'GOOGL', 'SPY']]\n\n# Convert pandas DataFrames to Spark DataFrames\n\n    schema_ap = StructType([\n        StructField('date', IntegerType(), True),\n        StructField('IBM', DoubleType(), True),\n        StructField('GE', DoubleType(), True),\n        StructField('DOW', DoubleType(), True),\n        StructField('GOOGL', DoubleType(), True),\n        StructField('SPY', DoubleType(), True)\n    ])\n\n    schema_rr = StructType([\n        StructField('date', IntegerType(), True),\n        StructField('IBM', DoubleType(), True),\n        StructField('GE', DoubleType(), True),\n        StructField('DOW', DoubleType(), True),\n        StructField('GOOGL', DoubleType(), True),\n        StructField('SPY', DoubleType(), True)\n    ])\n\n    returns_from_r = spark.createDataFrame([(1, 999.0, 999.0, 999.0, 999.0, 999.0)], schema=schema_rr)\n\ndiff = diff.withColumn('_type_', lit('DIF')) \\\n    .withColumn('IBM_DIF', ps_abs(col('r.IBM') - col('a.IBM'))) \\\n    .withColumn('GE_DIF', ps_abs(col('r.GE') - col('a.GE'))) \\\n    .withColumn('DOW_DIF', ps_abs(col('r.DOW') - col('a.DOW'))) \\\n    .withColumn('GOOGL_DIF', ps_abs(col('r.GOOGL') - col('a.GOOGL')))\n\n# Filter for differences above threshold\n\n# Set variables from macro or environment\n\n# Count number of differences\n\n    pass_test = True\n\n    notes = 'Passed'\n    print('NOTE: NO ERROR IN TEST ActivePremium_test3')\nelse:\n\n    pass_test = False\n\n    notes = 'Differences detected in outputs.'\n    print('ERROR: PROBLEM IN TEST ActivePremium_test3')\n\n    returns_from_r = None\n\n    active_premium = None\n\nkeep = False  # Set from macro or parameter\n\n# Clean up DataFrames if keep is False (optional, handled by Python GC)\nif not keep:\n\n    diff = None\n\ndata_dir = os.environ.get('dir', '/tmp')  # Set from macro or parameter\n\n# Read prices.csv as pandas DataFrame\n\nprices_path = os.path.join(data_dir, 'prices.csv')\n\nprices_pd = pd.read_csv(prices_path)\nprices_pd['date'] = pd.to_datetime(prices_pd['date'])\nprices_pd.set_index('date', inplace=True)\n\nreturns_pd = np.log(prices_pd / prices_pd.shift(1)).dropna()\n\nassets = returns_pd.iloc[:, 0:4]\n\nbenchmark = returns_pd.iloc[:, 4]\n\n# ActivePremium calculation: (mean(asset) - mean(benchmark)) * scale\n# Assume first 4 columns are assets, 5th is benchmark, scale=4\n\nactive_premium_pd = (assets.mean() - benchmark.mean()) * 4\n\nactive_premium_pd = active_premium_pd.to_frame().T\nactive_premium_pd['date'] = returns_pd.index[-1]\nactive_premium_pd['SPY'] = benchmark.mean() * 4\n\nreturns_from_r = spark.createDataFrame(returns_pd.reset_index())\n\nactive_premium = spark.createDataFrame(active_premium_pd)\n\n# Handle empty DataFrames by creating error DataFrames as in SAS\nif active_premium.count() == 0:\n\n    active_premium = spark.createDataFrame([(-1, -999.0, -999.0, -999.0, -999.0, -999.0)], schema=schema_ap)\nif returns_from_r.count() == 0:\n\ndiff = returns_from_r.alias('r').join(\n    active_premium.alias('a'),\n    on='date',\n    how='outer'\n)\n\n# Compare returns_from_r and active_premium DataFrames\n# Join on 'date' and compare columns\n\ndiff_filtered = diff.filter(\n    (ps_abs(col('IBM_DIF')) > 1e-5) |\n    (ps_abs(col('GE_DIF')) > 1e-5) |\n    (ps_abs(col('DOW_DIF')) > 1e-5) |\n    (ps_abs(col('GOOGL_DIF')) > 1e-5)\n)\n\nn = diff_filtered.count()\n\n# Set pass/fail and notes\nif n == 0:\n\n# Calculate log returns using pandas\n",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/activepremium_test3.sas\nMigration Date: 2026-05-07 14:16:37\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 8\n  Total Edges: 6\n  Has Cycles: False\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_006:\nSAS macro logic, file handling, and R integration are replaced with Python and pandas for calculations, and Spark DataFrames for data handling. Data comparison and conditional logic are implemented using PySpark DataFrame operations. Error handling and cleanup follow PySpark best practices.\n",
+  "chunks_converted": 1,
+  "total_chunks": 1,
+  "errors": [],
+  "warnings": [
+    "Line 25: Variable 'path' is used but never defined",
+    "Line 26: Variable 'pd' is used but never defined",
+    "Line 31: Variable 'np' is used but never defined"
+  ],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_006"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T14:16:12.771934",
+    "end_time": "2026-05-07T14:16:37.305281",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/activepremium_test3.py",
+      "mapping": "output_batch/activepremium_test3_mapping.txt",
+      "validation": "output_batch/activepremium_test3_validation.txt",
+      "result": "output_batch/activepremium_test3_result.json"
+    }
+  },
+  "execution_time": 24.533347,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 23\n  Errors: 0\n  Warnings: 3\n  Info: 20\n\nWARNINGS:\n----------------------------------------\n  Line 25: Variable 'path' is used but never defined\n  Line 26: Variable 'pd' is used but never defined\n  Line 31: Variable 'np' is used but never defined\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 1 valid chunks from 1 total",
+    "Deduplicated imports: 6 -> 6",
+    "Created 1 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup",
+    "Reordered 41 code blocks for optimal execution",
+    "Warning: Block block_0 uses undefined variables: {'ps_abs', 'numpy', 'np', 'pd', 'pandas'}",
+    "Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}",
+    "Warning: Block block_3 uses undefined variables: {'variables', 'macro', 'Set'}",
+    "Warning: Block block_4 uses undefined variables: {'Set', 'macro'}",
+    "Warning: Block block_5 uses undefined variables: {'Set', 'macro', 'environ'}",
+    "Warning: Block block_6 uses undefined variables: {'prices', 'Read', 'pandas'}",
+    "Warning: Block block_7 uses undefined variables: {'prices', 'path'}",
+    "Warning: Block block_8 uses undefined variables: {'pd'}",
+    "Warning: Block block_9 uses undefined variables: {'using', 'returns', 'Calculate'}",
+    "Warning: Block block_10 uses undefined variables: {'np'}",
+    "Warning: Block block_11 uses undefined variables: {'Assume', 'scale', 'are', 'columns', 'ActivePremium', 'asset'}",
+    "Warning: Block block_17 uses undefined variables: {'Convert', 'DataFrames', 'to', 'Spark', 'pandas'}",
+    "Warning: Block block_20 uses undefined variables: {'SAS', 'by', 'creating', 'DataFrames', 'error', 'Handle', 'empty'}",
+    "Warning: Block block_25 uses undefined variables: {'Join', 'Compare', 'DataFrames', 'compare'}",
+    "Warning: Block block_27 uses undefined variables: {'r', 'a'}",
+    "Warning: Block block_28 uses undefined variables: {'above', 'differences', 'Filter'}",
+    "Warning: Block block_30 uses undefined variables: {'Count', 'of', 'number'}",
+    "Warning: Block block_32 uses undefined variables: {'Set'}",
+    "Warning: Block block_34 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}",
+    "Warning: Block block_36 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}",
+    "Warning: Block block_37 uses undefined variables: {'GC', 'handled', 'by', 'Clean', 'DataFrames', 'optional', 'Python', 'up'}"
+  ]
+}

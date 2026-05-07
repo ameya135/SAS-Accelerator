@@ -1,0 +1,85 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 36
+  Errors: 0
+  Warnings: 6
+  Info: 30
+
+WARNINGS:
+----------------------------------------
+  Line 24: Variable 'path' is used but never defined
+  Line 24: Variable 'pd' is used but never defined
+  Line 27: Variable 'np' is used but never defined
+  Line 34: Variable 'Ra' is used but never defined
+  Line 38: Variable 'Rb' is used but never defined
+  Line 51: Variable '0' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 7 -> 6
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 67 code blocks for optimal execution
+  - Warning: Circular dependency detected: block_7 -> block_27 -> block_7
+  - Warning: Circular dependency detected: block_7 -> block_27 -> block_9 -> block_7
+  - Warning: Circular dependency detected: block_9 -> block_21 -> block_23 -> block_9
+  - Warning: Circular dependency detected: block_9 -> block_21 -> block_23 -> block_22 -> block_9
+  - Warning: Circular dependency detected: block_23 -> block_22 -> block_24 -> block_23
+  - Warning: Circular dependency detected: block_22 -> block_24 -> block_25 -> block_22
+  - Warning: Circular dependency detected: block_25 -> block_28 -> block_25
+  - Warning: Circular dependency detected: block_27 -> block_9 -> block_21 -> block_23 -> block_22 -> block_24 -> block_25 -> block_28 -> block_30 -> block_27
+  - Warning: Circular dependency detected: block_30 -> block_31 -> block_30
+  - Warning: Circular dependency detected: block_25 -> block_28 -> block_30 -> block_31 -> block_32 -> block_34 -> block_33 -> block_25
+  - Warning: Circular dependency detected: block_34 -> block_33 -> block_35 -> block_34
+  - Warning: Circular dependency detected: block_28 -> block_30 -> block_31 -> block_32 -> block_34 -> block_33 -> block_35 -> block_36 -> block_28
+  - Warning: Circular dependency detected: block_34 -> block_33 -> block_35 -> block_36 -> block_39 -> block_34
+  - Warning: Circular dependency detected: block_39 -> block_41 -> block_39
+  - Warning: Circular dependency detected: block_28 -> block_30 -> block_31 -> block_32 -> block_34 -> block_33 -> block_35 -> block_36 -> block_39 -> block_41 -> block_42 -> block_28
+  - Warning: Circular dependency detected: block_39 -> block_41 -> block_42 -> block_44 -> block_39
+  - Warning: Circular dependency detected: block_28 -> block_30 -> block_31 -> block_32 -> block_34 -> block_33 -> block_35 -> block_36 -> block_39 -> block_41 -> block_42 -> block_44 -> block_47 -> block_28
+  - Warning: Circular dependency detected: block_47 -> block_56 -> block_47
+  - Warning: Circular dependency detected: block_56 -> block_57 -> block_56
+  - Warning: Block block_0 uses undefined variables: {'numpy', 'pyspark_abs', 'np', 'pd', 'lag', 'pandas'}
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}
+  - Warning: Block block_3 uses undefined variables: {'replace', 'variables', 'actual', 'parameterize', 'needed', 'Set', 'values', 'up'}
+  - Warning: Block block_4 uses undefined variables: {'this', 'Set'}
+  - Warning: Block block_6 uses undefined variables: {'Read', 'pandas', 'preprocess'}
+  - Warning: Block block_7 uses undefined variables: {'pd', 'path'}
+  - Warning: Block block_8 uses undefined variables: {'returns', 'Calculate'}
+  - Warning: Block block_9 uses undefined variables: {'np'}
+  - Warning: Block block_10 uses undefined variables: {'mimicking', 'logic', 'Define', 'tM2', 'R'}
+  - Warning: Block block_11 uses undefined variables: {'Rb', 'Ra'}
+  - Warning: Block block_12 uses undefined variables: {'Default'}
+  - Warning: Block block_13 uses undefined variables: {'Ra'}
+  - Warning: Block block_14 uses undefined variables: {'Ra'}
+  - Warning: Block block_15 uses undefined variables: {'Rf', 'np'}
+  - Warning: Block block_16 uses undefined variables: {'Rb', 'np'}
+  - Warning: Block block_17 uses undefined variables: {'geometric', 'Rb', 'np'}
+  - Warning: Block block_18 uses undefined variables: {'Rf'}
+  - Warning: Block block_19 uses undefined variables: {'Rf'}
+  - Warning: Block block_21 uses undefined variables: {'Apply', 'to', 'tM2'}
+  - Warning: Block block_24 uses undefined variables: {'i'}
+  - Warning: Block block_25 uses undefined variables: {'pd'}
+  - Warning: Block block_26 uses undefined variables: {'Convert', 'DataFrames', 'to', 'Spark', 'pandas'}
+  - Warning: Block block_29 uses undefined variables: {'returns', 'Spark', 'Calculate'}
+  - Warning: Block block_30 uses undefined variables: {'col_name'}
+  - Warning: Block block_31 uses undefined variables: {'col_name'}
+  - Warning: Block block_32 uses undefined variables: {'calculation', 'using', 'demonstration', 'Spark', 'pandas'}
+  - Warning: Block block_35 uses undefined variables: {'empty', 'Handle', 'DataFrames'}
+  - Warning: Block block_38 uses undefined variables: {'Create', 'DataFrames', 'do', 'error', 'rows', 'exist'}
+  - Warning: Block block_45 uses undefined variables: {'compute', 'Compare', 'differences', 'asset', 'Join', 'logic', 'on', 'all', 'fuzz'}
+  - Warning: Block block_49 uses undefined variables: {'For', 'more', 'by', 'differ', 'columns', 'asset', 'demonstration', 'a', 'any', 'small', 'than', 'fuzz'}
+  - Warning: Block block_51 uses undefined variables: {'col_name'}
+  - Warning: Block block_52 uses undefined variables: {'col_name'}
+  - Warning: Block block_55 uses undefined variables: {'differences', 'Count', 'of', 'number'}
+  - Warning: Block block_57 uses undefined variables: {'based', 'comparison', 'variables', 'on', 'Set'}
+  - Warning: Block block_59 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}
+  - Warning: Block block_61 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}
+  - Warning: Block block_62 uses undefined variables: {'intermediate', 'keeping', 'tables', 'Optionally', 'delete'}
+  - Warning: Could not fully resolve dependencies due to cycles

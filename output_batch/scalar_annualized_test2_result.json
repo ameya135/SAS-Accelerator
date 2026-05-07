@@ -1,0 +1,65 @@
+{
+  "success": true,
+  "sas_file": "testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/scalar_annualized_test2.sas",
+  "pyspark_code": "# Generated PySpark code from SAS migration\n# Execution order optimized by ExecutionOrderOptimizer\n\nimport numpy as np\nimport pandas as pd\nfrom pyspark.sql import SparkSession\nfrom pyspark.sql.functions import col, round as pyspark_round\nfrom pyspark.sql.types import DoubleType\n\nspark = SparkSession.builder.appName(\"SAS_Migration\").getOrCreate()\n\n# Initialize Spark session\n\n# --- Collect 'ibm' values for later use (if needed) ---\n\n# --- Annualization logic ---\n\nscales = [4, 12, 52, 252]\n\nannualized_col_names = []\n\nfor scale in scales:\n\n    col_name = f'scale_{scale}'\n    # For log returns, annualized = ibm_return * scale\n\n    prices_df = prices_df.withColumn(col_name, pyspark_round(col('ibm_return') * scale, 10))\n    annualized_col_names.append(col_name)\n\n# --- Assemble results DataFrame ---\n\nresults_df = results_df.withColumnRenamed('ibm_return', 'ibm')\n\n# 'results_df' now contains: ibm, scale_4, scale_12, scale_52, scale_252\n\n# --- Read and preprocess prices data ---\n# Replace 'dir' with your directory path as needed\n\nprices_pdf = pd.read_csv(f'{dir}/prices.csv')\n\nprices_pdf = prices_pdf[['ibm']]  # Keep only 'ibm' column\n\n# Calculate log returns\nprices_pdf['ibm_return'] = np.log(prices_pdf['ibm'] / prices_pdf['ibm'].shift(1))\n\nprices_pdf = prices_pdf.iloc[1:101].reset_index(drop=True)  # Keep rows 1 to 100\n\n# Convert to Spark DataFrame\n\nprices_df = spark.createDataFrame(prices_pdf)\n\nibm_values = [row['ibm'] for row in prices_df.select('ibm').collect()]\n\nresults_df = prices_df.select(['ibm_return'] + annualized_col_names)\n",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/scalar_annualized_test2.sas\nMigration Date: 2026-05-07 14:47:36\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 8\n  Total Edges: 6\n  Has Cycles: False\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_008:\nSAS macro logic, file writing, and R integration are replaced by direct Pandas and PySpark DataFrame operations. Macro variables and loops are handled via Python lists and DataFrame transformations. Annualization logic is implemented with UDFs and column operations.\n",
+  "chunks_converted": 1,
+  "total_chunks": 1,
+  "errors": [],
+  "warnings": [
+    "Line 19: Variable 'pd' is used but never defined",
+    "Line 24: Variable 'np' is used but never defined"
+  ],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_008"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T14:47:20.307204",
+    "end_time": "2026-05-07T14:47:36.273573",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/scalar_annualized_test2.py",
+      "mapping": "output_batch/scalar_annualized_test2_mapping.txt",
+      "validation": "output_batch/scalar_annualized_test2_validation.txt",
+      "result": "output_batch/scalar_annualized_test2_result.json"
+    }
+  },
+  "execution_time": 15.966369,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 10\n  Errors: 0\n  Warnings: 2\n  Info: 8\n\nWARNINGS:\n----------------------------------------\n  Line 19: Variable 'pd' is used but never defined\n  Line 24: Variable 'np' is used but never defined\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 1 valid chunks from 1 total",
+    "Deduplicated imports: 6 -> 5",
+    "Created 1 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup",
+    "Reordered 22 code blocks for optimal execution",
+    "Warning: Block block_0 uses undefined variables: {'numpy', 'pyspark_round', 'np', 'pd', 'pandas'}",
+    "Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}",
+    "Warning: Block block_3 uses undefined variables: {'prices', 'your', 'path', 'directory', 'Read', 'preprocess', 'Replace'}",
+    "Warning: Block block_4 uses undefined variables: {'prices', 'pd'}",
+    "Warning: Block block_5 uses undefined variables: {'only', 'Keep'}",
+    "Warning: Block block_6 uses undefined variables: {'returns', 'Calculate', 'np'}",
+    "Warning: Block block_7 uses undefined variables: {'to', 'Keep', 'rows'}",
+    "Warning: Block block_8 uses undefined variables: {'to', 'Convert', 'Spark'}",
+    "Warning: Block block_10 uses undefined variables: {'later', 'Collect', 'use', 'needed', 'values'}",
+    "Warning: Block block_11 uses undefined variables: {'row'}",
+    "Warning: Block block_12 uses undefined variables: {'Annualization', 'logic'}",
+    "Warning: Block block_15 uses undefined variables: {'scale'}",
+    "Warning: Block block_16 uses undefined variables: {'annualized', 'For', 'returns', 'ibm_return'}",
+    "Warning: Block block_17 uses undefined variables: {'scale'}",
+    "Warning: Block block_18 uses undefined variables: {'Assemble', 'results'}",
+    "Warning: Block block_21 uses undefined variables: {'scale_4', 'scale_52', 'scale_12', 'now', 'ibm'}"
+  ]
+}

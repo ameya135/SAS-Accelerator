@@ -1,0 +1,59 @@
+{
+  "success": false,
+  "sas_file": "testSAS/SASPerformanceAnalytics/performance_analytics_library/test/run_tests.sas",
+  "pyspark_code": "",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: testSAS/SASPerformanceAnalytics/performance_analytics_library/test/run_tests.sas\nMigration Date: 2026-05-07 15:07:12\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 14\n  Total Edges: 11\n  Has Cycles: False\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------",
+  "chunks_converted": 0,
+  "total_chunks": 1,
+  "errors": [
+    "1 chunk(s) failed to convert"
+  ],
+  "warnings": [],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "failed",
+    "failed_chunks": [
+      {
+        "chunk_id": "chunk_012",
+        "layer": 1,
+        "node_ids": [
+          "proc_10",
+          "proc_13",
+          "macro_2"
+        ],
+        "node_names": [
+          "PROC_IMPORT_20",
+          "PROC_EXPORT_71",
+          "loop_tests"
+        ],
+        "error_type": "APIStatusError",
+        "error_message": "Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 16000 tokens, but can only afford 4661. To increase, visit https://openrouter.ai/settings/credits and add more credits', 'code': 402, 'metadata': {'provider_name': None}}, 'user_id': 'user_2Zj09Gtt5ayJ28GVb5GizlbbdTA'}",
+        "response_snippet": null
+      }
+    ],
+    "converted_chunk_ids": [],
+    "skipped_chunk_ids": [
+      "chunk_012"
+    ],
+    "partial_output": false,
+    "output_quality": "no_converted_chunks",
+    "start_time": "2026-05-07T15:07:11.987254",
+    "end_time": "2026-05-07T15:07:12.665086",
+    "allow_partial_output": true,
+    "output_files": {
+      "mapping": "output_batch/run_tests_mapping.txt",
+      "validation": "output_batch/run_tests_validation.txt",
+      "result": "output_batch/run_tests_result.json"
+    }
+  },
+  "execution_time": 0.677832,
+  "validation_report": "No chunks converted; reconciliation skipped.",
+  "fixes_applied": [
+    "Skipped reconciliation because no chunks converted"
+  ]
+}

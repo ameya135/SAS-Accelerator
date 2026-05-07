@@ -1,0 +1,16 @@
+SAS TO PYSPARK MIGRATION MAPPING
+============================================================
+Source File: testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/scalar_annualized_test3.sas
+Migration Date: 2026-05-07 14:47:49
+Migration Method: Graph-Based Dependency Analysis
+
+GRAPH SUMMARY:
+  Total Nodes: 8
+  Total Edges: 6
+  Has Cycles: False
+
+CHUNK-BY-CHUNK MAPPING:
+------------------------------------------------------------
+
+chunk_008:
+SAS macro logic and R integration are replaced by pandas for return calculation and PySpark for DataFrame operations. Scalar annualization is implemented via UDFs. Macro variables and loops are replaced by Python lists and DataFrame transformations.

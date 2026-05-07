@@ -1,0 +1,72 @@
+{
+  "success": true,
+  "sas_file": "testSAS/SASPerformanceAnalytics/performance_analytics_library/macro/treynor_ratio.sas",
+  "pyspark_code": "# Generated PySpark code from SAS migration\n# Execution order optimized by ExecutionOrderOptimizer\n\nfrom pyspark.sql import SparkSession\nfrom pyspark.sql.functions import col, lag, last as spark_last, lit\nfrom pyspark.sql.window import Window\n\nspark = SparkSession.builder.appName(\"SAS_Migration\").getOrCreate()\n\n# Initialize Spark session\n\n    temp_beta = CAPM_alpha_beta(returns, BM=BM, Rf=0, dateColumn=dateColumn)\n\n    temp_beta = temp_beta.filter(col('_stat_') == 'Betas')\nelse:\n\n    temp_beta = Systematic_Risk(returns, BM=BM, Rf=0, scale=scale, VARDEF=VARDEF, dateColumn=dateColumn)\n\n    temp_treynor = temp_treynor.withColumn(f'Treynor_{v}', \n                                           col(v) / col(f'{v}_beta') if f'{v}_beta' in temp_treynor.columns else lit(None))\n\n# Drop intermediate columns if present\n\ndrop_cols = [BM, dateColumn, '_stat_']\n\ntemp_treynor = temp_treynor.drop(*[c for c in drop_cols if c in temp_treynor.columns])\n\n# Add _STAT_ column\n\ntemp_treynor = temp_treynor.withColumn('_STAT_', lit('Treynor Ratio'))\n\n# Select only the last row based on dateColumn\n\nwindow_last = Window.orderBy(col(dateColumn).asc()).rowsBetween(Window.unboundedPreceding, Window.unboundedFollowing)\n\ntemp_treynor = temp_treynor.withColumn('last_row', spark_last(col(dateColumn)).over(window_last))\n\n# Get list of variable columns to process\n\nvars = get_number_column_names(returns, exclude=[dateColumn, 'Rf', BM])\n\n# Calculate Treynor Ratio for each variable in vars\nfor v in vars:\n    # Avoid division by zero\n\n# Calculate excess returns and annualize them\n\ntemp_rp = return_excess(returns, Rf=0, dateColumn=dateColumn)\n\n# Join temp_rp and temp_beta on variable columns\n\njoin_cols = [v for v in vars if v in temp_beta.columns and v in temp_rp.columns]\n\ntemp_treynor = temp_rp.join(temp_beta, on=join_cols, how='inner')\n\nlast_date = temp_treynor.agg({\"last_row\": \"max\"}).collect()[0][0]\n\noutData = temp_treynor.filter(col(dateColumn) == last_date).drop('last_row')\n\n# outData now contains the final Treynor Ratio results\n\n# Assume macro variables are provided as Python variables: outData, method, scale, BM, dateColumn, modified, VARDEF\n# Helper functions for return_excess, return_annualized, CAPM_alpha_beta, Systematic_Risk, get_number_column_names must be implemented elsewhere\n\ntemp_rp = return_annualized(temp_rp, scale=scale, method=method, dateColumn=dateColumn)\n\n# Calculate beta or systematic risk depending on 'modified' flag\nif not modified:\n",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: testSAS/SASPerformanceAnalytics/performance_analytics_library/macro/treynor_ratio.sas\nMigration Date: 2026-05-07 14:14:55\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 15\n  Total Edges: 19\n  Has Cycles: True\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_010:\nSAS macro logic is mapped to Python functions and DataFrame operations. Temporary datasets are DataFrames, macro variables are Python variables, and array/loop logic is handled with PySpark window functions. Final output is filtered to the last row and formatted.\n",
+  "chunks_converted": 1,
+  "total_chunks": 1,
+  "errors": [],
+  "warnings": [
+    "Dependency cycles detected (will be resolved): [['var_6', 'macro_1'], ['var_2', 'macro_1'], ['var_4', 'macro_1'], ['macro_1', 'var_3'], ['macro_1', 'var_5']]"
+  ],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_010"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T14:14:39.215547",
+    "end_time": "2026-05-07T14:14:55.226591",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/treynor_ratio.py",
+      "mapping": "output_batch/treynor_ratio_mapping.txt",
+      "validation": "output_batch/treynor_ratio_validation.txt",
+      "result": "output_batch/treynor_ratio_result.json"
+    }
+  },
+  "execution_time": 16.011044,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 8\n  Errors: 0\n  Warnings: 0\n  Info: 8\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 1 valid chunks from 1 total",
+    "Deduplicated imports: 5 -> 3",
+    "Created 1 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup",
+    "Reordered 29 code blocks for optimal execution",
+    "Warning: Block block_0 uses undefined variables: {'lag', 'spark_last'}",
+    "Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}",
+    "Warning: Block block_3 uses undefined variables: {'Assume', 'return_excess', 'Systematic_Risk', 'CAPM_alpha_beta', 'variables', 'are', 'get_number_column_names', 'BM', 'must', 'modified', 'provided', 'scale', 'macro', 'dateColumn', 'return_annualized', 'be', 'VARDEF', 'Helper', 'implemented', 'Python', 'method'}",
+    "Warning: Block block_4 uses undefined variables: {'variable', 'columns', 'of', 'Get', 'to'}",
+    "Warning: Block block_5 uses undefined variables: {'returns'}",
+    "Warning: Block block_6 uses undefined variables: {'excess', 'returns', 'Calculate', 'annualize'}",
+    "Warning: Block block_7 uses undefined variables: {'returns', 'dateColumn'}",
+    "Warning: Block block_8 uses undefined variables: {'method', 'scale', 'dateColumn'}",
+    "Warning: Block block_9 uses undefined variables: {'systematic', 'Calculate', 'beta', 'risk', 'on', 'depending', 'flag'}",
+    "Warning: Block block_10 uses undefined variables: {'returns', 'dateColumn', 'BM'}",
+    "Warning: Block block_12 uses undefined variables: {'scale', 'dateColumn', 'BM', 'returns', 'VARDEF'}",
+    "Warning: Block block_13 uses undefined variables: {'Join', 'variable', 'on'}",
+    "Warning: Block block_14 uses undefined variables: {'v'}",
+    "Warning: Block block_16 uses undefined variables: {'Avoid', 'Calculate', 'by', 'variable', 'division', 'Ratio', 'each', 'Treynor', 'v'}",
+    "Warning: Block block_17 uses undefined variables: {'v'}",
+    "Warning: Block block_18 uses undefined variables: {'Drop', 'columns', 'intermediate'}",
+    "Warning: Block block_19 uses undefined variables: {'dateColumn'}",
+    "Warning: Block block_20 uses undefined variables: {'c'}",
+    "Warning: Block block_21 uses undefined variables: {'Add'}",
+    "Warning: Block block_23 uses undefined variables: {'row', 'based', 'on', 'only', 'the', 'Select'}",
+    "Warning: Block block_24 uses undefined variables: {'dateColumn'}",
+    "Warning: Block block_25 uses undefined variables: {'dateColumn'}",
+    "Warning: Block block_27 uses undefined variables: {'dateColumn'}",
+    "Warning: Block block_28 uses undefined variables: {'Ratio', 'final', 'now', 'contains', 'the', 'Treynor'}"
+  ]
+}

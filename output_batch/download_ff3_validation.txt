@@ -1,0 +1,41 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 13
+  Errors: 0
+  Warnings: 4
+  Info: 9
+
+WARNINGS:
+----------------------------------------
+  Line 16: Variable 'requests' is used but never defined
+  Line 17: Variable 'io' is used but never defined
+  Line 23: Variable 'csvfile' is used but never defined
+  Line 27: Variable 'tmp_csv' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 6 -> 6
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 20 code blocks for optimal execution
+  - Warning: Block block_0 uses undefined variables: {'requests', 'io', 'tempfile', 'zipfile'}
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}
+  - Warning: Block block_3 uses undefined variables: {'Download', 'extract', 'CSV'}
+  - Warning: Block block_4 uses undefined variables: {'F_Research_Data_Factors_daily_CSV', 'dartmouth', 'ken', 'mba', 'tuck'}
+  - Warning: Block block_5 uses undefined variables: {'requests'}
+  - Warning: Block block_6 uses undefined variables: {'io'}
+  - Warning: Block block_7 uses undefined variables: {'zipfile'}
+  - Warning: Block block_8 uses undefined variables: {'name', 'zf'}
+  - Warning: Block block_9 uses undefined variables: {'csvfile'}
+  - Warning: Block block_10 uses undefined variables: {'tmp_csv', 'CSV', 'tempfile', 'temporary', 'Save', 'a', 'file', 'to', 'Spark'}
+  - Warning: Block block_11 uses undefined variables: {'tmp_csv'}
+  - Warning: Block block_12 uses undefined variables: {'Define', 'schema', 'the'}
+  - Warning: Block block_14 uses undefined variables: {'into', 'Read', 'CSV', 'a', 'the'}
+  - Warning: Block block_16 uses undefined variables: {'missing', 'out', 'rows', 'Filter'}
+  - Warning: Block block_18 uses undefined variables: {'SMB', 'Divide', 'by', 'RF', 'HML', 'Mkt_RF'}

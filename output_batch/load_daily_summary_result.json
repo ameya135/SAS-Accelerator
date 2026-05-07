@@ -1,0 +1,47 @@
+{
+  "success": true,
+  "sas_file": "sas_etl_project/load_daily_summary.sas",
+  "pyspark_code": "from pyspark.sql import SparkSession, functions as F\n\n# Initialize Spark session\nspark = SparkSession.builder.appName(\"SAS_Migration\").getOrCreate()\n\n# Load the staging.clean_transactions table into a DataFrame\ntransactions_df = spark.table('staging.clean_transactions')\n\n# Group by 'date', 'region', 'product' and aggregate sums for 'amount', 'tax', and 'total_amount'\ndaily_sales_df = transactions_df.groupBy('date', 'region', 'product').agg(\n    F.sum('amount').alias('total_sales'),\n    F.sum('tax').alias('total_tax'),\n    F.sum('total_amount').alias('grand_total')\n)\n\n# Display the daily sales summary\nprint('Daily Sales Summary')\ndaily_sales_df.show()",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: sas_etl_project/load_daily_summary.sas\nMigration Date: 2026-05-07 02:34:41\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 9\n  Total Edges: 8\n  Has Cycles: False\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_004:\nSAS DATA step with SET is mapped to reading a table into a PySpark DataFrame using spark.table. The output DataFrame is named input_data as in SAS.\n\n\nchunk_007:\nSAS proc summary with class and sum outputs maps to PySpark groupBy with agg and sum. The output dataset 'mart.daily_sales' is represented as the DataFrame 'daily_sales'. Dropping _type_ and _freq_ is not needed in PySpark.\n\n\nchunk_009:\nSAS PROC PRINT is mapped to loading the table as a DataFrame and displaying its contents using show(). The title is printed using Python's print(). Variable naming follows the provided mapping.\n",
+  "chunks_converted": 3,
+  "total_chunks": 3,
+  "errors": [],
+  "warnings": [],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_004",
+      "chunk_007",
+      "chunk_009"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T02:34:31.554482",
+    "end_time": "2026-05-07T02:34:41.762253",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/load_daily_summary.py",
+      "mapping": "output_batch/load_daily_summary_mapping.txt",
+      "validation": "output_batch/load_daily_summary_validation.txt",
+      "result": "output_batch/load_daily_summary_result.json"
+    }
+  },
+  "execution_time": 10.207771,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 1\n  Errors: 0\n  Warnings: 0\n  Info: 1\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 3 valid chunks from 3 total",
+    "Deduplicated imports: 0 -> 0",
+    "Created 3 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup"
+  ]
+}

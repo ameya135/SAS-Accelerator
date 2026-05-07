@@ -1,0 +1,16 @@
+SAS TO PYSPARK MIGRATION MAPPING
+============================================================
+Source File: testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/kappa_test1.sas
+Migration Date: 2026-05-07 14:33:09
+Migration Method: Graph-Based Dependency Analysis
+
+GRAPH SUMMARY:
+  Total Nodes: 8
+  Total Edges: 6
+  Has Cycles: False
+
+CHUNK-BY-CHUNK MAPPING:
+------------------------------------------------------------
+
+chunk_006:
+SAS macro logic, file handling, and R integration are replaced with Python and PySpark equivalents. Data steps and PROC SQL are mapped to DataFrame operations. Kappa and returns calculations are implemented in pandas, then converted to Spark DataFrames. Table existence checks and error row creation are handled in Python.

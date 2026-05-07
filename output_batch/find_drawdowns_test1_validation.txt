@@ -1,0 +1,50 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 23
+  Errors: 0
+  Warnings: 4
+  Info: 19
+
+WARNINGS:
+----------------------------------------
+  Line 26: Variable 'path' is used but never defined
+  Line 27: Variable 'pd' is used but never defined
+  Line 48: Variable 'returns' is used but never defined
+  Line 51: Variable 'break' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 4 -> 4
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 47 code blocks for optimal execution
+  - Warning: Block block_0 uses undefined variables: {'numpy', 'pd', 'pandas', 'np'}
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark', 'session'}
+  - Warning: Block block_3 uses undefined variables: {'dir', 'replace', 'keep', 'variable', 'here', 'externally', 'actual', 'needed', 'assignments', 'equivalents', 'values', 'Macro', 'Example'}
+  - Warning: Block block_4 uses undefined variables: {'prices', 'Read', 'Pandas'}
+  - Warning: Block block_5 uses undefined variables: {'prices', 'dir', 'path'}
+  - Warning: Block block_6 uses undefined variables: {'pd', 'Assuming', 'column'}
+  - Warning: Block block_7 uses undefined variables: {'returns', 'NA', 'Calculate', 'discrete'}
+  - Warning: Block block_9 uses undefined variables: {'using', 'Find', 'PerformanceAnalytics', 'equivalent', 'drawdowns'}
+  - Warning: Block block_10 uses undefined variables: {'returns'}
+  - Warning: Block block_11 uses undefined variables: {'returns'}
+  - Warning: Block block_13 uses undefined variables: {'ends', 'troughs', 'begin', 'recoveries', 'peaktotroughs', 'lengths'}
+  - Warning: Block block_18 uses undefined variables: {'ends', 'troughs', 'begin', 'recoveries', 'peaktotroughs', 'lengths'}
+  - Warning: Block block_19 uses undefined variables: {'ends', 'troughs', 'begin', 'recoveries', 'pd', 'peaktotroughs', 'lengths'}
+  - Warning: Block block_20 uses undefined variables: {'asset', 'Assuming', 'single'}
+  - Warning: Block block_21 uses undefined variables: {'to', 'Convert', 'Spark', 'pandas'}
+  - Warning: Block block_23 uses undefined variables: {'test', 'same', 'assuming', 'Simulate', 'output'}
+  - Warning: Block block_26 uses undefined variables: {'empty', 'Handle', 'DataFrames'}
+  - Warning: Block block_29 uses undefined variables: {'error', 'needed', 'Create'}
+  - Warning: Block block_34 uses undefined variables: {'differences', 'Compare', 'output', 'DataFrames'}
+  - Warning: Block block_36 uses undefined variables: {'column', 'indicator', 'Dummy', 'since', 'Spark', 'have'}
+  - Warning: Block block_38 uses undefined variables: {'variables', 'based', 'comparison', 'Set'}
+  - Warning: Block block_40 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}
+  - Warning: Block block_42 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}
+  - Warning: Block block_43 uses undefined variables: {'intermediate', 'DataFrames', 'Optionally', 'clean', 'up'}

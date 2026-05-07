@@ -1,0 +1,16 @@
+SAS TO PYSPARK MIGRATION MAPPING
+============================================================
+Source File: testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/return_excess_test.sas
+Migration Date: 2026-05-07 14:46:39
+Migration Method: Graph-Based Dependency Analysis
+
+GRAPH SUMMARY:
+  Total Nodes: 7
+  Total Edges: 5
+  Has Cycles: False
+
+CHUNK-BY-CHUNK MAPPING:
+------------------------------------------------------------
+
+chunk_005:
+SAS macro logic is mapped to Python functions and variables. Data steps and PROC IML are replaced with pandas and PySpark DataFrame operations. PROC COMPARE is implemented via DataFrame joins and absolute difference checks. Macro variables are replaced with Python variables.

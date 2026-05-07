@@ -1,0 +1,46 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 11
+  Errors: 0
+  Warnings: 2
+  Info: 9
+
+WARNINGS:
+----------------------------------------
+  Line 19: Variable 'pd' is used but never defined
+  Line 33: Variable 'np' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 5 -> 5
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 37 code blocks for optimal execution
+  - Warning: Block block_0 uses undefined variables: {'numpy', 'np', 'pd', 'pandas_udf', 'pandas'}
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}
+  - Warning: Block block_3 uses undefined variables: {'prices', 'assume', 'Read', 'CSV', 'elsewhere'}
+  - Warning: Block block_4 uses undefined variables: {'prices', 'pd', 'only', 'the', 'Select'}
+  - Warning: Block block_6 uses undefined variables: {'NaN', 'Calculate', 'discrete', 'Keep', 'rows', 'to'}
+  - Warning: Block block_8 uses undefined variables: {'to', 'Convert', 'Spark'}
+  - Warning: Block block_10 uses undefined variables: {'calculation', 'Annualized'}
+  - Warning: Block block_11 uses undefined variables: {'scale'}
+  - Warning: Block block_12 uses undefined variables: {'np'}
+  - Warning: Block block_13 uses undefined variables: {'np'}
+  - Warning: Block block_14 uses undefined variables: {'np'}
+  - Warning: Block block_15 uses undefined variables: {'scale'}
+  - Warning: Block block_16 uses undefined variables: {'scale', 'Register', 'UDFs', 'each', 'pandas'}
+  - Warning: Block block_17 uses undefined variables: {'pd'}
+  - Warning: Block block_19 uses undefined variables: {'pd'}
+  - Warning: Block block_21 uses undefined variables: {'pd'}
+  - Warning: Block block_23 uses undefined variables: {'pd'}
+  - Warning: Block block_24 uses undefined variables: {'row', 'a', 'Add', 'index'}
+  - Warning: Block block_26 uses undefined variables: {'window', 'cumulative', 'spec', 'Define'}
+  - Warning: Block block_28 uses undefined variables: {'Calculate', 'cumulative', 'to', 'array', 'each', 'up'}
+  - Warning: Block block_30 uses undefined variables: {'annualized', 'each', 'Calculate'}
+  - Warning: Block block_35 uses undefined variables: {'final', 'Select'}

@@ -1,0 +1,16 @@
+SAS TO PYSPARK MIGRATION MAPPING
+============================================================
+Source File: testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/appraisal_ratio_test2.sas
+Migration Date: 2026-05-07 14:18:42
+Migration Method: Graph-Based Dependency Analysis
+
+GRAPH SUMMARY:
+  Total Nodes: 8
+  Total Edges: 6
+  Has Cycles: False
+
+CHUNK-BY-CHUNK MAPPING:
+------------------------------------------------------------
+
+chunk_006:
+SAS macro logic and PROC steps are mapped to Python functions and PySpark DataFrame operations. Data import, return calculation, and appraisal ratio logic are handled in pandas for finance, then converted to Spark DataFrames. Table existence checks and conditional drops are mapped to Spark catalog operations; PROC COMPARE is mapped to DataFrame joins and difference checks.

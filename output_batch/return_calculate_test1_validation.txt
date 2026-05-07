@@ -1,0 +1,51 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 18
+  Errors: 0
+  Warnings: 2
+  Info: 16
+
+WARNINGS:
+----------------------------------------
+  Line 23: Variable 'path' is used but never defined
+  Line 23: Variable 'pd' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 9 -> 7
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 40 code blocks for optimal execution
+  - Warning: Block block_0 uses undefined variables: {'udf', 'pyspark_abs', 'pd', 'lag', 'pandas'}
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}
+  - Warning: Block block_3 uses undefined variables: {'Macro', 'variable'}
+  - Warning: Block block_4 uses undefined variables: {'this', 'environ', 'Set'}
+  - Warning: Block block_5 uses undefined variables: {'to', 'keep', 'intermediate', 'Set'}
+  - Warning: Block block_6 uses undefined variables: {'prices', 'reference', 'Read', 'calculate', 'returns', 'pandas', 'implementation'}
+  - Warning: Block block_7 uses undefined variables: {'prices', 'pd', 'path'}
+  - Warning: Block block_9 uses undefined variables: {'to', 'Convert', 'Spark', 'pandas'}
+  - Warning: Block block_11 uses undefined variables: {'prices', 'into', 'Spark', 'Read'}
+  - Warning: Block block_12 uses undefined variables: {'prices', 'path'}
+  - Warning: Block block_13 uses undefined variables: {'reference', 'returns', 'Calculate', 'compared', 'be', 'to', 'Spark'}
+  - Warning: Block block_15 uses undefined variables: {'col_name'}
+  - Warning: Block block_16 uses undefined variables: {'col_name'}
+  - Warning: Block block_17 uses undefined variables: {'col_name'}
+  - Warning: Block block_20 uses undefined variables: {'Compare', 'DataFrames'}
+  - Warning: Block block_23 uses undefined variables: {'col_name'}
+  - Warning: Block block_24 uses undefined variables: {'calc', 'ref'}
+  - Warning: Block block_25 uses undefined variables: {'comparison', 'point', 'tolerance', 'a', 'floating', 'Define', 'fuzz'}
+  - Warning: Block block_26 uses undefined variables: {'x'}
+  - Warning: Block block_27 uses undefined variables: {'fuzz'}
+  - Warning: Block block_28 uses undefined variables: {'col_name'}
+  - Warning: Block block_30 uses undefined variables: {'above', 'difference', 'Filter', 'rows', 'any'}
+  - Warning: Block block_33 uses undefined variables: {'NO', 'based', 'comparison', 'ERROR', 'IN', 'Set', 'result', 'TEST', 'on'}
+  - Warning: Block block_35 uses undefined variables: {'IN', 'TEST', 'PROBLEM'}
+  - Warning: Block block_37 uses undefined variables: {'outputs', 'detected'}
+  - Warning: Block block_38 uses undefined variables: {'usually', 'deletion', 'In', 'PySpark', 'intermediate', 'explicit', 'keeping', 'DataFrames', 'desired', 'can', 'done', 'but', 'clean', 'Optionally', 'be', 'necessary', 'up'}
+  - Warning: Block block_39 uses undefined variables: {'of', 'End'}

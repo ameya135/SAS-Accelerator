@@ -1,0 +1,24 @@
+SAS TO PYSPARK MIGRATION MAPPING
+============================================================
+Source File: sas_etl_project/load_daily_summary.sas
+Migration Date: 2026-05-07 02:34:41
+Migration Method: Graph-Based Dependency Analysis
+
+GRAPH SUMMARY:
+  Total Nodes: 9
+  Total Edges: 8
+  Has Cycles: False
+
+CHUNK-BY-CHUNK MAPPING:
+------------------------------------------------------------
+
+chunk_004:
+SAS DATA step with SET is mapped to reading a table into a PySpark DataFrame using spark.table. The output DataFrame is named input_data as in SAS.
+
+
+chunk_007:
+SAS proc summary with class and sum outputs maps to PySpark groupBy with agg and sum. The output dataset 'mart.daily_sales' is represented as the DataFrame 'daily_sales'. Dropping _type_ and _freq_ is not needed in PySpark.
+
+
+chunk_009:
+SAS PROC PRINT is mapped to loading the table as a DataFrame and displaying its contents using show(). The title is printed using Python's print(). Variable naming follows the provided mapping.

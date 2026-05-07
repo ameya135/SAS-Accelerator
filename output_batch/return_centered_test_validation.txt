@@ -1,0 +1,49 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 19
+  Errors: 0
+  Warnings: 2
+  Info: 17
+
+WARNINGS:
+----------------------------------------
+  Line 25: Variable 'path' is used but never defined
+  Line 25: Variable 'pd' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 8 -> 6
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 52 code blocks for optimal execution
+  - Warning: Block block_0 uses undefined variables: {'monotonically_increasing_id', 'pyspark_abs', 'pyspark_mean', 'pd', 'lag', 'pandas'}
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}
+  - Warning: Block block_3 uses undefined variables: {'replace', 'variables', 'arguments', 'actual', 'Set', 'values', 'up'}
+  - Warning: Block block_4 uses undefined variables: {'to', 'intermediate', 'Set'}
+  - Warning: Block block_5 uses undefined variables: {'directory', 'actual', 'Replace'}
+  - Warning: Block block_6 uses undefined variables: {'pandas', 'using', 'Read', 'process', 'logic', 'compatibility', 'R'}
+  - Warning: Block block_7 uses undefined variables: {'pd', 'path'}
+  - Warning: Block block_8 uses undefined variables: {'Calculate', 'discrete', 'center', 'them', 'pandas'}
+  - Warning: Block block_11 uses undefined variables: {'to', 'Convert', 'Spark', 'pandas'}
+  - Warning: Block block_13 uses undefined variables: {'into', 'Spark', 'Read'}
+  - Warning: Block block_14 uses undefined variables: {'path'}
+  - Warning: Block block_15 uses undefined variables: {'centered', 'Spark', 'Calculate'}
+  - Warning: Block block_16 uses undefined variables: {'col_name'}
+  - Warning: Block block_17 uses undefined variables: {'col_name'}
+  - Warning: Block block_18 uses undefined variables: {'c'}
+  - Warning: Block block_20 uses undefined variables: {'Center', 'the', 'col_name'}
+  - Warning: Block block_21 uses undefined variables: {'col_name'}
+  - Warning: Block block_22 uses undefined variables: {'col_name'}
+  - Warning: Block block_24 uses undefined variables: {'row', 'Remove', 'equivalent'}
+  - Warning: Block block_27 uses undefined variables: {'empty', 'Handle', 'DataFrames'}
+  - Warning: Block block_30 uses undefined variables: {'simulate', 'Compare', 'compare', 'columns', 'Rename', 'proc', 'DataFrames', 'logic', 'fuzz'}
+  - Warning: Block block_40 uses undefined variables: {'differences', 'test', 'result', 'Count'}
+  - Warning: Block block_44 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}
+  - Warning: Block block_46 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}
+  - Warning: Block block_47 uses undefined variables: {'Optional', 'cleanup'}

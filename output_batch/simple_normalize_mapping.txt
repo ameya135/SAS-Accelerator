@@ -1,0 +1,16 @@
+SAS TO PYSPARK MIGRATION MAPPING
+============================================================
+Source File: testSAS/SASPerformanceAnalytics/performance_analytics_library/macro/simple_normalize.sas
+Migration Date: 2026-05-07 14:14:19
+Migration Method: Graph-Based Dependency Analysis
+
+GRAPH SUMMARY:
+  Total Nodes: 5
+  Total Edges: 4
+  Has Cycles: False
+
+CHUNK-BY-CHUNK MAPPING:
+------------------------------------------------------------
+
+chunk_005:
+The SAS macro is mapped to PySpark by first calculating the normalized sum using DataFrame aggregation, then updating the column with the normalized values using withColumn. Macro variables are replaced by Python variables.

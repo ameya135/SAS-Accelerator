@@ -1,0 +1,69 @@
+{
+  "success": true,
+  "sas_file": "testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/max_drawdown_test1.sas",
+  "pyspark_code": "# Generated PySpark code from SAS migration\n# Execution order optimized by ExecutionOrderOptimizer\n\nimport os\nimport pandas as pd\nfrom pyspark.sql import SparkSession\nfrom pyspark.sql.functions import abs as pyspark_abs, col\n\nspark = SparkSession.builder.appName(\"SAS_Migration\").getOrCreate()\n\n# Initialize Spark session\n\ndef max_drawdown(series):\n\n    cumulative = (1 + series).cumprod()\n\n    highwater = cumulative.cummax()\n\n    drawdown = cumulative / highwater - 1\n    return drawdown.min()\n\nmax_dd_pd = pd.DataFrame([max_dd_dict])\n\n# Convert pandas DataFrames to Spark DataFrames\n\nmax_dd = spark.createDataFrame(max_dd_pd)\n\n# Handle empty DataFrames by replacing with error rows\nif max_dd.count() == 0:\n\n    error_row = {'IBM': -999, 'GE': -999, 'DOW': -999, 'GOOGL': -999, 'SPY': -999}\n\n    max_dd = spark.createDataFrame([error_row])\n\n    error_row = {'date': 1, 'IBM': 999, 'GE': 999, 'DOW': 999, 'GOOGL': 999, 'SPY': 999}\n\n    returns_from_r = spark.createDataFrame([error_row])\n\n# Compare DataFrames by date and columns, output differences where fuzziness applies\n\n# Count number of differences\n\n    pass_test = True\n\n    notes = 'Passed'\n    print('NOTE: NO ERROR IN TEST MAX_DRAWDOWN_TEST1')\nelse:\n\n    pass_test = False\n\n    notes = 'Differences detected in outputs.'\n    print('ERROR: PROBLEM IN TEST MAX_DRAWDOWN_TEST1')\n\n# Clean up temporary tables if keep is False\nif not keep:\n\n    diff = None\n\n    max_dd = None\n\n    returns_from_r = None\n\n# Read prices CSV as DataFrame\n\nprices_path = os.path.join(dir, 'prices.csv')\n\nprices_pd = pd.read_csv(prices_path)\nprices_pd['date'] = pd.to_datetime(prices_pd['date'])\nprices_pd.set_index('date', inplace=True)\n\n# Calculate discrete returns using pandas\n\nreturns_pd = prices_pd.pct_change().dropna()\n\nmax_dd_dict = {col: max_drawdown(returns_pd[col]) for col in returns_pd.columns}\n\nreturns_from_r = spark.createDataFrame(returns_pd.reset_index())\n\nif returns_from_r.count() == 0:\n\njoined = returns_from_r.alias('base').join(max_dd.alias('compare'), how='inner')\n\ndiff = joined.filter(\n    (pyspark_abs(col('base.IBM') - col('compare.IBM')) > 1e-8) |\n    (pyspark_abs(col('base.GE') - col('compare.GE')) > 1e-8) |\n    (pyspark_abs(col('base.DOW') - col('compare.DOW')) > 1e-8) |\n    (pyspark_abs(col('base.GOOGL') - col('compare.GOOGL')) > 1e-8) |\n    (pyspark_abs(col('base.SPY') - col('compare.SPY')) > 1e-8)\n)\n\nn = diff.count()\n\n# Set up variables from dependencies (assume these are provided elsewhere)\n# n, dir, nv, keep are assumed to be set in the environment or passed in\n\n# Set pass/fail and notes based on differences\nif n == 0:\n\n# Calculate max drawdown for each column\n",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/max_drawdown_test1.sas\nMigration Date: 2026-05-07 14:35:37\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 8\n  Total Edges: 6\n  Has Cycles: False\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_006:\nSAS macro logic, file handling, and R integration are replaced with pandas for returns and drawdown calculation, and Spark DataFrames for further processing. Table existence and deletion logic is mapped to DataFrame existence and cleanup. proc compare is mapped to DataFrame joins and value comparison with fuzziness.\n",
+  "chunks_converted": 1,
+  "total_chunks": 1,
+  "errors": [],
+  "warnings": [
+    "Line 22: Variable 'path' is used but never defined",
+    "Line 23: Variable 'pd' is used but never defined"
+  ],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_006"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T14:35:20.986705",
+    "end_time": "2026-05-07T14:35:37.840284",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/max_drawdown_test1.py",
+      "mapping": "output_batch/max_drawdown_test1_mapping.txt",
+      "validation": "output_batch/max_drawdown_test1_validation.txt",
+      "result": "output_batch/max_drawdown_test1_result.json"
+    }
+  },
+  "execution_time": 16.853579,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 17\n  Errors: 0\n  Warnings: 2\n  Info: 15\n\nWARNINGS:\n----------------------------------------\n  Line 22: Variable 'path' is used but never defined\n  Line 23: Variable 'pd' is used but never defined\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 1 valid chunks from 1 total",
+    "Deduplicated imports: 5 -> 5",
+    "Created 1 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup",
+    "Reordered 39 code blocks for optimal execution",
+    "Warning: Block block_0 uses undefined variables: {'pyspark_abs', 'pd', 'pandas'}",
+    "Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}",
+    "Warning: Block block_3 uses undefined variables: {'assumed', 'dir', 'environment', 'nv', 'keep', 'assume', 'provided', 'variables', 'are', 'dependencies', 'elsewhere', 'to', 'be', 'Set', 'the', 'passed', 'these', 'up'}",
+    "Warning: Block block_4 uses undefined variables: {'prices', 'Read', 'CSV'}",
+    "Warning: Block block_5 uses undefined variables: {'prices', 'dir', 'path'}",
+    "Warning: Block block_6 uses undefined variables: {'pd'}",
+    "Warning: Block block_7 uses undefined variables: {'using', 'returns', 'Calculate', 'discrete'}",
+    "Warning: Block block_9 uses undefined variables: {'each', 'Calculate'}",
+    "Warning: Block block_10 uses undefined variables: {'series'}",
+    "Warning: Block block_11 uses undefined variables: {'series'}",
+    "Warning: Block block_15 uses undefined variables: {'pd'}",
+    "Warning: Block block_16 uses undefined variables: {'Convert', 'DataFrames', 'to', 'Spark', 'pandas'}",
+    "Warning: Block block_19 uses undefined variables: {'by', 'DataFrames', 'error', 'rows', 'Handle', 'replacing', 'empty'}",
+    "Warning: Block block_25 uses undefined variables: {'Compare', 'by', 'columns', 'DataFrames', 'fuzziness', 'differences', 'output'}",
+    "Warning: Block block_27 uses undefined variables: {'base', 'compare'}",
+    "Warning: Block block_28 uses undefined variables: {'Count', 'of', 'number'}",
+    "Warning: Block block_30 uses undefined variables: {'differences', 'based', 'on', 'Set'}",
+    "Warning: Block block_32 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}",
+    "Warning: Block block_34 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}",
+    "Warning: Block block_35 uses undefined variables: {'keep', 'Clean', 'temporary', 'tables', 'up'}"
+  ]
+}

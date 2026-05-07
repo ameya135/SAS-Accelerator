@@ -1,0 +1,73 @@
+{
+  "success": true,
+  "sas_file": "testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/standard_deviation_test2.sas",
+  "pyspark_code": "# Generated PySpark code from SAS migration\n# Execution order optimized by ExecutionOrderOptimizer\n\nimport numpy as np\nimport os\nimport pandas as pd\nfrom pyspark.sql import SparkSession\nfrom pyspark.sql.functions import col, max as spark_max, monotonically_increasing_id\n\nspark = SparkSession.builder.appName(\"StandardDeviationTest2\").getOrCreate()\n\n# Initialize Spark session\n\n# Annualize standard deviation (scale=252)\n\nannualized_stddev_pd = annualized_stddev_pd[['date'] + [c for c in annualized_stddev_pd.columns if c != 'date']]\n\n# Convert pandas DataFrames to Spark DataFrames\n\n    error_data = {'date': [-1], 'IBM': [-999], 'GE': [-999], 'DOW': [-999], 'GOOGL': [-999], 'SPY': [-999]}\n\n    annualized_stddev_sdf = spark.createDataFrame(pd.DataFrame(error_data))\n\n    error_data = {'date': [1], 'IBM': [999], 'GE': [999], 'DOW': [999], 'GOOGL': [999], 'SPY': [999]}\n\n    returns_sdf = spark.createDataFrame(pd.DataFrame(error_data))\n\n# Keep only the last row of annualized_stddev_sdf\n\ndef fuzz(x, y, tol=1e-8):\n    return abs(x - y) < tol\n\n# Set variables from macro or environment\n\n    pass_var = True\n\n    notes_var = 'Passed'\n    print('NOTE: NO ERROR IN TEST Standard_Deviation_test2')\nelse:\n\n    pass_var = False\n\n    notes_var = 'Differences detected in outputs.'\n    print('ERROR: PROBLEM IN TEST Standard_Deviation_test2')\n\nkeep = False if str('${keep}').upper() == 'FALSE' else True\n\n# Clean up temporary DataFrames if keep is False\nif not keep:\n\n    returns_sdf = None\n\n    annualized_stddev_sdf = None\n\ndir_path = os.environ.get('dir', '${dir}')\n\n# Read prices CSV as DataFrame\n\nprices_path = os.path.join(dir_path, 'prices.csv')\n\nprices_pd = pd.read_csv(prices_path, parse_dates=True, index_col=0)\n\nreturns_pd = prices_pd.pct_change().dropna()\n\nannualized_stddev_pd = returns_pd.std() * np.sqrt(252)\n\nannualized_stddev_pd = annualized_stddev_pd.to_frame().T\nannualized_stddev_pd['date'] = returns_pd.index.max()\n\nreturns_sdf = spark.createDataFrame(returns_pd.reset_index())\n\nannualized_stddev_sdf = spark.createDataFrame(annualized_stddev_pd)\n\n# Handle empty DataFrames by replacing with error rows\nif annualized_stddev_sdf.count() == 0:\n\nif returns_sdf.count() == 0:\n\nwindow_id = annualized_stddev_sdf.withColumn('row_id', monotonically_increasing_id())\n\nmax_row_id = window_id.agg(spark_max('row_id')).collect()[0][0]\n\nannualized_stddev_sdf = window_id.filter(col('row_id') == max_row_id).drop('row_id')\n\n# Compare returns_sdf and annualized_stddev_sdf using fuzz logic\n\nreturns_pd_last = returns_sdf.toPandas().iloc[[-1]].reset_index(drop=True)\n\nannualized_stddev_pd_last = annualized_stddev_sdf.toPandas().reset_index(drop=True)\n\ndiff_rows = []\nfor colname in ['IBM', 'GE', 'DOW', 'GOOGL', 'SPY']:\n    if not fuzz(returns_pd_last.at[0, colname], annualized_stddev_pd_last.at[0, colname]):\n        diff_rows.append({'_type_': 'DIF', colname: True})\n\ndiff_count = len(diff_rows)\n\n# Set pass/notes variables based on diff_count\nif diff_count == 0:\n\n# Calculate discrete returns using pandas\n",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/standard_deviation_test2.sas\nMigration Date: 2026-05-07 14:53:06\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 8\n  Total Edges: 6\n  Has Cycles: False\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_006:\nSAS macro logic is mapped to Python functions and variables. Data steps and PROC SQL are replaced with pandas and PySpark DataFrame operations. R code for returns and standard deviation is replaced with pandas calculations, and table existence checks are handled with Python logic.\n",
+  "chunks_converted": 1,
+  "total_chunks": 1,
+  "errors": [],
+  "warnings": [
+    "Line 23: Variable 'path' is used but never defined",
+    "Line 24: Variable 'pd' is used but never defined"
+  ],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_006"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T14:52:46.187875",
+    "end_time": "2026-05-07T14:53:06.406774",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/standard_deviation_test2.py",
+      "mapping": "output_batch/standard_deviation_test2_mapping.txt",
+      "validation": "output_batch/standard_deviation_test2_validation.txt",
+      "result": "output_batch/standard_deviation_test2_result.json"
+    }
+  },
+  "execution_time": 20.218899,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 18\n  Errors: 0\n  Warnings: 2\n  Info: 16\n\nWARNINGS:\n----------------------------------------\n  Line 23: Variable 'path' is used but never defined\n  Line 24: Variable 'pd' is used but never defined\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 1 valid chunks from 1 total",
+    "Deduplicated imports: 5 -> 5",
+    "Created 1 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup",
+    "Reordered 42 code blocks for optimal execution",
+    "Warning: Block block_0 uses undefined variables: {'numpy', 'np', 'pd', 'spark_max', 'pandas'}",
+    "Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}",
+    "Warning: Block block_3 uses undefined variables: {'variables', 'macro', 'Set'}",
+    "Warning: Block block_5 uses undefined variables: {'environ'}",
+    "Warning: Block block_6 uses undefined variables: {'prices', 'Read', 'CSV'}",
+    "Warning: Block block_7 uses undefined variables: {'prices', 'path'}",
+    "Warning: Block block_8 uses undefined variables: {'pd'}",
+    "Warning: Block block_9 uses undefined variables: {'using', 'returns', 'Calculate', 'discrete'}",
+    "Warning: Block block_11 uses undefined variables: {'standard', 'Annualize', 'deviation'}",
+    "Warning: Block block_12 uses undefined variables: {'np'}",
+    "Warning: Block block_13 uses undefined variables: {'index'}",
+    "Warning: Block block_14 uses undefined variables: {'c'}",
+    "Warning: Block block_15 uses undefined variables: {'Convert', 'DataFrames', 'to', 'Spark', 'pandas'}",
+    "Warning: Block block_18 uses undefined variables: {'by', 'DataFrames', 'error', 'rows', 'Handle', 'replacing', 'empty'}",
+    "Warning: Block block_20 uses undefined variables: {'pd'}",
+    "Warning: Block block_23 uses undefined variables: {'pd'}",
+    "Warning: Block block_24 uses undefined variables: {'row', 'of', 'Keep', 'only', 'the'}",
+    "Warning: Block block_28 uses undefined variables: {'using', 'Compare', 'fuzz'}",
+    "Warning: Block block_29 uses undefined variables: {'x', 'y'}",
+    "Warning: Block block_32 uses undefined variables: {'colname'}",
+    "Warning: Block block_34 uses undefined variables: {'variables', 'based', 'on', 'Set'}",
+    "Warning: Block block_36 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}",
+    "Warning: Block block_38 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}",
+    "Warning: Block block_39 uses undefined variables: {'Clean', 'temporary', 'DataFrames', 'up'}"
+  ]
+}

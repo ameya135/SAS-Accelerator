@@ -1,0 +1,16 @@
+SAS TO PYSPARK MIGRATION MAPPING
+============================================================
+Source File: testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/market_timing_test1.sas
+Migration Date: 2026-05-07 14:35:01
+Migration Method: Graph-Based Dependency Analysis
+
+GRAPH SUMMARY:
+  Total Nodes: 8
+  Total Edges: 6
+  Has Cycles: False
+
+CHUNK-BY-CHUNK MAPPING:
+------------------------------------------------------------
+
+chunk_006:
+SAS macro logic, file handling, and PROC steps are mapped to PySpark DataFrame operations, pandas for returns and market timing, and Python logic for error handling and comparison. Macro variables are replaced by Python variables. PROC COMPARE is simulated by joining and comparing DataFrames.

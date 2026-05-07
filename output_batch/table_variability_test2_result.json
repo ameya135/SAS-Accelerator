@@ -1,0 +1,68 @@
+{
+  "success": true,
+  "sas_file": "testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/table_variability_test2.sas",
+  "pyspark_code": "# Generated PySpark code from SAS migration\n# Execution order optimized by ExecutionOrderOptimizer\n\nimport os\nimport pandas as pd\nfrom pyspark.sql import SparkSession\nfrom pyspark.sql.functions import abs as pyspark_abs, col\n\nspark = SparkSession.builder.appName(\"SAS_Migration\").getOrCreate()\n\n# Initialize Spark session\n\n# Convert pandas DataFrames to Spark DataFrames\n\n    error_data = {'IBM': [-999], 'GE': [-999], 'DOW': [-999], 'GOOGL': [-999], 'SPY': [-999]}\n\n    variability_table = spark.createDataFrame(pd.DataFrame(error_data))\n\n    error_data = {'IBM': [999], 'GE': [999], 'DOW': [999], 'GOOGL': [999], 'SPY': [999]}\n\n    returns_from_r = spark.createDataFrame(pd.DataFrame(error_data))\n\n# Compare DataFrames: absolute difference > 1e-4 for any column\n\ndiff = diff.withColumn('IBM_DIF', pyspark_abs(col('IBM'))) \\\n           .withColumn('GE_DIF', pyspark_abs(col('GE'))) \\\n           .withColumn('DOW_DIF', pyspark_abs(col('DOW'))) \\\n           .withColumn('GOOGL_DIF', pyspark_abs(col('GOOGL'))) \\\n           .withColumn('SPY_DIF', pyspark_abs(col('SPY')))\n\n# Count number of differences\n\n    pass_test = True\n\n    notes = 'Passed'\n    print('NOTE: NO ERROR IN TEST table_variability_TEST2')\nelse:\n\n    pass_test = False\n\n    notes = 'Differences detected in outputs.'\n    print('ERROR: PROBLEM IN TEST table_variability_TEST2')\n\n# Clean up temporary tables if keep is False\nif not keep:\n    for df_name in ['diff', 'prices_pd', 'returns_from_r', 'variability_table']:\n        if df_name in locals():\n            locals().pop(df_name)\n\n# Read prices CSV as pandas DataFrame\n\nprices_path = os.path.join(dir, 'prices.csv')\n\nprices_pd = pd.read_csv(prices_path)\n\n# Calculate returns using pandas (discrete method)\n\nreturns_pd = prices_pd.pct_change().dropna()\n\nvariability_table_pd = returns_pd.agg(['std']).round(8)\nvariability_table_pd.index = ['Variability']\n\nreturns_from_r = spark.createDataFrame(returns_pd.reset_index(drop=True))\n\nvariability_table = spark.createDataFrame(variability_table_pd.reset_index(drop=True))\n\n# Handle empty DataFrames by replacing with error DataFrames\nif variability_table.count() == 0:\n\nif returns_from_r.count() == 0:\n\ndiff = returns_from_r.join(variability_table, how='inner') \\\n    .select(\n        (col('returns_from_r.IBM') - col('variability_table.IBM')).alias('IBM'),\n        (col('returns_from_r.GE') - col('variability_table.GE')).alias('GE'),\n        (col('returns_from_r.DOW') - col('variability_table.DOW')).alias('DOW'),\n        (col('returns_from_r.GOOGL') - col('variability_table.GOOGL')).alias('GOOGL'),\n        (col('returns_from_r.SPY') - col('variability_table.SPY')).alias('SPY')\n    )\n\ndiff_filtered = diff.filter(\n    (col('IBM_DIF') > 1e-4) |\n    (col('GE_DIF') > 1e-4) |\n    (col('DOW_DIF') > 1e-4) |\n    (col('GOOGL_DIF') > 1e-4) |\n    (col('SPY_DIF') > 1e-4)\n)\n\nn = diff_filtered.count()\n\n# Set pass/fail and notes\nif n == 0:\n\n# Set variables from dependencies (assume these are provided in the environment)\n# n, dir, nv, keep are assumed to be set externally\n\n# Calculate variability table (standard deviation as proxy for table.Variability)\n",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/table_variability_test2.sas\nMigration Date: 2026-05-07 15:05:10\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 8\n  Total Edges: 6\n  Has Cycles: False\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_006:\nSAS macro logic and file handling are mapped to Python functions and variables. Data steps and PROC SQL are mapped to PySpark DataFrame operations. R-based calculations are replaced with pandas/numpy equivalents, and table comparisons use PySpark DataFrame joins and filters.\n",
+  "chunks_converted": 1,
+  "total_chunks": 1,
+  "errors": [],
+  "warnings": [
+    "Line 22: Variable 'path' is used but never defined",
+    "Line 23: Variable 'pd' is used but never defined",
+    "Line 85: Variable 'pass' is used but never defined"
+  ],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_006"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T15:04:44.610095",
+    "end_time": "2026-05-07T15:05:10.005116",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/table_variability_test2.py",
+      "mapping": "output_batch/table_variability_test2_mapping.txt",
+      "validation": "output_batch/table_variability_test2_validation.txt",
+      "result": "output_batch/table_variability_test2_result.json"
+    }
+  },
+  "execution_time": 25.395021,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 15\n  Errors: 0\n  Warnings: 3\n  Info: 12\n\nWARNINGS:\n----------------------------------------\n  Line 22: Variable 'path' is used but never defined\n  Line 23: Variable 'pd' is used but never defined\n  Line 85: Variable 'pass' is used but never defined\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 1 valid chunks from 1 total",
+    "Deduplicated imports: 5 -> 5",
+    "Created 1 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup",
+    "Reordered 32 code blocks for optimal execution",
+    "Warning: Block block_0 uses undefined variables: {'pyspark_abs', 'pd', 'pandas'}",
+    "Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}",
+    "Warning: Block block_3 uses undefined variables: {'assumed', 'dir', 'environment', 'nv', 'keep', 'assume', 'provided', 'variables', 'are', 'dependencies', 'be', 'Set', 'to', 'the', 'these'}",
+    "Warning: Block block_4 uses undefined variables: {'prices', 'Read', 'CSV', 'pandas'}",
+    "Warning: Block block_5 uses undefined variables: {'prices', 'dir', 'path'}",
+    "Warning: Block block_6 uses undefined variables: {'pd'}",
+    "Warning: Block block_7 uses undefined variables: {'Calculate', 'using', 'discrete', 'returns', 'pandas', 'method'}",
+    "Warning: Block block_9 uses undefined variables: {'proxy', 'Calculate', 'deviation', 'standard', 'variability'}",
+    "Warning: Block block_11 uses undefined variables: {'Convert', 'DataFrames', 'to', 'Spark', 'pandas'}",
+    "Warning: Block block_14 uses undefined variables: {'by', 'DataFrames', 'error', 'Handle', 'replacing', 'empty'}",
+    "Warning: Block block_16 uses undefined variables: {'pd'}",
+    "Warning: Block block_19 uses undefined variables: {'pd'}",
+    "Warning: Block block_20 uses undefined variables: {'absolute', 'difference', 'Compare', 'any'}",
+    "Warning: Block block_24 uses undefined variables: {'Count', 'of', 'number'}",
+    "Warning: Block block_26 uses undefined variables: {'Set'}",
+    "Warning: Block block_28 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}",
+    "Warning: Block block_30 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}",
+    "Warning: Block block_31 uses undefined variables: {'df_name', 'keep', 'Clean', 'temporary', 'tables', 'up'}"
+  ]
+}

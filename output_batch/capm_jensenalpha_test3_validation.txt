@@ -1,0 +1,47 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 18
+  Errors: 0
+  Warnings: 4
+  Info: 14
+
+WARNINGS:
+----------------------------------------
+  Line 20: Variable 'path' is used but never defined
+  Line 36: Variable 'pd' is used but never defined
+  Line 42: Variable '0' is used but never defined
+  Line 49: Variable 'np' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 6 -> 5
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 34 code blocks for optimal execution
+  - Warning: Block block_0 uses undefined variables: {'monotonically_increasing_id', 'numpy', 'np', 'pd', 'pandas'}
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark', 'session'}
+  - Warning: Block block_3 uses undefined variables: {'Define', 'paths', 'parameters', 'file'}
+  - Warning: Block block_4 uses undefined variables: {'dir', 'variable', 'Assumes', 'macro', 'externally', 'a'}
+  - Warning: Block block_5 uses undefined variables: {'prices', 'path'}
+  - Warning: Block block_6 uses undefined variables: {'Set', 'name', 'your', 'column'}
+  - Warning: Block block_7 uses undefined variables: {'prices', 'into', 'Read', 'CSV', 'Spark'}
+  - Warning: Block block_9 uses undefined variables: {'using', 'Calculate', 'pandas', 'discrete'}
+  - Warning: Block block_15 uses undefined variables: {'Aggregate', 'dt', 'cumulative', 'yearly', 'using', 'product', 'geometric', 'pd'}
+  - Warning: Block block_16 uses undefined variables: {'c'}
+  - Warning: Block block_18 uses undefined variables: {'calculation', 'Alpha'}
+  - Warning: Block block_19 uses undefined variables: {'benchmark'}
+  - Warning: Block block_22 uses undefined variables: {'benchmark'}
+  - Warning: Block block_23 uses undefined variables: {'np'}
+  - Warning: Block block_24 uses undefined variables: {'pd'}
+  - Warning: Block block_25 uses undefined variables: {'Assumes', 'column'}
+  - Warning: Block block_27 uses undefined variables: {'back', 'Alpha', 'Convert', 'results', 'to', 'Spark'}
+  - Warning: Block block_29 uses undefined variables: {'row', 'null', 'numeric', 'column', 'macro', 'of', 'Edit_returns', 'to', 'each'}
+  - Warning: Block block_30 uses undefined variables: {'schema', 'field'}
+  - Warning: Block block_31 uses undefined variables: {'col_name'}
+  - Warning: Block block_32 uses undefined variables: {'col_name'}

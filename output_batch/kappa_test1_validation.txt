@@ -1,0 +1,54 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 26
+  Errors: 0
+  Warnings: 4
+  Info: 22
+
+WARNINGS:
+----------------------------------------
+  Line 24: Variable 'path' is used but never defined
+  Line 25: Variable 'pd' is used but never defined
+  Line 34: Variable 'np' is used but never defined
+  Line 38: Variable '0' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 5 -> 5
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 46 code blocks for optimal execution
+  - Warning: Block block_0 uses undefined variables: {'numpy', 'pd', 'pandas', 'np'}
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark', 'session'}
+  - Warning: Block block_3 uses undefined variables: {'variables', 'up', 'macro', 'Set'}
+  - Warning: Block block_4 uses undefined variables: {'Set', 'macro'}
+  - Warning: Block block_5 uses undefined variables: {'Set', 'dir_macro_variable', 'macro'}
+  - Warning: Block block_6 uses undefined variables: {'prices', 'Read'}
+  - Warning: Block block_7 uses undefined variables: {'prices', 'path'}
+  - Warning: Block block_8 uses undefined variables: {'pd'}
+  - Warning: Block block_9 uses undefined variables: {'Calculate', 'discrete', 'returns', 'NA', 'method'}
+  - Warning: Block block_12 uses undefined variables: {'calculation', 'Kappa'}
+  - Warning: Block block_13 uses undefined variables: {'l', 'series'}
+  - Warning: Block block_14 uses undefined variables: {'series'}
+  - Warning: Block block_15 uses undefined variables: {'np'}
+  - Warning: Block block_16 uses undefined variables: {'np'}
+  - Warning: Block block_19 uses undefined variables: {'col_name'}
+  - Warning: Block block_20 uses undefined variables: {'returns', 'Convert', 'DataFrames', 'kappa', 'to', 'Spark'}
+  - Warning: Block block_22 uses undefined variables: {'pd'}
+  - Warning: Block block_24 uses undefined variables: {'by', 'creating', 'DataFrames', 'error', 'rows', 'Handle', 'empty'}
+  - Warning: Block block_30 uses undefined variables: {'specified', 'compute', 'Compare', 'Since', 'crossJoin', 'are', 'using', 'the', 'columns', 'differences', 'keys'}
+  - Warning: Block block_32 uses undefined variables: {'col_name'}
+  - Warning: Block block_33 uses undefined variables: {'col_name'}
+  - Warning: Block block_34 uses undefined variables: {'treat', 'difference', 'tolerance', 'Fuzz'}
+  - Warning: Block block_35 uses undefined variables: {'col_name'}
+  - Warning: Block block_38 uses undefined variables: {'differences', 'Count', 'of', 'number'}
+  - Warning: Block block_40 uses undefined variables: {'Set'}
+  - Warning: Block block_42 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}
+  - Warning: Block block_44 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}
+  - Warning: Block block_45 uses undefined variables: {'script', 'of', 'End'}

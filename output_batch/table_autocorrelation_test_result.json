@@ -1,0 +1,70 @@
+{
+  "success": true,
+  "sas_file": "testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/table_autocorrelation_test.sas",
+  "pyspark_code": "# Generated PySpark code from SAS migration\n# Execution order optimized by ExecutionOrderOptimizer\n\nimport os\nimport pandas as pd\nimport statsmodels.api as sm\nfrom pyspark.sql import SparkSession\nfrom pyspark.sql.functions import abs as ps_abs, col\n\nspark = SparkSession.builder.appName(\"table_autocorrelation_TEST\").getOrCreate()\n\n# ---------------------------\n# Initialize Spark session\n# ---------------------------\n\np_value = lb_test['lb_pvalue'].iloc[0]\n\n# ---------------------------\n# Prepare pandas DataFrames for output\n# ---------------------------\n\nreturns_from_r_pd = pd.DataFrame({\n    'rho1': [autocorrs[0]],\n    'rho2': [autocorrs[1]],\n    'rho3': [autocorrs[2]],\n    'rho4': [autocorrs[3]],\n    'rho5': [autocorrs[4]],\n    'rho6': [autocorrs[5]],\n    'Q_6__p_value': [p_value]\n})\n\nAutoCorrelations_pd = pd.DataFrame({\n    'lag1': [autocorrs[0]],\n    'lag2': [autocorrs[1]],\n    'lag3': [autocorrs[2]],\n    'lag4': [autocorrs[3]],\n    'lag5': [autocorrs[4]],\n    'lag6': [autocorrs[5]],\n    'p_value': [p_value]\n})\n\n# ---------------------------\n# Convert pandas DataFrames to Spark DataFrames\n# ---------------------------\n\nreturns_from_r = spark.createDataFrame(returns_from_r_pd)\n\nAutoCorrelations = spark.createDataFrame(AutoCorrelations_pd)\n\n# ---------------------------\n# Handle empty DataFrames by inserting default rows\n# ---------------------------\nif AutoCorrelations.count() == 0:\n\n    AutoCorrelations = spark.createDataFrame([(-999,)*7], ['lag1','lag2','lag3','lag4','lag5','lag6','p_value'])\nif returns_from_r.count() == 0:\n\n    returns_from_r = spark.createDataFrame([(999,)*7], ['rho1','rho2','rho3','rho4','rho5','rho6','Q_6__p_value'])\n\n# ---------------------------\n# Compare DataFrames: absolute difference > 1e-4 for any lag or p_value\n# ---------------------------\n\ndiff = AutoCorrelations.join(returns_from_r, how='inner') \\\n    .withColumn('lag1_diff', ps_abs(col('lag1') - col('rho1'))) \\\n    .withColumn('lag2_diff', ps_abs(col('lag2') - col('rho2'))) \\\n    .withColumn('lag3_diff', ps_abs(col('lag3') - col('rho3'))) \\\n    .withColumn('lag4_diff', ps_abs(col('lag4') - col('rho4'))) \\\n    .withColumn('lag5_diff', ps_abs(col('lag5') - col('rho5'))) \\\n    .withColumn('lag6_diff', ps_abs(col('lag6') - col('rho6'))) \\\n    .withColumn('p_value_diff', ps_abs(col('p_value') - col('Q_6__p_value')))\n\ndiff_filtered = diff.filter(\n    (col('lag1_diff') > 1e-4) |\n    (col('lag2_diff') > 1e-4) |\n    (col('lag3_diff') > 1e-4) |\n    (col('lag4_diff') > 1e-4) |\n    (col('lag5_diff') > 1e-4) |\n    (col('lag6_diff') > 1e-4) |\n    (col('p_value_diff') > 1e-4)\n)\n\n# ---------------------------\n# Count differences and set pass/notes variables\n# ---------------------------\n\nn_diff = diff_filtered.count()\n\nif n_diff == 0:\n\n    pass_var = True\n\n    notes = 'Passed'\n    print('NOTE: NO ERROR IN TEST table_autocorrelation_TEST')\nelse:\n\n    pass_var = False\n\n# ---------------------------\n# Macro variables (should be set externally or passed as arguments)\n# Example:\n# dir = '/path/to/dir'\n# keep = False\n# ---------------------------\n# dir, keep must be defined before running this script\n\n    notes = 'Differences detected in outputs.'\n    print('ERROR: PROBLEM IN TEST table_autocorrelation_TEST')\n\n# ---------------------------\n# Drop intermediate tables if keep is False\n# ---------------------------\nif not keep:\n    AutoCorrelations.unpersist()\n    returns_from_r.unpersist()\n    diff_filtered.unpersist()\n\n# ---------------------------\n# Read prices.csv and calculate returns/autocorrelations\n# ---------------------------\n\nprices_pd = pd.read_csv(os.path.join(dir, 'prices.csv'))\nprices_pd.set_index(prices_pd.columns[0], inplace=True)\n\nreturns_pd = prices_pd.pct_change().dropna()\n\nlb_test = sm.stats.acorr_ljungbox(returns_pd, lags=[6], return_df=True)\n\n# Calculate autocorrelations up to lag 6\n\nautocorrs = [returns_pd.corrwith(returns_pd.shift(lag)).mean() for lag in range(1, 7)]\n\n# Calculate Ljung-Box Q statistic and p-value for lag 6\n",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/table_autocorrelation_test.sas\nMigration Date: 2026-05-07 14:57:25\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 8\n  Total Edges: 6\n  Has Cycles: False\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_006:\nSAS macro logic is mapped to a Python function using PySpark and pandas for data manipulation, statsmodels for autocorrelation, and Spark DataFrames for comparison. Macro variables are mapped to Python variables. Data existence checks and error handling are implemented with DataFrame counts and default values.\n",
+  "chunks_converted": 1,
+  "total_chunks": 1,
+  "errors": [],
+  "warnings": [
+    "Line 24: Variable 'path' is used but never defined",
+    "Line 24: Variable 'pd' is used but never defined",
+    "Line 33: Variable 'return_df' is used but never defined",
+    "Line 33: Variable 'sm' is used but never defined"
+  ],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_006"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T14:56:56.641581",
+    "end_time": "2026-05-07T14:57:25.459882",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/table_autocorrelation_test.py",
+      "mapping": "output_batch/table_autocorrelation_test_mapping.txt",
+      "validation": "output_batch/table_autocorrelation_test_validation.txt",
+      "result": "output_batch/table_autocorrelation_test_result.json"
+    }
+  },
+  "execution_time": 28.818301,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 17\n  Errors: 0\n  Warnings: 4\n  Info: 13\n\nWARNINGS:\n----------------------------------------\n  Line 24: Variable 'path' is used but never defined\n  Line 24: Variable 'pd' is used but never defined\n  Line 33: Variable 'return_df' is used but never defined\n  Line 33: Variable 'sm' is used but never defined\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 1 valid chunks from 1 total",
+    "Deduplicated imports: 6 -> 6",
+    "Created 1 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup",
+    "Reordered 32 code blocks for optimal execution",
+    "Warning: Block block_0 uses undefined variables: {'ps_abs', 'sm', 'pd', 'statsmodels', 'pandas'}",
+    "Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark', 'session'}",
+    "Warning: Block block_3 uses undefined variables: {'this', 'dir', 'should', 'keep', 'running', 'variables', 'arguments', 'externally', 'must', 'be', 'Macro', 'passed'}",
+    "Warning: Block block_4 uses undefined variables: {'prices', 'Read', 'calculate'}",
+    "Warning: Block block_5 uses undefined variables: {'prices', 'dir', 'pd', 'path'}",
+    "Warning: Block block_7 uses undefined variables: {'Calculate', 'lag', 'to', 'autocorrelations', 'up'}",
+    "Warning: Block block_8 uses undefined variables: {'lag'}",
+    "Warning: Block block_9 uses undefined variables: {'lag', 'Q', 'Calculate', 'statistic'}",
+    "Warning: Block block_10 uses undefined variables: {'sm', 'stats'}",
+    "Warning: Block block_12 uses undefined variables: {'Prepare', 'output', 'pandas', 'DataFrames'}",
+    "Warning: Block block_13 uses undefined variables: {'pd'}",
+    "Warning: Block block_14 uses undefined variables: {'pd'}",
+    "Warning: Block block_15 uses undefined variables: {'Convert', 'DataFrames', 'to', 'Spark', 'pandas'}",
+    "Warning: Block block_18 uses undefined variables: {'by', 'DataFrames', 'rows', 'default', 'Handle', 'inserting', 'empty'}",
+    "Warning: Block block_21 uses undefined variables: {'Compare', 'difference', 'absolute', 'any', 'lag'}",
+    "Warning: Block block_24 uses undefined variables: {'variables', 'Count', 'differences'}",
+    "Warning: Block block_28 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}",
+    "Warning: Block block_30 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}",
+    "Warning: Block block_31 uses undefined variables: {'tables', 'Drop', 'keep', 'intermediate'}"
+  ]
+}

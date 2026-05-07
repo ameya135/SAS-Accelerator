@@ -1,0 +1,71 @@
+{
+  "success": true,
+  "sas_file": "testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/return_excess_test.sas",
+  "pyspark_code": "# Generated PySpark code from SAS migration\n# Execution order optimized by ExecutionOrderOptimizer\n\nimport pandas as pd\nfrom pyspark.sql import SparkSession\nfrom pyspark.sql.functions import abs as pyspark_abs, col, lag, lit\nfrom pyspark.sql.window import Window\n\nspark = SparkSession.builder.appName(\"RETURN_EXCESS_TEST\").getOrCreate()\n\n# --- Initialize Spark session ---\n\n# --- Prepare pandas DataFrame to match output structure ---\n\nreturns_excess_pdf = returns_excess_pdf.reset_index()\nreturns_excess_pdf.columns = ['date', 'IBM', 'GE', 'DOW', 'GOOGL', 'SPY']\n\n# --- Convert pandas DataFrame to Spark DataFrame ---\n\nprices = spark.read.csv(f'{dir_path}/prices.csv', header=True, inferSchema=True)\n\n# --- Read prices.csv as Spark DataFrame ---\n\n# --- Calculate discrete returns in Spark ---\n\nwindow_spec = Window.orderBy('date')\nfor col_name in ['IBM', 'GE', 'DOW', 'GOOGL', 'SPY']:\n\n    prices = prices.withColumn(\n        f'{col_name}_ret',\n        (col(col_name) / lag(col(col_name), 1).over(window_spec)) - 1\n    )\n\n# --- Calculate excess returns in Spark ---\nfor col_name in ['IBM', 'GE', 'DOW', 'GOOGL', 'SPY']:\n\nrisk_premium = prices.select(\n    col('date'),\n    col('IBM_excess').alias('IBM'),\n    col('GE_excess').alias('GE'),\n    col('DOW_excess').alias('DOW'),\n    col('GOOGL_excess').alias('GOOGL'),\n    col('SPY_excess').alias('SPY')\n).where(col('IBM_excess').isNotNull())\n\n# --- Apply comparison threshold (criterion=1e-6) ---\n\n# --- Count number of differences ---\n\n# --- Macro variable equivalents (should be set externally) ---\n# Set these before running the script\n# dir_path = '/path/to/data'\n# keep = True or False\n\n    pass_var = True\n\n    notes = 'Passed'\n    print('NOTE: NO ERROR IN TEST RETURN_EXCESS_TEST')\nelse:\n\n    pass_var = False\n\n    notes = 'Differences detected in outputs.'\n    print('ERROR: PROBLEM IN TEST RETURN_EXCESS_TEST')\n\n# --- Clean up temporary DataFrames if keep is False ---\nif not keep:\n    for df in ['returns_from_r', 'risk_premium', 'prices', 'diff_filtered']:\n        if df in locals():\n            try:\n                locals()[df].unpersist()\n            except Exception:\n                pass\n\n# --- Read prices.csv as Pandas DataFrame for reference calculation ---\n\nprices_pdf = pd.read_csv(f'{dir_path}/prices.csv', parse_dates=['date'])\n\nprices_pdf = prices_pdf.sort_values('date').set_index('date')\n\n# --- Calculate discrete returns and excess returns using pandas ---\n\nreturns_pdf = prices_pdf.pct_change().dropna()\n\nreturns_excess_pdf = returns_pdf - rf\n\nreturns_from_r = spark.createDataFrame(returns_excess_pdf)\n\n# --- Prepare risk_premium DataFrame to match returns_from_r structure ---\n\n# --- Compare returns_from_r and risk_premium DataFrames ---\n\njoined = returns_from_r.alias('r').join(\n    risk_premium.alias('p'), on='date', how='inner'\n)\n\ndiff = joined.select(\n    'date',\n    pyspark_abs(col('r.IBM') - col('p.IBM')).alias('IBM'),\n    pyspark_abs(col('r.GE') - col('p.GE')).alias('GE'),\n    pyspark_abs(col('r.DOW') - col('p.DOW')).alias('DOW'),\n    pyspark_abs(col('r.GOOGL') - col('p.GOOGL')).alias('GOOGL'),\n    pyspark_abs(col('r.SPY') - col('p.SPY')).alias('SPY')\n)\n\ndiff_filtered = diff.where(\n    (col('IBM') > 1e-6) | (col('GE') > 1e-6) | (col('DOW') > 1e-6) | (col('GOOGL') > 1e-6) | (col('SPY') > 1e-6)\n)\n\nn = diff_filtered.count()\n\n# --- Set pass/notes variables based on comparison ---\nif n == 0:\n\nrf = 0.04 / 12\n\n    prices = prices.withColumn(\n        f'{col_name}_excess',\n        col(f'{col_name}_ret') - lit(rf)\n    )\n",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/return_excess_test.sas\nMigration Date: 2026-05-07 14:46:39\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 7\n  Total Edges: 5\n  Has Cycles: False\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_005:\nSAS macro logic is mapped to Python functions and variables. Data steps and PROC IML are replaced with pandas and PySpark DataFrame operations. PROC COMPARE is implemented via DataFrame joins and absolute difference checks. Macro variables are replaced with Python variables.\n",
+  "chunks_converted": 1,
+  "total_chunks": 1,
+  "errors": [],
+  "warnings": [
+    "Line 24: Variable 'pd' is used but never defined",
+    "Line 32: Variable '0' is used but never defined"
+  ],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_005"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T14:46:07.617205",
+    "end_time": "2026-05-07T14:46:39.693489",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/return_excess_test.py",
+      "mapping": "output_batch/return_excess_test_mapping.txt",
+      "validation": "output_batch/return_excess_test_validation.txt",
+      "result": "output_batch/return_excess_test_result.json"
+    }
+  },
+  "execution_time": 32.076284,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 17\n  Errors: 0\n  Warnings: 2\n  Info: 15\n\nWARNINGS:\n----------------------------------------\n  Line 24: Variable 'pd' is used but never defined\n  Line 32: Variable '0' is used but never defined\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 1 valid chunks from 1 total",
+    "Deduplicated imports: 5 -> 5",
+    "Created 1 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup",
+    "Reordered 37 code blocks for optimal execution",
+    "Warning: Block block_0 uses undefined variables: {'pyspark_abs', 'pd', 'lag', 'pandas'}",
+    "Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark', 'session'}",
+    "Warning: Block block_3 uses undefined variables: {'keep', 'running', 'variable', 'dir_path', 'script', 'externally', 'be', 'equivalents', 'Set', 'Macro', 'the', 'should', 'these'}",
+    "Warning: Block block_4 uses undefined variables: {'Read', 'reference', 'calculation', 'Pandas'}",
+    "Warning: Block block_5 uses undefined variables: {'pd'}",
+    "Warning: Block block_7 uses undefined variables: {'Calculate', 'using', 'discrete', 'excess', 'returns', 'pandas'}",
+    "Warning: Block block_11 uses undefined variables: {'structure', 'match', 'Prepare', 'to', 'output', 'pandas'}",
+    "Warning: Block block_13 uses undefined variables: {'to', 'Convert', 'Spark', 'pandas'}",
+    "Warning: Block block_15 uses undefined variables: {'Read', 'Spark'}",
+    "Warning: Block block_17 uses undefined variables: {'returns', 'Spark', 'Calculate', 'discrete'}",
+    "Warning: Block block_18 uses undefined variables: {'col_name'}",
+    "Warning: Block block_19 uses undefined variables: {'col_name'}",
+    "Warning: Block block_20 uses undefined variables: {'Calculate', 'excess', 'col_name', 'returns', 'Spark'}",
+    "Warning: Block block_22 uses undefined variables: {'Prepare', 'to', 'structure', 'match'}",
+    "Warning: Block block_24 uses undefined variables: {'Compare', 'DataFrames'}",
+    "Warning: Block block_26 uses undefined variables: {'p', 'r'}",
+    "Warning: Block block_27 uses undefined variables: {'Apply', 'comparison', 'threshold'}",
+    "Warning: Block block_29 uses undefined variables: {'differences', 'Count', 'of', 'number'}",
+    "Warning: Block block_31 uses undefined variables: {'based', 'comparison', 'variables', 'on', 'Set'}",
+    "Warning: Block block_33 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}",
+    "Warning: Block block_35 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}",
+    "Warning: Block block_36 uses undefined variables: {'keep', 'Clean', 'df', 'temporary', 'DataFrames', 'up'}"
+  ]
+}

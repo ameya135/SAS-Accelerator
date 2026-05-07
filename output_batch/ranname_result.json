@@ -1,0 +1,45 @@
+{
+  "success": true,
+  "sas_file": "testSAS/SASPerformanceAnalytics/performance_analytics_library/macro/ranname.sas",
+  "pyspark_code": "from pyspark.sql import SparkSession\nimport random\n\n# Initialize Spark session\nspark = SparkSession.builder.appName(\"SAS_Migration\").getOrCreate()\n\ndef generate_random_name():\n    \"\"\"\n    Generate a random name string in the format '_XXXXXX',\n    where XXXXXX is a zero-padded integer between 000000 and 999999.\n    \"\"\"\n    rand_num = round(random.random() * 1000000)\n    return f'_{rand_num:06d}'",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: testSAS/SASPerformanceAnalytics/performance_analytics_library/macro/ranname.sas\nMigration Date: 2026-05-07 14:14:07\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 1\n  Total Edges: 0\n  Has Cycles: False\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_001:\nThe SAS macro generates a random 6-digit zero-padded string prefixed with an underscore. In PySpark, we use Python's random module and string formatting to replicate this logic in a function.\n",
+  "chunks_converted": 1,
+  "total_chunks": 1,
+  "errors": [],
+  "warnings": [],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_001"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T14:14:03.014815",
+    "end_time": "2026-05-07T14:14:07.911090",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/ranname.py",
+      "mapping": "output_batch/ranname_mapping.txt",
+      "validation": "output_batch/ranname_validation.txt",
+      "result": "output_batch/ranname_result.json"
+    }
+  },
+  "execution_time": 4.896275,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 1\n  Errors: 0\n  Warnings: 0\n  Info: 1\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 1 valid chunks from 1 total",
+    "Deduplicated imports: 1 -> 1",
+    "Created 1 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup"
+  ]
+}

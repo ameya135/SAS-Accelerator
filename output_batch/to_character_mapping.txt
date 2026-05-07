@@ -1,0 +1,16 @@
+SAS TO PYSPARK MIGRATION MAPPING
+============================================================
+Source File: testSAS/SASPerformanceAnalytics/performance_analytics_library/macro/to_character.sas
+Migration Date: 2026-05-07 14:14:39
+Migration Method: Graph-Based Dependency Analysis
+
+GRAPH SUMMARY:
+  Total Nodes: 10
+  Total Edges: 11
+  Has Cycles: True
+
+CHUNK-BY-CHUNK MAPPING:
+------------------------------------------------------------
+
+chunk_008:
+SAS macro loops are replaced with Python for-loops. Temporary columns are created for formatted string conversion, then renamed back to original names after dropping originals. Macro variables are mapped to Python variables.

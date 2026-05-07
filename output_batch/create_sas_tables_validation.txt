@@ -1,0 +1,34 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 10
+  Errors: 0
+  Warnings: 4
+  Info: 6
+
+WARNINGS:
+----------------------------------------
+  Line 11: Variable 'prices_df' is used but never defined
+  Line 12: Variable 'managers_df' is used but never defined
+  Line 13: Variable 'edhec_df' is used but never defined
+  Line 22: Variable 'prices' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 2 valid chunks from 2 total
+  - Deduplicated imports: 2 -> 2
+  - Created 2 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 11 code blocks for optimal execution
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}
+  - Warning: Block block_3 uses undefined variables: {'Assume', 'variable', 'directory', 'holding', 'a', 'Python', 'the'}
+  - Warning: Block block_4 uses undefined variables: {'edhec', 'Import', 'into'}
+  - Warning: Block block_5 uses undefined variables: {'edhec'}
+  - Warning: Block block_6 uses undefined variables: {'prices', 'CSV', 'prices_df', 'Export', 'to'}
+  - Warning: Block block_7 uses undefined variables: {'Define', 'schema', 'managers', 'type'}
+  - Warning: Block block_9 uses undefined variables: {'proper', 'into', 'schema', 'Read', 'managers'}
+  - Warning: Block block_10 uses undefined variables: {'managers'}

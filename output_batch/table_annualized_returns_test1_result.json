@@ -1,0 +1,72 @@
+{
+  "success": true,
+  "sas_file": "testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/table_annualized_returns_test1.sas",
+  "pyspark_code": "# Generated PySpark code from SAS migration\n# Execution order optimized by ExecutionOrderOptimizer\n\nimport os\nimport pandas as pd\nfrom pyspark.sql import SparkSession, functions as F\n\nspark = SparkSession.builder.appName('AnnualizedReturnsTest1').getOrCreate()\n\n# ---- Configuration / Macro Variables ----\n# Set these variables externally or before running the script\n# Example:\n# keep = False\n# dir = '/path/to/dir'\n\nrf = 0.01 / 252\n\nscale = 252\n\ndef annualized_return(returns, rf=rf, scale=scale):\n\n    excess = returns - rf\n\n    compounded = (1 + excess).prod()\n\n    n_periods = returns.shape[0]\n    return compounded ** (scale / n_periods) - 1\n\nannualized_table_pd = pd.DataFrame([annualized_dict])\n\n# ---- Convert pandas DataFrames to Spark DataFrames ----\n\n# ---- Initialize Spark Session ----\n\nannualized_table = spark.createDataFrame(annualized_table_pd)\n\n# ---- Handle Empty DataFrames ----\nif annualized_table.count() == 0:\n\n    returns_from_r = None\n\n# ---- Insert Error Rows if Needed ----\nif annualized_table is None:\n\n    error_row = {'IBM': -999, 'GE': -999, 'DOW': -999, 'GOOGL': -999, 'SPY': -999}\n\n    annualized_table = spark.createDataFrame([error_row])\n\n    error_row = {'date': 1, 'IBM': 999, 'GE': 999, 'DOW': 999, 'GOOGL': 999, 'SPY': 999}\n\n    returns_from_r = spark.createDataFrame([error_row])\n\n# ---- Compare DataFrames for Differences ----\n\njoin_cols = ['IBM', 'GE', 'DOW', 'GOOGL', 'SPY']\n\ndiff = diff.withColumn('_type_', F.lit('DIF'))\n\n# ---- Count Differences and Set Pass/Fail ----\n\n    pass_var = True\n\n    notes = 'Passed'\n    print('NOTE: NO ERROR IN TEST table_Annualized_Returns_TEST1')\nelse:\n\n# ---- Load Data ----\n\n    pass_var = False\n\n    notes = 'Differences detected in outputs.'\n    print('ERROR: PROBLEM IN TEST table_Annualized_Returns_TEST1')\n\n# ---- Cleanup if Not Keeping Intermediates ----\nif not keep:\n\n    diff = None\n\n    returns_from_r = None\n\n    annualized_table = None\n\n    prices_pd = None\n\nprices_path = os.path.join(dir, 'prices.csv')\n\nprices_pd = pd.read_csv(prices_path, parse_dates=['date'])\nprices_pd.set_index('date', inplace=True)\n\n# ---- Calculate Discrete Returns ----\n\nreturns_pd = prices_pd.pct_change().dropna()\n\nannualized_dict = {col: annualized_return(returns_pd[col]) for col in returns_pd.columns}\n\nreturns_from_r = spark.createDataFrame(returns_pd.reset_index())\n\n    annualized_table = None\nif returns_from_r.count() == 0:\n\nif returns_from_r is None:\n\ndiff = returns_from_r.crossJoin(annualized_table).select([\n    F.abs(returns_from_r[c] - annualized_table[c]).alias(c) for c in join_cols\n])\n\ndiff_filtered = diff.filter(\n    (F.col('IBM') > 1e-4) | (F.col('GE') > 1e-4) | (F.col('DOW') > 1e-4) | (F.col('GOOGL') > 1e-4) | (F.col('SPY') > 1e-4)\n)\n\nn = diff_filtered.count()\n\nif n == 0:\n\n# ---- Calculate Annualized Returns (Geometric) ----\n",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/table_annualized_returns_test1.sas\nMigration Date: 2026-05-07 14:55:14\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 8\n  Total Edges: 6\n  Has Cycles: False\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_006:\nSAS macro logic is mapped to Python functions and control flow. Data steps and PROC SQL are replaced with pandas and PySpark DataFrame operations. Table existence and error handling are implemented with Python conditionals and DataFrame creation.\n",
+  "chunks_converted": 1,
+  "total_chunks": 1,
+  "errors": [],
+  "warnings": [
+    "Line 23: Variable 'path' is used but never defined",
+    "Line 24: Variable 'pd' is used but never defined",
+    "Line 31: Variable '0' is used but never defined",
+    "Line 36: Variable 'returns' is used but never defined"
+  ],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_006"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T14:54:57.907889",
+    "end_time": "2026-05-07T14:55:14.698287",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/table_annualized_returns_test1.py",
+      "mapping": "output_batch/table_annualized_returns_test1_mapping.txt",
+      "validation": "output_batch/table_annualized_returns_test1_validation.txt",
+      "result": "output_batch/table_annualized_returns_test1_result.json"
+    }
+  },
+  "execution_time": 16.790398,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 25\n  Errors: 0\n  Warnings: 4\n  Info: 21\n\nWARNINGS:\n----------------------------------------\n  Line 23: Variable 'path' is used but never defined\n  Line 24: Variable 'pd' is used but never defined\n  Line 31: Variable '0' is used but never defined\n  Line 36: Variable 'returns' is used but never defined\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 1 valid chunks from 1 total",
+    "Deduplicated imports: 5 -> 5",
+    "Created 1 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup",
+    "Reordered 47 code blocks for optimal execution",
+    "Warning: Block block_0 uses undefined variables: {'pd', 'pandas'}",
+    "Warning: Block block_1 uses undefined variables: {'dir', 'Variables', 'keep', 'running', 'Configuration', 'variables', 'externally', 'script', 'Macro', 'Set', 'the', 'these'}",
+    "Warning: Block block_2 uses undefined variables: {'Initialize', 'Spark', 'Session'}",
+    "Warning: Block block_4 uses undefined variables: {'Load', 'Data'}",
+    "Warning: Block block_5 uses undefined variables: {'prices', 'dir', 'path'}",
+    "Warning: Block block_6 uses undefined variables: {'pd'}",
+    "Warning: Block block_7 uses undefined variables: {'Returns', 'Calculate', 'Discrete'}",
+    "Warning: Block block_9 uses undefined variables: {'Returns', 'Geometric', 'Calculate', 'Annualized'}",
+    "Warning: Block block_12 uses undefined variables: {'returns'}",
+    "Warning: Block block_13 uses undefined variables: {'returns'}",
+    "Warning: Block block_15 uses undefined variables: {'returns'}",
+    "Warning: Block block_17 uses undefined variables: {'pd'}",
+    "Warning: Block block_18 uses undefined variables: {'Convert', 'DataFrames', 'to', 'Spark', 'pandas'}",
+    "Warning: Block block_21 uses undefined variables: {'Handle', 'DataFrames', 'Empty'}",
+    "Warning: Block block_24 uses undefined variables: {'Error', 'Needed', 'Insert', 'Rows'}",
+    "Warning: Block block_30 uses undefined variables: {'Compare', 'Differences', 'DataFrames'}",
+    "Warning: Block block_32 uses undefined variables: {'c'}",
+    "Warning: Block block_35 uses undefined variables: {'Set', 'Differences', 'Count'}",
+    "Warning: Block block_39 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}",
+    "Warning: Block block_41 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}",
+    "Warning: Block block_42 uses undefined variables: {'Cleanup', 'Intermediates', 'Not', 'Keeping'}"
+  ]
+}

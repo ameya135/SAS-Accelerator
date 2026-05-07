@@ -1,0 +1,39 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 15
+  Errors: 0
+  Warnings: 1
+  Info: 14
+
+WARNINGS:
+----------------------------------------
+  Line 31: Variable 'pd' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 5 -> 5
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 34 code blocks for optimal execution
+  - Warning: Block block_0 uses undefined variables: {'custom', 'Assume', 'information_ratio', 'return_calculate', 'performanceanalytics', 'numpy', 'pyspark_abs', 'np', 'pd', 'equivalents', 'Python', 'pandas'}
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}
+  - Warning: Block block_3 uses undefined variables: {'prices', 'Read', 'CSV', 'Spark'}
+  - Warning: Block block_4 uses undefined variables: {'prices'}
+  - Warning: Block block_6 uses undefined variables: {'to', 'Convert', 'Pandas'}
+  - Warning: Block block_8 uses undefined variables: {'Calculate', 'using', 'discrete', 'returns', 'method'}
+  - Warning: Block block_10 uses undefined variables: {'vs', 'Calculate', 'column', 'columns', 'BM', 'Information'}
+  - Warning: Block block_12 uses undefined variables: {'pd'}
+  - Warning: Block block_13 uses undefined variables: {'back', 'Convert', 'results', 'to', 'Spark'}
+  - Warning: Block block_16 uses undefined variables: {'by', 'DataFrames', 'error', 'Handle', 'replacing', 'empty'}
+  - Warning: Block block_19 uses undefined variables: {'differences', 'compute', 'Compare', 'fuzz'}
+  - Warning: Block block_22 uses undefined variables: {'Count'}
+  - Warning: Block block_24 uses undefined variables: {'Set', 'result', 'flags'}
+  - Warning: Block block_26 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}
+  - Warning: Block block_28 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}
+  - Warning: Block block_29 uses undefined variables: {'Cleanup', 'keep', 'section'}

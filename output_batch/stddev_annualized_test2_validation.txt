@@ -1,0 +1,50 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 22
+  Errors: 0
+  Warnings: 1
+  Info: 21
+
+WARNINGS:
+----------------------------------------
+  Line 44: Variable 'pd' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 7 -> 5
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 46 code blocks for optimal execution
+  - Warning: Block block_0 uses undefined variables: {'stddev_samp', 'numpy', 'np', 'pd', 'lag', 'spark_max', 'pandas'}
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark', 'session'}
+  - Warning: Block block_3 uses undefined variables: {'running', 'variable', 'macro', 'equivalents', 'Set', 'these', 'up'}
+  - Warning: Block block_4 uses undefined variables: {'dir_macro_variable', 'Directory', 'path'}
+  - Warning: Block block_5 uses undefined variables: {'keep_macro_variable', 'temp', 'tables', 'clean', 'to'}
+  - Warning: Block block_6 uses undefined variables: {'prices', 'Read', 'CSV'}
+  - Warning: Block block_7 uses undefined variables: {'prices'}
+  - Warning: Block block_8 uses undefined variables: {'Calculate', 'discrete', 'returns', 'percentage', 'change'}
+  - Warning: Block block_10 uses undefined variables: {'ticker'}
+  - Warning: Block block_11 uses undefined variables: {'ticker'}
+  - Warning: Block block_13 uses undefined variables: {'standard', 'monthly', 'Annualize', 'deviation'}
+  - Warning: Block block_15 uses undefined variables: {'ret_col'}
+  - Warning: Block block_16 uses undefined variables: {'np', 'ret_col'}
+  - Warning: Block block_17 uses undefined variables: {'Create'}
+  - Warning: Block block_18 uses undefined variables: {'pd'}
+  - Warning: Block block_20 uses undefined variables: {'simulate', 'structure', 'Prepare', 'output', 'R'}
+  - Warning: Block block_21 uses undefined variables: {'c'}
+  - Warning: Block block_23 uses undefined variables: {'Drop', 'records', 'tables', 'they', 'have'}
+  - Warning: Block block_26 uses undefined variables: {'create', 'row', 'error', 'does', 'If', 'exist'}
+  - Warning: Block block_29 uses undefined variables: {'create', 'row', 'error', 'does', 'If', 'exist'}
+  - Warning: Block block_32 uses undefined variables: {'row', 'only', 'Keep', 'the'}
+  - Warning: Block block_34 uses undefined variables: {'excluding', 'Compare'}
+  - Warning: Block block_36 uses undefined variables: {'x', 'y'}
+  - Warning: Block block_40 uses undefined variables: {'Set', 'based', 'comparison', 'on'}
+  - Warning: Block block_42 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}
+  - Warning: Block block_44 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}
+  - Warning: Block block_45 uses undefined variables: {'tables', 'temporary', 'Clean', 'up'}

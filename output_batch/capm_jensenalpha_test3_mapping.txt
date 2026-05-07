@@ -1,0 +1,16 @@
+SAS TO PYSPARK MIGRATION MAPPING
+============================================================
+Source File: testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/capm_jensenalpha_test3.sas
+Migration Date: 2026-05-07 14:25:04
+Migration Method: Graph-Based Dependency Analysis
+
+GRAPH SUMMARY:
+  Total Nodes: 8
+  Total Edges: 8
+  Has Cycles: True
+
+CHUNK-BY-CHUNK MAPPING:
+------------------------------------------------------------
+
+chunk_006:
+SAS macro logic, file handling, and R code execution are replaced by PySpark DataFrame operations and pandas for financial calculations. Macro variables are mapped to Python variables. The Edit_returns macro is implemented by setting the first row of each numeric column to null using PySpark transformations.

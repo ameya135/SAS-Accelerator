@@ -1,0 +1,29 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 2
+  Errors: 0
+  Warnings: 0
+  Info: 2
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 2 valid chunks from 2 total
+  - Deduplicated imports: 2 -> 1
+  - Created 2 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 15 code blocks for optimal execution
+  - Warning: Block block_1 uses undefined variables: {'Spark', 'Initialize'}
+  - Warning: Block block_3 uses undefined variables: {'Utility'}
+  - Warning: Block block_4 uses undefined variables: {'whitespace', 'characters'}
+  - Warning: Block block_5 uses undefined variables: {'amount_col', 'based', 'on', 'tax', 'region_col', 'region'}
+  - Warning: Block block_6 uses undefined variables: {'Load', 'raw', 'transactions'}
+  - Warning: Block block_7 uses undefined variables: {'staging'}
+  - Warning: Block block_8 uses undefined variables: {'transform', 'Clean'}
+  - Warning: Block block_10 uses undefined variables: {'Frequency'}
+  - Warning: Block block_12 uses undefined variables: {'Frequency'}
+  - Warning: Block block_14 uses undefined variables: {'staging', 'cleaned', 'to', 'Uncomment', 'save'}

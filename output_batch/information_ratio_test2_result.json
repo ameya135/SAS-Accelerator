@@ -1,0 +1,64 @@
+{
+  "success": true,
+  "sas_file": "testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/information_ratio_test2.sas",
+  "pyspark_code": "# Generated PySpark code from SAS migration\n# Execution order optimized by ExecutionOrderOptimizer\n\nimport numpy as np\nimport pandas as pd\nfrom performanceanalytics import information_ratio, return_calculate  # Assume custom Python equivalents\nfrom pyspark.sql import SparkSession\nfrom pyspark.sql.functions import abs as pyspark_abs, col\n\nspark = SparkSession.builder.appName(\"Information_Ratio_Test2\").getOrCreate()\n\n# Initialize Spark session\n\n# Calculate Information Ratio: first 4 columns vs 5th column (BM)\n\nir_pd = pd.DataFrame(ir_pd)\n\n# Convert results back to Spark DataFrames\n\n    returns_spark_df = spark.createDataFrame([{'date': 1, 'IBM': 999, 'GE': 999, 'DOW': 999, 'GOOGL': 999, 'SPY': 999}])\n\n# Compare DataFrames: compute differences with fuzz logic\n\ndiff_df = diff_df.filter(\n    (pyspark_abs(col('IBM_diff')) > 1e-6) |\n    (pyspark_abs(col('GE_diff')) > 1e-6) |\n    (pyspark_abs(col('DOW_diff')) > 1e-6) |\n    (pyspark_abs(col('GOOGL_diff')) > 1e-6) |\n    (pyspark_abs(col('SPY_diff')) > 1e-6)\n)\n\n# Count differences\n\n    pass_flag = True\n\n    notes = 'Passed'\n    print('NOTE: NO ERROR IN TEST Information_Ratio_TEST2')\nelse:\n\n    pass_flag = False\n\n    notes = 'Differences detected in outputs.'\n    print('ERROR: PROBLEM IN TEST Information_Ratio_TEST2')\n\n# Cleanup section (if keep is False)\nif not keep:\n\n# Read prices CSV as Spark DataFrame\n\n    prices_df = None\n\n    info_ratio_spark_df = None\n\n    returns_spark_df = None\n\n    diff_df = None\n\nprices_path = f'{dir}/prices.csv'\n\nprices_df = spark.read.option('header', True).option('inferSchema', True).csv(prices_path)\n\n# Convert to Pandas DataFrame for calculation\n\nprices_pd = prices_df.toPandas()\n\n# Calculate returns using discrete method and drop NA\n\nreturns_pd = return_calculate(prices_pd, method='discrete').dropna()\n\nir_pd = information_ratio(returns_pd.iloc[:, 0:4], returns_pd.iloc[:, 4], scale=1)\n\nreturns_spark_df = spark.createDataFrame(returns_pd.reset_index())\n\ninfo_ratio_spark_df = spark.createDataFrame(ir_pd.reset_index(drop=True))\n\n# Handle empty DataFrames by replacing with error DataFrames\nif info_ratio_spark_df.count() == 0:\n\n    info_ratio_spark_df = spark.createDataFrame([{'date': -1, 'IBM': -999, 'GE': -999, 'DOW': -999, 'GOOGL': -999, 'SPY': -999}])\nif returns_spark_df.count() == 0:\n\ndiff_df = returns_spark_df.join(info_ratio_spark_df, on='date', how='outer', suffixes=('_r', '_i')) \\\n    .select(\n        col('date'),\n        (col('IBM_r') - col('IBM_i')).alias('IBM_diff'),\n        (col('GE_r') - col('GE_i')).alias('GE_diff'),\n        (col('DOW_r') - col('DOW_i')).alias('DOW_diff'),\n        (col('GOOGL_r') - col('GOOGL_i')).alias('GOOGL_diff'),\n        (col('SPY_r') - col('SPY_i')).alias('SPY_diff')\n    )\n\nn = diff_df.count()\n\n# Set pass/fail flags and print result\nif n == 0:\n",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/information_ratio_test2.sas\nMigration Date: 2026-05-07 14:32:42\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 8\n  Total Edges: 6\n  Has Cycles: False\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_006:\nSAS macro logic is mapped to Python functions and control flow. Data steps and PROC SQL are replaced with Spark DataFrame operations and Pandas for calculations. Table existence and error handling are mapped to DataFrame checks and creation of error rows.\n",
+  "chunks_converted": 1,
+  "total_chunks": 1,
+  "errors": [],
+  "warnings": [
+    "Line 31: Variable 'pd' is used but never defined"
+  ],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_006"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T14:32:20.150405",
+    "end_time": "2026-05-07T14:32:42.078389",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/information_ratio_test2.py",
+      "mapping": "output_batch/information_ratio_test2_mapping.txt",
+      "validation": "output_batch/information_ratio_test2_validation.txt",
+      "result": "output_batch/information_ratio_test2_result.json"
+    }
+  },
+  "execution_time": 21.927984,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 15\n  Errors: 0\n  Warnings: 1\n  Info: 14\n\nWARNINGS:\n----------------------------------------\n  Line 31: Variable 'pd' is used but never defined\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 1 valid chunks from 1 total",
+    "Deduplicated imports: 5 -> 5",
+    "Created 1 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup",
+    "Reordered 34 code blocks for optimal execution",
+    "Warning: Block block_0 uses undefined variables: {'custom', 'Assume', 'information_ratio', 'return_calculate', 'performanceanalytics', 'numpy', 'pyspark_abs', 'np', 'pd', 'equivalents', 'Python', 'pandas'}",
+    "Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}",
+    "Warning: Block block_3 uses undefined variables: {'prices', 'Read', 'CSV', 'Spark'}",
+    "Warning: Block block_4 uses undefined variables: {'prices'}",
+    "Warning: Block block_6 uses undefined variables: {'to', 'Convert', 'Pandas'}",
+    "Warning: Block block_8 uses undefined variables: {'Calculate', 'using', 'discrete', 'returns', 'method'}",
+    "Warning: Block block_10 uses undefined variables: {'vs', 'Calculate', 'column', 'columns', 'BM', 'Information'}",
+    "Warning: Block block_12 uses undefined variables: {'pd'}",
+    "Warning: Block block_13 uses undefined variables: {'back', 'Convert', 'results', 'to', 'Spark'}",
+    "Warning: Block block_16 uses undefined variables: {'by', 'DataFrames', 'error', 'Handle', 'replacing', 'empty'}",
+    "Warning: Block block_19 uses undefined variables: {'differences', 'compute', 'Compare', 'fuzz'}",
+    "Warning: Block block_22 uses undefined variables: {'Count'}",
+    "Warning: Block block_24 uses undefined variables: {'Set', 'result', 'flags'}",
+    "Warning: Block block_26 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}",
+    "Warning: Block block_28 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}",
+    "Warning: Block block_29 uses undefined variables: {'Cleanup', 'keep', 'section'}"
+  ]
+}

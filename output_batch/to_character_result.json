@@ -1,0 +1,58 @@
+{
+  "success": true,
+  "sas_file": "testSAS/SASPerformanceAnalytics/performance_analytics_library/macro/to_character.sas",
+  "pyspark_code": "# Generated PySpark code from SAS migration\n# Execution order optimized by ExecutionOrderOptimizer\n\nfrom pyspark.sql import SparkSession\nfrom pyspark.sql.functions import col, format_string, trim\n\nspark = SparkSession.builder.appName(\"SAS_Migration\").getOrCreate()\n\n# Initialize Spark session\n\n    temp_col = temp_cols[i]\n    # Apply format and trim whitespace\n\n# Drop original columns and rename temp columns back to original names\nfor i in range(n):\n\n    var = vars[i]\n\n    temp_col = temp_cols[i]\n\n# Assign the final DataFrame to dataout\n\ndataout = df_temp\n\n# Assumptions: \n# - datain: input DataFrame\n# - vars: list of column names to format\n# - formats: list of format strings corresponding to vars\n# - n: number of columns to format\n\n# Generate temporary column names\n\ntemp_cols = [f'temp_{i+1}' for i in range(n)]\n\n# Apply formatting and create temporary columns as strings\n\ndf_temp = datain\nfor i in range(n):\n\n    var = vars[i]\n\n    df_temp = df_temp.drop(var).withColumnRenamed(temp_col, var)\n\n    fmt = formats[i]\n\n    df_temp = df_temp.withColumn(temp_col, trim(format_string(fmt, col(var))))\n",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: testSAS/SASPerformanceAnalytics/performance_analytics_library/macro/to_character.sas\nMigration Date: 2026-05-07 14:14:39\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 10\n  Total Edges: 11\n  Has Cycles: True\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_008:\nSAS macro loops are replaced with Python for-loops. Temporary columns are created for formatted string conversion, then renamed back to original names after dropping originals. Macro variables are mapped to Python variables.\n",
+  "chunks_converted": 1,
+  "total_chunks": 1,
+  "errors": [],
+  "warnings": [
+    "Dependency cycles detected (will be resolved): [['macro_1', 'var_2'], ['macro_1', 'var_3']]"
+  ],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_008"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T14:14:27.609778",
+    "end_time": "2026-05-07T14:14:39.186044",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/to_character.py",
+      "mapping": "output_batch/to_character_mapping.txt",
+      "validation": "output_batch/to_character_validation.txt",
+      "result": "output_batch/to_character_result.json"
+    }
+  },
+  "execution_time": 11.576266,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 9\n  Errors: 0\n  Warnings: 0\n  Info: 9\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 1 valid chunks from 1 total",
+    "Deduplicated imports: 1 -> 1",
+    "Created 1 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup",
+    "Reordered 18 code blocks for optimal execution",
+    "Warning: Block block_0 uses undefined variables: {'format_string'}",
+    "Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}",
+    "Warning: Block block_3 uses undefined variables: {'corresponding', 'names', 'column', 'number', 'strings', 'vars', 'of', 'input', 'format', 'columns', 'to'}",
+    "Warning: Block block_4 uses undefined variables: {'Generate', 'temporary', 'column'}",
+    "Warning: Block block_5 uses undefined variables: {'n', 'i'}",
+    "Warning: Block block_6 uses undefined variables: {'Apply', 'create', 'formatting', 'columns', 'temporary'}",
+    "Warning: Block block_7 uses undefined variables: {'n', 'i', 'datain'}",
+    "Warning: Block block_10 uses undefined variables: {'Apply', 'format'}",
+    "Warning: Block block_12 uses undefined variables: {'rename', 'back', 'temp', 'names', 'i', 'columns', 'n', 'to', 'Drop', 'original'}",
+    "Warning: Block block_16 uses undefined variables: {'to', 'the', 'final', 'Assign'}"
+  ]
+}

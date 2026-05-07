@@ -1,0 +1,40 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 10
+  Errors: 0
+  Warnings: 2
+  Info: 8
+
+WARNINGS:
+----------------------------------------
+  Line 19: Variable 'pd' is used but never defined
+  Line 24: Variable 'np' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 6 -> 5
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 22 code blocks for optimal execution
+  - Warning: Block block_0 uses undefined variables: {'numpy', 'pyspark_round', 'np', 'pd', 'pandas'}
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}
+  - Warning: Block block_3 uses undefined variables: {'prices', 'your', 'path', 'directory', 'Read', 'preprocess', 'Replace'}
+  - Warning: Block block_4 uses undefined variables: {'prices', 'pd'}
+  - Warning: Block block_5 uses undefined variables: {'only', 'Keep'}
+  - Warning: Block block_6 uses undefined variables: {'returns', 'Calculate', 'np'}
+  - Warning: Block block_7 uses undefined variables: {'to', 'Keep', 'rows'}
+  - Warning: Block block_8 uses undefined variables: {'to', 'Convert', 'Spark'}
+  - Warning: Block block_10 uses undefined variables: {'later', 'Collect', 'use', 'needed', 'values'}
+  - Warning: Block block_11 uses undefined variables: {'row'}
+  - Warning: Block block_12 uses undefined variables: {'Annualization', 'logic'}
+  - Warning: Block block_15 uses undefined variables: {'scale'}
+  - Warning: Block block_16 uses undefined variables: {'annualized', 'For', 'returns', 'ibm_return'}
+  - Warning: Block block_17 uses undefined variables: {'scale'}
+  - Warning: Block block_18 uses undefined variables: {'Assemble', 'results'}
+  - Warning: Block block_21 uses undefined variables: {'scale_4', 'scale_52', 'scale_12', 'now', 'ibm'}

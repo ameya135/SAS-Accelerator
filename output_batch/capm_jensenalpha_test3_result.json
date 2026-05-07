@@ -1,0 +1,73 @@
+{
+  "success": true,
+  "sas_file": "testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/capm_jensenalpha_test3.sas",
+  "pyspark_code": "# Generated PySpark code from SAS migration\n# Execution order optimized by ExecutionOrderOptimizer\n\nimport os\nimport numpy as np\nimport pandas as pd\nfrom pyspark.sql import SparkSession\nfrom pyspark.sql.functions import col, lit, monotonically_increasing_id, when\n\nspark = SparkSession.builder.appName(\"SAS_Migration\").getOrCreate()\n\n# ---------------------------\n# Initialize Spark session\n# ---------------------------\n\n# ---------------------------\n# Jensen's Alpha calculation\n# ---------------------------\n\n        y = returns[col] - rf\n\n        x = benchmark - rf\n\n        beta = np.cov(y, x)[0, 1] / np.var(x)\n\n        alpha = y.mean() - beta * x.mean()\n        alphas[col] = alpha\n    return pd.DataFrame([alphas])\n\nbenchmark_col = agg_cols[-1]  # Assumes last column is benchmark\n\n# ---------------------------\n# Convert Jensen's Alpha results back to Spark DataFrame\n# ---------------------------\n\n# ---------------------------\n# Define file paths and parameters\n# ---------------------------\n\n    windowed = windowed.withColumn(col_name, when(col('row_num') == 0, lit(None)).otherwise(col(col_name)))\n\ndir_path = dir  # Assumes 'dir' is defined externally as a macro variable or string\n\nprices_csv_path = os.path.join(dir_path, 'prices.csv')\n\ndate_column = 'date'  # Set your date column name here\n\n    pdf = pdf.sort_values(by=date_column)\n\ndef calculate_discrete_returns(pdf, date_column):\n\n    returns = pdf.iloc[:, 1:].pct_change().dropna()\n    returns[date_column] = pdf[date_column].iloc[1:].values\n    return returns\n\n# ---------------------------\n# Aggregate returns yearly using cumulative product (geometric return)\n# ---------------------------\nreturns_pd[date_column] = pd.to_datetime(returns_pd[date_column])\nreturns_pd['year'] = returns_pd[date_column].dt.year\n\ndef jensen_alpha(returns, benchmark, rf=0.01):\n\n    alphas = {}\n    for col in returns.columns:\n        if col == 'year':\n            continue\n\n# ---------------------------\n# Edit_returns macro equivalent: set first row of each numeric column (except date_column) to null\n# ---------------------------\n\n# ---------------------------\n# Read prices CSV into Spark DataFrame\n# ---------------------------\n\nprices_df = spark.read.option('header', True).option('inferSchema', True).csv(prices_csv_path)\n\nprices_pd = prices_df.toPandas()\n\nreturns_pd = calculate_discrete_returns(prices_pd, date_column)\n\nagg_cols = [c for c in returns_pd.columns if c not in [date_column, 'year']]\n\nyearly_returns = returns_pd.groupby('year')[agg_cols].apply(lambda x: (1 + x).prod() - 1).reset_index()\n\njensen_alpha_df = jensen_alpha(yearly_returns, yearly_returns[benchmark_col], rf=0.01)\n\njensen_alpha_spark_df = spark.createDataFrame(jensen_alpha_df)\n\nnumeric_cols = [field.name for field in prices_df.schema.fields if str(field.dataType) != 'StringType' and field.name != date_column]\n\nwindowed = prices_df.withColumn('row_num', monotonically_increasing_id())\nfor col_name in numeric_cols:\n\nprices_edited = windowed.drop('row_num')\n\n# ---------------------------\n# Calculate discrete returns using pandas\n# ---------------------------\n",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/capm_jensenalpha_test3.sas\nMigration Date: 2026-05-07 14:25:04\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 8\n  Total Edges: 8\n  Has Cycles: True\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_006:\nSAS macro logic, file handling, and R code execution are replaced by PySpark DataFrame operations and pandas for financial calculations. Macro variables are mapped to Python variables. The Edit_returns macro is implemented by setting the first row of each numeric column to null using PySpark transformations.\n",
+  "chunks_converted": 1,
+  "total_chunks": 1,
+  "errors": [],
+  "warnings": [
+    "Dependency cycles detected (will be resolved): [['macro_2', 'var_3'], ['macro_2', 'var_4']]",
+    "Line 20: Variable 'path' is used but never defined",
+    "Line 36: Variable 'pd' is used but never defined",
+    "Line 42: Variable '0' is used but never defined",
+    "Line 49: Variable 'np' is used but never defined"
+  ],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_006"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T14:24:42.373409",
+    "end_time": "2026-05-07T14:25:04.726798",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/capm_jensenalpha_test3.py",
+      "mapping": "output_batch/capm_jensenalpha_test3_mapping.txt",
+      "validation": "output_batch/capm_jensenalpha_test3_validation.txt",
+      "result": "output_batch/capm_jensenalpha_test3_result.json"
+    }
+  },
+  "execution_time": 22.353389,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 18\n  Errors: 0\n  Warnings: 4\n  Info: 14\n\nWARNINGS:\n----------------------------------------\n  Line 20: Variable 'path' is used but never defined\n  Line 36: Variable 'pd' is used but never defined\n  Line 42: Variable '0' is used but never defined\n  Line 49: Variable 'np' is used but never defined\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 1 valid chunks from 1 total",
+    "Deduplicated imports: 6 -> 5",
+    "Created 1 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup",
+    "Reordered 34 code blocks for optimal execution",
+    "Warning: Block block_0 uses undefined variables: {'monotonically_increasing_id', 'numpy', 'np', 'pd', 'pandas'}",
+    "Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark', 'session'}",
+    "Warning: Block block_3 uses undefined variables: {'Define', 'paths', 'parameters', 'file'}",
+    "Warning: Block block_4 uses undefined variables: {'dir', 'variable', 'Assumes', 'macro', 'externally', 'a'}",
+    "Warning: Block block_5 uses undefined variables: {'prices', 'path'}",
+    "Warning: Block block_6 uses undefined variables: {'Set', 'name', 'your', 'column'}",
+    "Warning: Block block_7 uses undefined variables: {'prices', 'into', 'Read', 'CSV', 'Spark'}",
+    "Warning: Block block_9 uses undefined variables: {'using', 'Calculate', 'pandas', 'discrete'}",
+    "Warning: Block block_15 uses undefined variables: {'Aggregate', 'dt', 'cumulative', 'yearly', 'using', 'product', 'geometric', 'pd'}",
+    "Warning: Block block_16 uses undefined variables: {'c'}",
+    "Warning: Block block_18 uses undefined variables: {'calculation', 'Alpha'}",
+    "Warning: Block block_19 uses undefined variables: {'benchmark'}",
+    "Warning: Block block_22 uses undefined variables: {'benchmark'}",
+    "Warning: Block block_23 uses undefined variables: {'np'}",
+    "Warning: Block block_24 uses undefined variables: {'pd'}",
+    "Warning: Block block_25 uses undefined variables: {'Assumes', 'column'}",
+    "Warning: Block block_27 uses undefined variables: {'back', 'Alpha', 'Convert', 'results', 'to', 'Spark'}",
+    "Warning: Block block_29 uses undefined variables: {'row', 'null', 'numeric', 'column', 'macro', 'of', 'Edit_returns', 'to', 'each'}",
+    "Warning: Block block_30 uses undefined variables: {'schema', 'field'}",
+    "Warning: Block block_31 uses undefined variables: {'col_name'}",
+    "Warning: Block block_32 uses undefined variables: {'col_name'}"
+  ]
+}

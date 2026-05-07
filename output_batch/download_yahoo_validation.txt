@@ -1,0 +1,52 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 23
+  Errors: 0
+  Warnings: 3
+  Info: 20
+
+WARNINGS:
+----------------------------------------
+  Line 34: Variable 'requests' is used but never defined
+  Line 44: Variable 'break' is used but never defined
+  Line 57: Variable 'f' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 6 -> 6
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 44 code blocks for optimal execution
+  - Warning: Block block_0 uses undefined variables: {'dt', 'lag', 'requests'}
+  - Warning: Block block_1 uses undefined variables: {'parameters', 'actual', 'Replace', 'values', 'these'}
+  - Warning: Block block_2 uses undefined variables: {'e', 'g'}
+  - Warning: Block block_3 uses undefined variables: {'e', 'g'}
+  - Warning: Block block_4 uses undefined variables: {'e', 'g'}
+  - Warning: Block block_5 uses undefined variables: {'e', 'g'}
+  - Warning: Block block_8 uses undefined variables: {'e', 'g'}
+  - Warning: Block block_9 uses undefined variables: {'to', 'Date', 'timestamp', 'Helper'}
+  - Warning: Block block_10 uses undefined variables: {'dt', 'y', 'x', 'date_str', 'd'}
+  - Warning: Block block_11 uses undefined variables: {'dt'}
+  - Warning: Block block_12 uses undefined variables: {'dt'}
+  - Warning: Block block_13 uses undefined variables: {'Download', 'CSV', 'Yahoo', 'Finance'}
+  - Warning: Block block_14 uses undefined variables: {'requests'}
+  - Warning: Block block_15 uses undefined variables: {'yahoo', 'finance', 'uk'}
+  - Warning: Block block_17 uses undefined variables: {'cookies'}
+  - Warning: Block block_19 uses undefined variables: {'line'}
+  - Warning: Block block_20 uses undefined variables: {'line'}
+  - Warning: Block block_21 uses undefined variables: {'find'}
+  - Warning: Block block_22 uses undefined variables: {'yahoo', 'query1', 'finance'}
+  - Warning: Block block_25 uses undefined variables: {'f'}
+  - Warning: Block block_26 uses undefined variables: {'Initialize', 'Spark'}
+  - Warning: Block block_28 uses undefined variables: {'Read', 'preprocess'}
+  - Warning: Block block_31 uses undefined variables: {'replace', 'column', 'price', 'Rename', 'to'}
+  - Warning: Block block_34 uses undefined variables: {'by', 'sort', 'columns', 'only', 'Date', 'Select'}
+  - Warning: Block block_36 uses undefined variables: {'price', 'keep', 'Optionally'}
+  - Warning: Block block_38 uses undefined variables: {'returns', 'Calculate'}
+  - Warning: Block block_42 uses undefined variables: {'row', 'null', 'Remove'}

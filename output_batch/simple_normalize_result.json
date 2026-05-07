@@ -1,0 +1,47 @@
+{
+  "success": true,
+  "sas_file": "testSAS/SASPerformanceAnalytics/performance_analytics_library/macro/simple_normalize.sas",
+  "pyspark_code": "from pyspark.sql import SparkSession\nfrom pyspark.sql import functions as F\n\n# Initialize Spark session\nspark = SparkSession.builder.appName(\"SAS_Migration\").getOrCreate()\n\n# Calculate the sum of the column 'var' and divide by 'sum_param'\ns_value = df_data.agg((F.sum(F.col(var)) / F.lit(sum_param)).alias('s')).collect()[0]['s']\n\n# Normalize the column 'var' by dividing by s_value\ndf_data_normalized = df_data.withColumn(var, F.col(var) / F.lit(s_value))",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: testSAS/SASPerformanceAnalytics/performance_analytics_library/macro/simple_normalize.sas\nMigration Date: 2026-05-07 14:14:19\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 5\n  Total Edges: 4\n  Has Cycles: False\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_005:\nThe SAS macro is mapped to PySpark by first calculating the normalized sum using DataFrame aggregation, then updating the column with the normalized values using withColumn. Macro variables are replaced by Python variables.\n",
+  "chunks_converted": 1,
+  "total_chunks": 1,
+  "errors": [],
+  "warnings": [
+    "Line 8: Variable 'df_data' is used but never defined"
+  ],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_005"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T14:14:13.598226",
+    "end_time": "2026-05-07T14:14:19.020609",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/simple_normalize.py",
+      "mapping": "output_batch/simple_normalize_mapping.txt",
+      "validation": "output_batch/simple_normalize_validation.txt",
+      "result": "output_batch/simple_normalize_result.json"
+    }
+  },
+  "execution_time": 5.422383,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 3\n  Errors: 0\n  Warnings: 1\n  Info: 2\n\nWARNINGS:\n----------------------------------------\n  Line 8: Variable 'df_data' is used but never defined\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 1 valid chunks from 1 total",
+    "Deduplicated imports: 0 -> 0",
+    "Created 1 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup"
+  ]
+}

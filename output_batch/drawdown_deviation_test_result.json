@@ -1,0 +1,73 @@
+{
+  "success": true,
+  "sas_file": "testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/drawdown_deviation_test.sas",
+  "pyspark_code": "# Generated PySpark code from SAS migration\n# Execution order optimized by ExecutionOrderOptimizer\n\nimport os\nimport pandas as pd\nfrom pyspark.sql import SparkSession\nfrom pyspark.sql.functions import abs as spark_abs, col\n\nspark = SparkSession.builder.appName(\"DrawdownDeviationTest\").getOrCreate()\n\n# Initialize Spark session\n\n# Drawdown Deviation calculation (using pandas)\n\ndef drawdown_deviation(returns):\n\n    cumulative = (1 + returns).cumprod()\n\n    highwater = cumulative.cummax()\n\n    drawdowns = (cumulative - highwater) / highwater\n    return drawdowns.std()\n\n# Calculate drawdown deviation for each column\n\ndd_dev_pd = pd.DataFrame([dd_dev_dict])\n\n# Convert pandas DataFrames to Spark DataFrames\n\ndd_dev_sdf = spark.createDataFrame(dd_dev_pd)\n\n# Handle empty DataFrames by inserting default rows\nif dd_dev_sdf.count() == 0:\n\n    returns_sdf = spark.createDataFrame([{'date': 1, 'IBM': 999, 'GE': 999, 'DOW': 999, 'GOOGL': 999, 'SPY': 999}])\n\n# Compare DataFrames: find differences using a cross join and tolerance logic\n\ndef fuzz(a, b, tol=1e-6):\n    return spark_abs(a - b) > tol\n\n# Set variables from macro or environment\n\n    pass_test = True\n\n    notes = 'Passed'\n    print('NOTE: NO ERROR IN TEST DRAWDOWN_DEVIATION_TEST')\nelse:\n\n    pass_test = False\n\n    notes = 'Differences detected in outputs.'\n    print('ERROR: PROBLEM IN TEST DRAWDOWN_DEVIATION_TEST')\n\nkeep = False  # Set from macro or parameter\n\n# Cleanup if keep is False (no explicit deletion needed in Python)\n\ndata_dir = os.environ.get('dir', '/path/to/dir')\n\n# Load prices CSV as Pandas DataFrame\n\nprices_path = os.path.join(data_dir, 'prices.csv')\n\nprices_pd = pd.read_csv(prices_path)\nprices_pd['date'] = pd.to_datetime(prices_pd['date'])\nprices_pd.set_index('date', inplace=True)\n\nreturns_pd = prices_pd.pct_change().dropna()\n\ndd_dev_dict = {col_name: drawdown_deviation(returns_pd[[col_name]])[0] for col_name in returns_pd.columns}\n\nreturns_sdf = spark.createDataFrame(returns_pd.reset_index())\n\n    dd_dev_sdf = spark.createDataFrame([{'IBM': -999, 'GE': -999, 'DOW': -999, 'GOOGL': -999, 'SPY': -999}])\nif returns_sdf.count() == 0:\n\njoined = returns_sdf.alias('r').crossJoin(dd_dev_sdf.alias('d'))\n\ndiff = joined.where(\n    fuzz(col('r.IBM'), col('d.IBM')) |\n    fuzz(col('r.GE'), col('d.GE')) |\n    fuzz(col('r.DOW'), col('d.DOW')) |\n    fuzz(col('r.GOOGL'), col('d.GOOGL')) |\n    fuzz(col('r.SPY'), col('d.SPY'))\n)\n\nn = diff.count()\n\n# Output test result\nif n == 0:\n\n# Calculate discrete returns using pandas\n",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/drawdown_deviation_test.sas\nMigration Date: 2026-05-07 14:29:14\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 8\n  Total Edges: 6\n  Has Cycles: False\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_006:\nSAS macro logic is mapped to Python functions and variables. Data steps and PROC SQL are replaced with pandas and PySpark DataFrame operations. R-based calculations are implemented in pandas, and table existence/row checks are handled with DataFrame counts.\n",
+  "chunks_converted": 1,
+  "total_chunks": 1,
+  "errors": [],
+  "warnings": [
+    "Line 23: Variable 'path' is used but never defined",
+    "Line 24: Variable 'pd' is used but never defined"
+  ],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_006"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T14:28:46.829665",
+    "end_time": "2026-05-07T14:29:14.657343",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/drawdown_deviation_test.py",
+      "mapping": "output_batch/drawdown_deviation_test_mapping.txt",
+      "validation": "output_batch/drawdown_deviation_test_validation.txt",
+      "result": "output_batch/drawdown_deviation_test_result.json"
+    }
+  },
+  "execution_time": 27.827678,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 17\n  Errors: 0\n  Warnings: 2\n  Info: 15\n\nWARNINGS:\n----------------------------------------\n  Line 23: Variable 'path' is used but never defined\n  Line 24: Variable 'pd' is used but never defined\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 1 valid chunks from 1 total",
+    "Deduplicated imports: 5 -> 5",
+    "Created 1 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup",
+    "Reordered 36 code blocks for optimal execution",
+    "Warning: Block block_0 uses undefined variables: {'spark_abs', 'pd', 'pandas'}",
+    "Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}",
+    "Warning: Block block_3 uses undefined variables: {'variables', 'macro', 'Set'}",
+    "Warning: Block block_4 uses undefined variables: {'Set', 'macro'}",
+    "Warning: Block block_5 uses undefined variables: {'environ'}",
+    "Warning: Block block_6 uses undefined variables: {'prices', 'CSV', 'Load', 'Pandas'}",
+    "Warning: Block block_7 uses undefined variables: {'prices', 'path'}",
+    "Warning: Block block_8 uses undefined variables: {'pd'}",
+    "Warning: Block block_9 uses undefined variables: {'using', 'returns', 'Calculate', 'discrete'}",
+    "Warning: Block block_11 uses undefined variables: {'calculation', 'using', 'Deviation', 'Drawdown', 'pandas'}",
+    "Warning: Block block_12 uses undefined variables: {'returns'}",
+    "Warning: Block block_13 uses undefined variables: {'returns'}",
+    "Warning: Block block_16 uses undefined variables: {'drawdown', 'each', 'Calculate', 'deviation'}",
+    "Warning: Block block_17 uses undefined variables: {'col_name'}",
+    "Warning: Block block_18 uses undefined variables: {'pd'}",
+    "Warning: Block block_19 uses undefined variables: {'Convert', 'DataFrames', 'to', 'Spark', 'pandas'}",
+    "Warning: Block block_22 uses undefined variables: {'by', 'DataFrames', 'rows', 'default', 'Handle', 'inserting', 'empty'}",
+    "Warning: Block block_25 uses undefined variables: {'Compare', 'using', 'tolerance', 'differences', 'a', 'find', 'cross'}",
+    "Warning: Block block_26 uses undefined variables: {'a', 'b'}",
+    "Warning: Block block_28 uses undefined variables: {'d', 'r'}",
+    "Warning: Block block_30 uses undefined variables: {'test', 'result', 'Output'}",
+    "Warning: Block block_32 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}",
+    "Warning: Block block_34 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}",
+    "Warning: Block block_35 uses undefined variables: {'deletion', 'explicit', 'no', 'needed', 'Cleanup', 'Python'}"
+  ]
+}

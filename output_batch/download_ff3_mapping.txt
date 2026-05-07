@@ -1,0 +1,16 @@
+SAS TO PYSPARK MIGRATION MAPPING
+============================================================
+Source File: testSAS/SASPerformanceAnalytics/performance_analytics_library/macro/download_ff3.sas
+Migration Date: 2026-05-07 14:13:30
+Migration Method: Graph-Based Dependency Analysis
+
+GRAPH SUMMARY:
+  Total Nodes: 5
+  Total Edges: 7
+  Has Cycles: True
+
+CHUNK-BY-CHUNK MAPPING:
+------------------------------------------------------------
+
+chunk_002:
+SAS macro and file handling are replaced by Python requests and zipfile. The DATA step with infile and informats is mapped to Spark DataFrame read with schema. Array division and filtering are mapped to withColumn and filter in PySpark.

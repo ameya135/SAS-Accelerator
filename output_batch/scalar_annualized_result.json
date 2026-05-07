@@ -1,0 +1,48 @@
+{
+  "success": true,
+  "sas_file": "testSAS/SASPerformanceAnalytics/performance_analytics_library/macro/scalar_annualized.sas",
+  "pyspark_code": "import math\nfrom pyspark.sql import SparkSession\n\n# Initialize Spark session\nspark = SparkSession.builder.appName(\"SAS_Migration\").getOrCreate()\n\ndef scalar_annualized(value, scale=1, method='DISCRETE', value_type='VALUE'):\n    \"\"\"\n    Annualizes a value based on the specified method and type.\n    :param value: Numeric value to annualize\n    :param scale: Scaling factor (e.g., number of periods)\n    :param method: 'DISCRETE' or 'LOG'\n    :param value_type: 'VALUE' or 'STD'\n    :return: Annualized value\n    \"\"\"\n    method_upper = method.upper()\n    value_type_upper = value_type.upper()\n    if value_type_upper == 'VALUE':\n        if method_upper == 'DISCRETE':\n            return (1 + value) ** scale - 1\n        elif method_upper == 'LOG':\n            return value * scale\n    elif value_type_upper == 'STD':\n        return value * math.sqrt(scale)\n    return None",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: testSAS/SASPerformanceAnalytics/performance_analytics_library/macro/scalar_annualized.sas\nMigration Date: 2026-05-07 14:14:13\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 5\n  Total Edges: 4\n  Has Cycles: False\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_005:\nSAS macro logic is mapped to a Python function. Macro variables become function arguments. Conditional logic is preserved using Python if-else. Mathematical operations use Python operators and math.sqrt.\n",
+  "chunks_converted": 1,
+  "total_chunks": 1,
+  "errors": [],
+  "warnings": [
+    "Line 10: Variable 'type_' is used but never defined",
+    "Line 11: Variable 'method' is used but never defined"
+  ],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_005"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T14:14:07.975432",
+    "end_time": "2026-05-07T14:14:13.572063",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/scalar_annualized.py",
+      "mapping": "output_batch/scalar_annualized_mapping.txt",
+      "validation": "output_batch/scalar_annualized_validation.txt",
+      "result": "output_batch/scalar_annualized_result.json"
+    }
+  },
+  "execution_time": 5.596631,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 4\n  Errors: 0\n  Warnings: 2\n  Info: 2\n\nWARNINGS:\n----------------------------------------\n  Line 10: Variable 'type_' is used but never defined\n  Line 11: Variable 'method' is used but never defined\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 1 valid chunks from 1 total",
+    "Deduplicated imports: 1 -> 1",
+    "Created 1 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup"
+  ]
+}

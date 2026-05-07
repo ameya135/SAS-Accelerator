@@ -1,0 +1,62 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 20
+  Errors: 0
+  Warnings: 4
+  Info: 16
+
+WARNINGS:
+----------------------------------------
+  Line 21: Variable 'path' is used but never defined
+  Line 40: Variable '0' is used but never defined
+  Line 47: Variable 'np' is used but never defined
+  Line 60: Variable 'pd' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 10 -> 7
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 39 code blocks for optimal execution
+  - Warning: Circular dependency detected: block_9 -> block_7 -> block_9
+  - Warning: Circular dependency detected: block_9 -> block_7 -> block_11 -> block_9
+  - Warning: Circular dependency detected: block_9 -> block_7 -> block_11 -> block_18 -> block_9
+  - Warning: Circular dependency detected: block_18 -> block_28 -> block_18
+  - Warning: Circular dependency detected: block_28 -> block_29 -> block_28
+  - Warning: Circular dependency detected: block_18 -> block_28 -> block_29 -> block_38 -> block_18
+  - Warning: Block block_0 uses undefined variables: {'year', 'expr', 'numpy', 'np', 'row_number', 'pd', 'lag', 'pandas', 'month'}
+  - Warning: Block block_1 uses undefined variables: {'Configuration'}
+  - Warning: Block block_2 uses undefined variables: {'Set', 'name', 'your', 'column'}
+  - Warning: Block block_3 uses undefined variables: {'directory', 'your', 'path', 'Set'}
+  - Warning: Block block_4 uses undefined variables: {'Initialize', 'Spark', 'session'}
+  - Warning: Block block_6 uses undefined variables: {'CSV', 'Load'}
+  - Warning: Block block_7 uses undefined variables: {'path'}
+  - Warning: Block block_8 uses undefined variables: {'other', 'columns', 'Add'}
+  - Warning: Block block_10 uses undefined variables: {'returns', 'Calculate', 'discrete'}
+  - Warning: Block block_11 uses undefined variables: {'c'}
+  - Warning: Block block_12 uses undefined variables: {'c'}
+  - Warning: Block block_13 uses undefined variables: {'c'}
+  - Warning: Block block_14 uses undefined variables: {'Remove', 'rows', 'returns', 'null', 'c'}
+  - Warning: Block block_16 uses undefined variables: {'Aggregate', 'geometric', 'to', 'returns', 'monthly'}
+  - Warning: Block block_18 uses undefined variables: {'c'}
+  - Warning: Block block_19 uses undefined variables: {'Assume', 'calculation', 'Alpha', 'column', 'rate', 'market', 'the'}
+  - Warning: Block block_21 uses undefined variables: {'numpy', 'assets', 'returns', 'array', 'market'}
+  - Warning: Block block_22 uses undefined variables: {'returns', 'i'}
+  - Warning: Block block_24 uses undefined variables: {'market'}
+  - Warning: Block block_25 uses undefined variables: {'np'}
+  - Warning: Block block_26 uses undefined variables: {'np'}
+  - Warning: Block block_27 uses undefined variables: {'Alpha', 'Convert', 'Pandas', 'to', 'Spark'}
+  - Warning: Block block_29 uses undefined variables: {'c'}
+  - Warning: Block block_30 uses undefined variables: {'First'}
+  - Warning: Block block_31 uses undefined variables: {'column'}
+  - Warning: Block block_33 uses undefined variables: {'Alpha', 'Create', 'results'}
+  - Warning: Block block_34 uses undefined variables: {'pd'}
+  - Warning: Block block_36 uses undefined variables: {'row', 'null', 'Edit', 'column', 'of', 'to', 'each', 'c'}
+  - Warning: Block block_38 uses undefined variables: {'Final'}
+  - Warning: Could not fully resolve dependencies due to cycles

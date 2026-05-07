@@ -1,0 +1,47 @@
+{
+  "success": true,
+  "sas_file": "testSAS/SASPerformanceAnalytics/performance_analytics_library/macro/create_hash.sas",
+  "pyspark_code": "from pyspark.sql import SparkSession\n\n# Initialize Spark session\nspark = SparkSession.builder.appName(\"SAS_Migration\").getOrCreate()\n\n# Set the dataset name (should match a registered table or DataFrame view)\ndataset_name = 'output_df'  # TODO: Verify this value\n\ndef create_hash_dict(spark, dict_name, key_cols_str, data_cols_str, dataset_name):\n    \"\"\"\n    Create a dictionary for fast lookup from a Spark DataFrame.\n    :param spark: SparkSession object\n    :param dict_name: Name to assign the resulting dictionary in globals()\n    :param key_cols_str: Comma-separated string of key columns\n    :param data_cols_str: Comma-separated string of data columns\n    :param dataset_name: Name of the Spark table or view\n    \"\"\"\n    key_cols = [col.strip() for col in key_cols_str.split(',')]\n    data_cols = [col.strip() for col in data_cols_str.split(',')]\n    # Select only the required columns for the hash (dict) lookup\n    df = spark.table(dataset_name).select(*(key_cols + data_cols))\n    # Collect as dictionary: key tuple -> data dict\n    result_dict = {\n        tuple(row[k] for k in key_cols): {d: row[d] for d in data_cols}\n        for row in df.collect()\n    }\n    globals()[dict_name] = result_dict",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: testSAS/SASPerformanceAnalytics/performance_analytics_library/macro/create_hash.sas\nMigration Date: 2026-05-07 14:13:17\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 8\n  Total Edges: 9\n  Has Cycles: True\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_006:\nThe SAS hash object is mapped to a Python dictionary for fast key-based lookup. Macro variables are replaced with function arguments, and key/data columns are dynamically selected from the DataFrame. The resulting hash is stored in a global variable named after 'name'.\n",
+  "chunks_converted": 1,
+  "total_chunks": 1,
+  "errors": [],
+  "warnings": [
+    "Dependency cycles detected (will be resolved): [['macro_1', 'var_2'], ['macro_1', 'var_3']]"
+  ],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_006"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T14:13:08.475126",
+    "end_time": "2026-05-07T14:13:17.000901",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/create_hash.py",
+      "mapping": "output_batch/create_hash_mapping.txt",
+      "validation": "output_batch/create_hash_validation.txt",
+      "result": "output_batch/create_hash_result.json"
+    }
+  },
+  "execution_time": 8.525775,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 3\n  Errors: 0\n  Warnings: 0\n  Info: 3\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 1 valid chunks from 1 total",
+    "Deduplicated imports: 0 -> 0",
+    "Created 1 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Added initialization for macro variable 'dataset'",
+    "Applied LLM-based code cleanup"
+  ]
+}

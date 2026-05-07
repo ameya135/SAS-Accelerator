@@ -1,0 +1,45 @@
+{
+  "success": true,
+  "sas_file": "sas_etl_project/run_etl.sas",
+  "pyspark_code": "from pyspark.sql import SparkSession\n\n# Initialize Spark session\nspark = SparkSession.builder.appName(\"SAS_Migration\").getOrCreate()\n\n# Load daily_sales DataFrame from mart schema\ndaily_sales_df = spark.table('mart.daily_sales')\n\n# Filter rows where grand_total > 0\nfiltered_sales_df = daily_sales_df.filter(daily_sales_df.grand_total > 0)\n\n# Display the filtered results\nprint('Final ETL Report')\nfiltered_sales_df.show()",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: sas_etl_project/run_etl.sas\nMigration Date: 2026-05-07 02:34:48\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 3\n  Total Edges: 2\n  Has Cycles: False\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_003:\nSAS PROC PRINT with WHERE is mapped to DataFrame.filter() and show() in PySpark. The title is printed using Python's print().\n",
+  "chunks_converted": 1,
+  "total_chunks": 1,
+  "errors": [],
+  "warnings": [],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_003"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T02:34:41.766932",
+    "end_time": "2026-05-07T02:34:48.659632",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/run_etl.py",
+      "mapping": "output_batch/run_etl_mapping.txt",
+      "validation": "output_batch/run_etl_validation.txt",
+      "result": "output_batch/run_etl_result.json"
+    }
+  },
+  "execution_time": 6.8927,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 0\n  Errors: 0\n  Warnings: 0\n  Info: 0\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 1 valid chunks from 1 total",
+    "Deduplicated imports: 0 -> 0",
+    "Created 1 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup"
+  ]
+}

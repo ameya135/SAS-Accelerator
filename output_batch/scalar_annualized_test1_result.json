@@ -1,0 +1,71 @@
+{
+  "success": true,
+  "sas_file": "testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/scalar_annualized_test1.sas",
+  "pyspark_code": "# Generated PySpark code from SAS migration\n# Execution order optimized by ExecutionOrderOptimizer\n\nimport numpy as np\nimport pandas as pd\nfrom pyspark.sql import SparkSession, Window, functions as F\nfrom pyspark.sql.functions import pandas_udf\nfrom pyspark.sql.types import DoubleType\n\nspark = SparkSession.builder.appName(\"annualized_scalar\").getOrCreate()\n\n# Initialize Spark session\n\n# Annualized return calculation helper\n\n    returns = np.array(returns)\n\ndef annualized_return(returns, scale):\n\n    returns = returns[~np.isnan(returns)]\n    if len(returns) == 0:\n        return float('nan')\n\n    compounded = np.prod(1 + returns)\n\n    n_periods = len(returns)\n    return compounded ** (scale / n_periods) - 1\n\n# Register pandas UDFs for each scale\n@pandas_udf(DoubleType())\n\ndef scale_4_udf(returns: pd.Series) -> float:\n    return annualized_return(returns, 4)\n\n@pandas_udf(DoubleType())\n\ndef scale_12_udf(returns: pd.Series) -> float:\n    return annualized_return(returns, 12)\n\n@pandas_udf(DoubleType())\n\ndef scale_52_udf(returns: pd.Series) -> float:\n    return annualized_return(returns, 52)\n\n@pandas_udf(DoubleType())\n\ndef scale_252_udf(returns: pd.Series) -> float:\n    return annualized_return(returns, 252)\n\n# Add a row index for windowing\n\nprices_sdf = prices_sdf.withColumn('row_num', F.monotonically_increasing_id() + 1)\n\n# Define window spec for cumulative calculation\n\nwindow_spec = Window.orderBy('row_num').rowsBetween(Window.unboundedPreceding, 0)\n\n# Calculate cumulative returns array up to each row\n\nprices_sdf = prices_sdf.withColumn('returns_array', F.collect_list('ibm_return').over(window_spec))\n\n# Read prices CSV as DataFrame (assume 'dir' is defined elsewhere)\n\n# Calculate annualized returns for each scale\n\nprices_sdf = prices_sdf.withColumn('scale_4', scale_4_udf('returns_array'))\n\nprices_sdf = prices_sdf.withColumn('scale_12', scale_12_udf('returns_array'))\n\nprices_sdf = prices_sdf.withColumn('scale_52', scale_52_udf('returns_array'))\n\nprices_sdf = prices_sdf.withColumn('scale_252', scale_252_udf('returns_array'))\n\n# Select final columns\n\nprices_pdf = pd.read_csv(f'{dir}/prices.csv')\n# Select only the 'ibm' column\n\nprices_pdf = prices_pdf[['ibm']].copy()\n\n# Calculate discrete returns\nprices_pdf['ibm_return'] = prices_pdf['ibm'].pct_change()\n# Keep rows 1 to 100 (first return is NaN)\n\nprices_pdf = prices_pdf.iloc[1:101].reset_index(drop=True)\n\n# Convert to Spark DataFrame\n\nprices_sdf = spark.createDataFrame(prices_pdf)\n\nannualized_scalar = prices_sdf.select('ibm', 'scale_4', 'scale_12', 'scale_52', 'scale_252')\n",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: testSAS/SASPerformanceAnalytics/performance_analytics_library/test/macros/scalar_annualized_test1.sas\nMigration Date: 2026-05-07 14:47:20\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 8\n  Total Edges: 6\n  Has Cycles: False\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_008:\nSAS macro logic, file handling, and R integration are replaced by PySpark DataFrame operations and Pandas UDFs. Discrete returns and annualized calculations are performed using window functions and custom UDFs. Macro loops are replaced by windowed computations over the DataFrame.\n",
+  "chunks_converted": 1,
+  "total_chunks": 1,
+  "errors": [],
+  "warnings": [
+    "Line 19: Variable 'pd' is used but never defined",
+    "Line 33: Variable 'np' is used but never defined"
+  ],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_008"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T14:47:05.032840",
+    "end_time": "2026-05-07T14:47:20.298301",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/scalar_annualized_test1.py",
+      "mapping": "output_batch/scalar_annualized_test1_mapping.txt",
+      "validation": "output_batch/scalar_annualized_test1_validation.txt",
+      "result": "output_batch/scalar_annualized_test1_result.json"
+    }
+  },
+  "execution_time": 15.265461,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 11\n  Errors: 0\n  Warnings: 2\n  Info: 9\n\nWARNINGS:\n----------------------------------------\n  Line 19: Variable 'pd' is used but never defined\n  Line 33: Variable 'np' is used but never defined\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 1 valid chunks from 1 total",
+    "Deduplicated imports: 5 -> 5",
+    "Created 1 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup",
+    "Reordered 37 code blocks for optimal execution",
+    "Warning: Block block_0 uses undefined variables: {'numpy', 'np', 'pd', 'pandas_udf', 'pandas'}",
+    "Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}",
+    "Warning: Block block_3 uses undefined variables: {'prices', 'assume', 'Read', 'CSV', 'elsewhere'}",
+    "Warning: Block block_4 uses undefined variables: {'prices', 'pd', 'only', 'the', 'Select'}",
+    "Warning: Block block_6 uses undefined variables: {'NaN', 'Calculate', 'discrete', 'Keep', 'rows', 'to'}",
+    "Warning: Block block_8 uses undefined variables: {'to', 'Convert', 'Spark'}",
+    "Warning: Block block_10 uses undefined variables: {'calculation', 'Annualized'}",
+    "Warning: Block block_11 uses undefined variables: {'scale'}",
+    "Warning: Block block_12 uses undefined variables: {'np'}",
+    "Warning: Block block_13 uses undefined variables: {'np'}",
+    "Warning: Block block_14 uses undefined variables: {'np'}",
+    "Warning: Block block_15 uses undefined variables: {'scale'}",
+    "Warning: Block block_16 uses undefined variables: {'scale', 'Register', 'UDFs', 'each', 'pandas'}",
+    "Warning: Block block_17 uses undefined variables: {'pd'}",
+    "Warning: Block block_19 uses undefined variables: {'pd'}",
+    "Warning: Block block_21 uses undefined variables: {'pd'}",
+    "Warning: Block block_23 uses undefined variables: {'pd'}",
+    "Warning: Block block_24 uses undefined variables: {'row', 'a', 'Add', 'index'}",
+    "Warning: Block block_26 uses undefined variables: {'window', 'cumulative', 'spec', 'Define'}",
+    "Warning: Block block_28 uses undefined variables: {'Calculate', 'cumulative', 'to', 'array', 'each', 'up'}",
+    "Warning: Block block_30 uses undefined variables: {'annualized', 'each', 'Calculate'}",
+    "Warning: Block block_35 uses undefined variables: {'final', 'Select'}"
+  ]
+}

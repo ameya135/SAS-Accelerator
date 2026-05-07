@@ -1,0 +1,52 @@
+{
+  "success": true,
+  "sas_file": "sas_etl_project/extract_transactions.sas",
+  "pyspark_code": "# Generated PySpark code from SAS migration\n# Execution order optimized by ExecutionOrderOptimizer\n\nfrom datetime import datetime\nfrom pyspark.sql import SparkSession\nfrom pyspark.sql.types import DateType, DoubleType, StringType, StructField, StructType\n\nspark = SparkSession.builder.appName(\"SAS_Migration\").getOrCreate()\n\n# Initialize Spark session\n\n# Define schema for transactions DataFrame\n\ntransaction_schema = StructType([\n    StructField('transaction_id', StringType(), True),\n    StructField('region', StringType(), True),\n    StructField('amount', DoubleType(), True),\n    StructField('product', StringType(), True),\n    StructField('date', DateType(), True)\n])\n\n# Prepare transaction data\n\ntransaction_data = [\n    ('T001', 'NA', 100.00, 'WidgetA', datetime.strptime('2023-01-01', '%Y-%m-%d').date()),\n    ('T002', 'EU', 200.00, 'WidgetB', datetime.strptime('2023-01-01', '%Y-%m-%d').date()),\n    ('T003', 'AS', 150.00, 'WidgetA', datetime.strptime('2023-01-02', '%Y-%m-%d').date()),\n    ('T004', 'NA', 120.00, 'WidgetC', datetime.strptime('2023-01-02', '%Y-%m-%d').date()),\n    ('T005', 'EU', 250.00, 'WidgetB', datetime.strptime('2023-01-03', '%Y-%m-%d').date())\n]\n\n# Create DataFrame with schema\n\ntransactions_df = spark.createDataFrame(transaction_data, schema=transaction_schema)\n\ntransactions_sorted_df = transactions_df.orderBy('transaction_id')\n\n# Sort the transactions DataFrame by 'transaction_id'\n",
+  "mapping": "SAS TO PYSPARK MIGRATION MAPPING\n============================================================\nSource File: sas_etl_project/extract_transactions.sas\nMigration Date: 2026-05-07 02:34:31\nMigration Method: Graph-Based Dependency Analysis\n\nGRAPH SUMMARY:\n  Total Nodes: 5\n  Total Edges: 4\n  Has Cycles: False\n\nCHUNK-BY-CHUNK MAPPING:\n------------------------------------------------------------\n\nchunk_001:\nSAS DATA step with datalines and schema is mapped to PySpark DataFrame creation using an explicit schema and a list of tuples for data. Variable names and types are preserved.\n\n\nchunk_005:\nSAS PROC SORT is mapped to PySpark DataFrame.orderBy. The sorted DataFrame is assigned to a new variable following PySpark best practices.\n",
+  "chunks_converted": 2,
+  "total_chunks": 2,
+  "errors": [],
+  "warnings": [],
+  "metadata": {
+    "provider": "openrouter",
+    "model": "openai/gpt-4.1",
+    "use_rag": true,
+    "max_concurrent": 1,
+    "max_retries": 5,
+    "max_tokens": 16000,
+    "status": "success",
+    "failed_chunks": [],
+    "converted_chunk_ids": [
+      "chunk_001",
+      "chunk_005"
+    ],
+    "skipped_chunk_ids": [],
+    "partial_output": false,
+    "output_quality": "complete",
+    "start_time": "2026-05-07T02:34:20.703480",
+    "end_time": "2026-05-07T02:34:31.547840",
+    "allow_partial_output": true,
+    "output_files": {
+      "pyspark": "output_batch/extract_transactions.py",
+      "mapping": "output_batch/extract_transactions_mapping.txt",
+      "validation": "output_batch/extract_transactions_validation.txt",
+      "result": "output_batch/extract_transactions_result.json"
+    }
+  },
+  "execution_time": 10.84436,
+  "validation_report": "============================================================\nVARIABLE LIFECYCLE VALIDATION REPORT\n============================================================\n\nTotal Issues: 3\n  Errors: 0\n  Warnings: 0\n  Info: 3\n\n============================================================",
+  "fixes_applied": [
+    "Filtered to 2 valid chunks from 2 total",
+    "Deduplicated imports: 3 -> 3",
+    "Created 2 variable name mappings",
+    "Reordered code blocks for proper execution order",
+    "Code validation passed - no fixes needed",
+    "Applied LLM-based code cleanup",
+    "Reordered 11 code blocks for optimal execution",
+    "Warning: Block block_1 uses undefined variables: {'Spark', 'Initialize'}",
+    "Warning: Block block_3 uses undefined variables: {'Define', 'schema', 'transactions'}",
+    "Warning: Block block_5 uses undefined variables: {'transaction', 'Prepare'}",
+    "Warning: Block block_7 uses undefined variables: {'Create'}",
+    "Warning: Block block_9 uses undefined variables: {'by', 'the', 'Sort', 'transactions'}"
+  ]
+}

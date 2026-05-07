@@ -1,0 +1,52 @@
+============================================================
+VARIABLE LIFECYCLE VALIDATION REPORT
+============================================================
+
+Total Issues: 25
+  Errors: 0
+  Warnings: 4
+  Info: 21
+
+WARNINGS:
+----------------------------------------
+  Line 24: Variable 'pd' is used but never defined
+  Line 35: Variable 'returns_df' is used but never defined
+  Line 35: Variable '0' is used but never defined
+  Line 41: Variable 'continue' is used but never defined
+
+============================================================
+
+FIXES APPLIED:
+  - Filtered to 1 valid chunks from 1 total
+  - Deduplicated imports: 6 -> 6
+  - Created 1 variable name mappings
+  - Reordered code blocks for proper execution order
+  - Code validation passed - no fixes needed
+  - Applied LLM-based code cleanup
+  - Reordered 55 code blocks for optimal execution
+  - Warning: Block block_0 uses undefined variables: {'pyspark_abs', 'pd', 'pandas', 'sklearn'}
+  - Warning: Block block_1 uses undefined variables: {'Initialize', 'Spark'}
+  - Warning: Block block_3 uses undefined variables: {'replace', 'parameters', 'arguments', 'input', 'actual', 'values', 'Define'}
+  - Warning: Block block_4 uses undefined variables: {'directory', 'path'}
+  - Warning: Block block_6 uses undefined variables: {'prices', 'Read', 'Data', 'Prepare', 'pandas'}
+  - Warning: Block block_7 uses undefined variables: {'prices', 'pd', 'index'}
+  - Warning: Block block_8 uses undefined variables: {'prices', 'to', 'Convert', 'Spark'}
+  - Warning: Block block_10 uses undefined variables: {'returns', 'Calculate', 'pandas', 'using', 'discrete', 'to', 'Spark', 'convert', 'then'}
+  - Warning: Block block_13 uses undefined variables: {'Calculation', 'Alpha'}
+  - Warning: Block block_14 uses undefined variables: {'bm_col', 'returns_df'}
+  - Warning: Block block_16 uses undefined variables: {'bm_col', 'returns_df', 'col_name', 'rf'}
+  - Warning: Block block_18 uses undefined variables: {'values'}
+  - Warning: Block block_21 uses undefined variables: {'pd'}
+  - Warning: Block block_22 uses undefined variables: {'vs', 'GE', 'GOOGL', 'Alpha', 'DOW', 'IBM', 'Compute'}
+  - Warning: Block block_26 uses undefined variables: {'mimicking', 'importdatasetfromr', 'Save', 'Spark'}
+  - Warning: Block block_28 uses undefined variables: {'Handle', 'DataFrames', 'Empty'}
+  - Warning: Block block_31 uses undefined variables: {'create', 'Jensen_Alpha', 'error', 'does', 'If', 'exist'}
+  - Warning: Block block_34 uses undefined variables: {'create', 'error', 'does', 'If', 'exist'}
+  - Warning: Block block_37 uses undefined variables: {'compute', 'GE', 'Compare', 'GOOGL', 'DOW', 'IBM', 'differences'}
+  - Warning: Block block_38 uses undefined variables: {'base', 'compare'}
+  - Warning: Block block_39 uses undefined variables: {'comparison', 'point', 'tolerance', 'floating', 'Define', 'fuzz'}
+  - Warning: Block block_40 uses undefined variables: {'val_col'}
+  - Warning: Block block_42 uses undefined variables: {'Result', 'Test'}
+  - Warning: Block block_46 uses undefined variables: {'NO', 'TEST', 'ERROR', 'IN'}
+  - Warning: Block block_48 uses undefined variables: {'PROBLEM', 'IN', 'outputs', 'TEST', 'detected'}
+  - Warning: Block block_49 uses undefined variables: {'intermediate', 'Clean', 'keeping', 'DataFrames', 'up'}
