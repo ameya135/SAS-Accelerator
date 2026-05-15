@@ -526,15 +526,20 @@ class GraphMigrator:
             return ""
 
     def migrate_file(
-        self, sas_file_path: str, output_dir: str, visualize: bool = False
+        self,
+        sas_file_path: str,
+        output_dir: str,
+        visualize: bool = False,
+        artifact_dir: Optional[str] = None,
     ) -> MigrationResult:
         """
         Migrate a SAS file to PySpark using graph-based approach
 
         Args:
             sas_file_path: Path to SAS file
-            output_dir: Directory to save output
+            output_dir: Directory to save PySpark output
             visualize: Whether to generate visualizations
+            artifact_dir: Optional directory for mapping/validation/result artifacts
 
         Returns:
             MigrationResult
@@ -854,8 +859,14 @@ class GraphMigrator:
 
             # Save outputs
             os.makedirs(output_dir, exist_ok=True)
+            if artifact_dir:
+                os.makedirs(artifact_dir, exist_ok=True)
             self._save_outputs(
-                result, output_dir, sas_file_path, write_python=write_python_output
+                result,
+                output_dir,
+                sas_file_path,
+                write_python=write_python_output,
+                artifact_dir=artifact_dir,
             )
             outputs_saved = True
 
@@ -1186,9 +1197,11 @@ class GraphMigrator:
         output_dir: str,
         sas_file_path: str,
         write_python: bool = True,
+        artifact_dir: Optional[str] = None,
     ) -> None:
         """Save migration outputs"""
         stem = Path(sas_file_path).stem
+        artifact_output_dir = artifact_dir or output_dir
         output_files: Dict[str, str] = {}
 
         # Save PySpark code
@@ -1202,7 +1215,7 @@ class GraphMigrator:
             print(f"  Skipped PySpark output: {pyspark_file}")
 
         # Save mapping
-        mapping_file = os.path.join(output_dir, f"{stem}_mapping.txt")
+        mapping_file = os.path.join(artifact_output_dir, f"{stem}_mapping.txt")
         with open(mapping_file, "w", encoding="utf-8") as f:
             f.write(result.mapping)
         output_files["mapping"] = mapping_file
@@ -1210,7 +1223,7 @@ class GraphMigrator:
 
         # Save validation report if available
         if result.validation_report:
-            validation_file = os.path.join(output_dir, f"{stem}_validation.txt")
+            validation_file = os.path.join(artifact_output_dir, f"{stem}_validation.txt")
             with open(validation_file, "w", encoding="utf-8") as f:
                 f.write(result.validation_report)
                 f.write("\n\nFIXES APPLIED:\n")
@@ -1220,7 +1233,7 @@ class GraphMigrator:
             print(f"  Saved: {validation_file}")
 
         # Save result metadata
-        result_file = os.path.join(output_dir, f"{stem}_result.json")
+        result_file = os.path.join(artifact_output_dir, f"{stem}_result.json")
         output_files["result"] = result_file
         result.metadata["output_files"] = output_files
         with open(result_file, "w", encoding="utf-8") as f:

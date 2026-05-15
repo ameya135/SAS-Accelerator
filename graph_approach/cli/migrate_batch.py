@@ -15,9 +15,6 @@ from typing import Optional
 # Add parent to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from graph_approach.migration.graph_migrator import GraphMigrator
-from graph_approach.migration.batch_migrator import BatchMigrator
-
 # Import package generator
 try:
     from graph_approach.core.package_generator import PackageGenerator
@@ -71,7 +68,8 @@ def migrate_batch(
     allow_partial_output: bool = True,
     strict_exit_code: bool = False,
     create_package: bool = False,
-    package_name: str = "sas_migration"
+    package_name: str = "sas_migration",
+    output_layout: str = "flat",
 ) -> bool:
     """
     Migrate multiple SAS files in a directory
@@ -95,6 +93,7 @@ def migrate_batch(
         max_tokens: Maximum completion tokens for chunk conversion calls
         allow_partial_output: Write .py output when some chunks fail
         strict_exit_code: Return False if any file fails or is partial
+        output_layout: "flat" for legacy output or "project" for package layout
 
     Returns:
         True if successful
@@ -111,8 +110,12 @@ def migrate_batch(
     console.print(f"[cyan]Max LLM Retries:[/cyan] {max_retries}")
     console.print(f"[cyan]Max Completion Tokens:[/cyan] {max_tokens or '(env/default)'}")
     console.print(f"[cyan]Use RAG:[/cyan] {use_rag}\n")
+    console.print(f"[cyan]Output Layout:[/cyan] {output_layout}\n")
 
     try:
+        from graph_approach.migration.graph_migrator import GraphMigrator
+        from graph_approach.migration.batch_migrator import BatchMigrator
+
         # Initialize migrator
         with console.status("[cyan]Initializing migrator...[/cyan]", spinner="dots"):
             migrator = GraphMigrator(
@@ -194,7 +197,9 @@ def migrate_batch(
                 pattern=pattern,
                 recursive=recursive,
                 visualize=False,
-                progress_callback=progress_callback
+                progress_callback=progress_callback,
+                output_layout=output_layout,
+                package_name=package_name,
             )
 
         # Display results
@@ -234,7 +239,12 @@ def migrate_batch(
             console.print(f"[green]✓[/green] Summary saved: {summary_path}\n")
 
         # Generate Python package structure
-        if create_package and PackageGenerator and batch_result.successful_files > 0:
+        if (
+            create_package
+            and output_layout == "flat"
+            and PackageGenerator
+            and batch_result.successful_files > 0
+        ):
             console.print("[cyan]Generating Python package structure...[/cyan]")
             try:
                 # Get all directories that need __init__.py
@@ -274,6 +284,11 @@ def migrate_batch(
 
             except Exception as e:
                 console.print(f"[yellow]⚠[/yellow] Warning: Package generation failed: {e}\n")
+        elif create_package and output_layout == "project":
+            console.print(
+                "[yellow]⚠[/yellow] --create-package is ignored for project layout; "
+                "project layout already generates package metadata.\n"
+            )
 
         # Final status
         if batch_result.failed_files == 0:
@@ -431,6 +446,12 @@ Features:
         help="Generate Python package structure (setup.py, __init__.py, etc.)"
     )
     parser.add_argument(
+        "--output-layout",
+        choices=["flat", "project"],
+        default="flat",
+        help="Output layout: flat legacy files or generated PySpark project (default: flat)",
+    )
+    parser.add_argument(
         "--package-name",
         default="sas_migration",
         help="Name of the Python package to generate (default: sas_migration)"
@@ -470,7 +491,8 @@ Features:
         allow_partial_output=not args.no_partial_output,
         strict_exit_code=args.strict_exit_code,
         create_package=args.create_package,
-        package_name=args.package_name
+        package_name=args.package_name,
+        output_layout=args.output_layout,
     )
 
     sys.exit(0 if success else 1)

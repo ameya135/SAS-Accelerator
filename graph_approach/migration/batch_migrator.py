@@ -14,6 +14,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import threading
 
 from graph_approach.migration.graph_migrator import GraphMigrator, MigrationResult
+from graph_approach.core.project_output import ProjectOutputGenerator, ProjectFilePlan
 
 
 @dataclass
@@ -117,7 +118,8 @@ class BatchMigrator:
         self,
         sas_file: Path,
         output_dir: str,
-        visualize: bool = False
+        visualize: bool = False,
+        artifact_dir: Optional[str] = None,
     ) -> MigrationResult:
         """
         Migrate a single file with error handling
@@ -126,6 +128,7 @@ class BatchMigrator:
             sas_file: Path to SAS file
             output_dir: Output directory
             visualize: Whether to generate visualizations
+            artifact_dir: Optional directory for non-code artifacts
 
         Returns:
             MigrationResult
@@ -134,7 +137,8 @@ class BatchMigrator:
             result = self.migrator.migrate_file(
                 sas_file_path=str(sas_file),
                 output_dir=output_dir,
-                visualize=visualize
+                visualize=visualize,
+                artifact_dir=artifact_dir,
             )
             return result
 
@@ -154,7 +158,9 @@ class BatchMigrator:
         pattern: str = "*.sas",
         recursive: bool = False,
         visualize: bool = False,
-        progress_callback: Optional[callable] = None
+        progress_callback: Optional[callable] = None,
+        output_layout: str = "flat",
+        package_name: str = "sas_migrator",
     ) -> BatchMigrationResult:
         """
         Migrate all SAS files in directory
@@ -166,6 +172,8 @@ class BatchMigrator:
             recursive: Search subdirectories
             visualize: Generate visualizations
             progress_callback: Optional callback(file, index, total) for progress
+            output_layout: "flat" for legacy output or "project" for package layout
+            package_name: Package name for project layout
 
         Returns:
             BatchMigrationResult
@@ -181,6 +189,20 @@ class BatchMigrator:
         # Create output directory
         os.makedirs(output_dir, exist_ok=True)
 
+        if output_layout not in {"flat", "project"}:
+            raise ValueError("output_layout must be 'flat' or 'project'")
+
+        project_generator: Optional[ProjectOutputGenerator] = None
+        plans_by_file: Dict[Path, ProjectFilePlan] = {}
+        if output_layout == "project":
+            project_generator = ProjectOutputGenerator(
+                source_root=sas_directory,
+                output_root=output_dir,
+                package_name=package_name,
+            )
+            plans = project_generator.build_plans(sas_files)
+            plans_by_file = {plan.sas_path: plan for plan in plans}
+
         # Initialize result
         batch_result = BatchMigrationResult(
             total_files=len(sas_files),
@@ -190,15 +212,24 @@ class BatchMigrator:
         # Process files in parallel
         with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
             # Submit all tasks
-            future_to_file = {
-                executor.submit(
+            future_to_file = {}
+            for sas_file in sas_files:
+                if project_generator:
+                    plan = plans_by_file[sas_file.resolve()]
+                    file_output_dir = str(project_generator.code_dir_for(plan))
+                    artifact_dir = str(project_generator.artifact_dir_for(plan))
+                else:
+                    file_output_dir = output_dir
+                    artifact_dir = None
+
+                future = executor.submit(
                     self.migrate_file_safe,
                     sas_file,
-                    output_dir,
-                    visualize
-                ): sas_file
-                for sas_file in sas_files
-            }
+                    file_output_dir,
+                    visualize,
+                    artifact_dir,
+                )
+                future_to_file[future] = sas_file
 
             # Process completed tasks
             completed = 0
@@ -248,6 +279,17 @@ class BatchMigrator:
 
         end_time = datetime.now()
         batch_result.end_time = end_time.isoformat()
+
+        if project_generator:
+            migration_summary = {
+                "Total Files": batch_result.total_files,
+                "Successful": batch_result.successful_files,
+                "Failed": batch_result.failed_files,
+                "Total Chunks": batch_result.total_chunks,
+                "Chunks Converted": batch_result.total_chunks_converted,
+                "Execution Time": f"{batch_result.total_execution_time:.2f}s",
+            }
+            project_generator.finalize(list(plans_by_file.values()), migration_summary)
 
         return batch_result
 
